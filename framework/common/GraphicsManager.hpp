@@ -1,12 +1,15 @@
-#pragma once 
-#include "IRuntimeModule.hpp" 
+#pragma once
+#include "IRuntimeModule.hpp"
 
-namespace qg { 
+namespace qg {
+	class GraphicsManager : implements IRuntimeModule
+	{
+	public:
+		virtual ~GraphicsManager() {}
 
-class GraphicsManager : implements IRuntimeModule { 
-public:
-    virtual ~GraphicsManager() {} 
-    
-}; 
+       	virtual int Initialize();
+	    virtual void Finalize();
 
-} //namespace qg
+	    virtual void Tick();
+	};
+}

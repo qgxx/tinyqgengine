@@ -1,0 +1,2 @@
+add_executable(QGEngine WindowsApplication.cpp)
+target_link_libraries(QGEngine common)
