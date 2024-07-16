@@ -11,7 +11,7 @@ namespace qg {
     struct PageHeader {
         PageHeader* pNext;
         BlockHeader* Blocks() {
-                return reinterpret_cast<BlockHeader*>(this + 1);
+            return reinterpret_cast<BlockHeader*>(this + 1);
         }
     };
 
@@ -66,7 +66,7 @@ namespace qg {
                 uint32_t    m_nFreeBlocks;
 
                 // disable copy & assignment
-                Allocator(const Allocator& clone);
-                Allocator &operator=(const Allocator &rhs);
+                Allocator(const Allocator& clone) = delete;
+                Allocator& operator=(const Allocator &rhs) = delete;
     };
 }

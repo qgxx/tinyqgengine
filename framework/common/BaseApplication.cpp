@@ -13,9 +13,11 @@ qg::BaseApplication::BaseApplication(GfxConfiguration& cfg)
 // Parse command line, read configuration, initialize all sub modules
 int qg::BaseApplication::Initialize()
 {
-    std::cout << m_Config;
+    int result = 0;
 
-	return 0;
+    std::wcout << m_Config;
+
+	return result;
 }
 
 

@@ -1,19 +1,13 @@
-// include the basic windows header file
 #include "WindowsApplication.hpp"
 #include <tchar.h>
 
 using namespace qg;
 
-namespace qg {
-    GfxConfiguration config(8, 8, 8, 8, 32, 0, 0, 960, 540, L"QGEngine(Windows)");
-    WindowsApplication  g_App(config);
-    IApplication*       g_pApp = &g_App;
-}
-
 int qg::WindowsApplication::Initialize()
 {
     int result;
 
+	// first call base class initialization
     result = BaseApplication::Initialize();
 
     if (result != 0)
@@ -37,14 +31,14 @@ int qg::WindowsApplication::Initialize()
     wc.hInstance = hInstance;
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-    wc.lpszClassName = _T("QGEngine");
+    wc.lpszClassName = _T("GameEngineFromScratch");
 
     // register the window class
     RegisterClassEx(&wc);
 
     // create the window and use the result as the handle
-    hWnd = CreateWindowExW(0,
-                          L"QGEngine",      // name of the window class
+    hWnd = CreateWindowEx(0,
+                          _T("GameEngineFromScratch"),      // name of the window class
                           m_Config.appName,             // title of the window
                           WS_OVERLAPPEDWINDOW,              // window style
                           CW_USEDEFAULT,                    // x-position of the window
@@ -58,6 +52,8 @@ int qg::WindowsApplication::Initialize()
 
     // display the window on the screen
     ShowWindow(hWnd, SW_SHOW);
+
+    m_hWnd = hWnd;
 
     return result;
 }
