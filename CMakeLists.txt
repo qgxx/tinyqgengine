@@ -1,45 +1,56 @@
 cmake_minimum_required (VERSION 3.17) 
+project (GameEngineFromScrath)
+
+set (CMAKE_C_STANDARD 99)
+set (CMAKE_CXX_STANDARD 11)
+
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/platform")
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/external/src/crossguid/cmake")
+include(TargetArchDetect)
+
+target_architecture(TARGET_ARCH)
+
+if((TARGET_ARCH MATCHES "x86_64" OR TARGET_ARCH MATCHES "ia64") AND NOT OF_32BIT)
+        set(ARCH_BIT 64)
+else()
+        set(ARCH_BIT 32)
+endif()
+
+include_directories("${PROJECT_SOURCE_DIR}")
+include_directories("${PROJECT_SOURCE_DIR}/framework/common")
+include_directories("${PROJECT_SOURCE_DIR}/framework/GeomMath")
+include_directories("${PROJECT_SOURCE_DIR}/framework/interface")
+include_directories("${PROJECT_SOURCE_DIR}/framework/Parser")
+include_directories("${PROJECT_SOURCE_DIR}/RHI")
 IF(${UNIX})
-    set (CMAKE_C_COMPILER               "clang")
-    set (CMAKE_C_FLAGS_DEBUG            "-g")
-    set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
-    set (CMAKE_CXX_COMPILER             "clang++")
-    set (CMAKE_CXX_FLAGS                "-Wall")
-    set (CMAKE_CXX_FLAGS_DEBUG          "-g")
-    set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
-    set (CMAKE_CXX_STANDARD 14)
+    set(MYGE_TARGET_PLATFORM "Linux")
 ELSEIF(${WIN32})
-    # Windows specific code
-    if(${CMAKE_GENERATOR} MATCHES "Unix Makefiles")
-            set (CMAKE_C_COMPILER               "clang-cl")
-            set (CMAKE_CXX_COMPILER             "clang-cl")
-            if($ENV{VSCMD_ARG_TGT_ARCH} MATCHES "x64")
-                set (CMAKE_C_FLAGS              "-Wall --target=x86_64-pc-windows-msvc")
-                set (CMAKE_CXX_FLAGS            "-Wall -Xclang -std=gnu++14 --target=x86_64-pc-windows-msvc")
-                set (CMAKE_MODULE_LINKER_FLAGS  "/MACHINE:X64")
-                set (CMAKE_STATIC_LINKER_FLAGS  "/MACHINE:X64")
-                set (CMAKE_EXE_LINKER_FLAGS     "/MACHINE:X64")
-            else($ENV{VSCMD_ARG_TGT_ARCH} MATCHES "x64")
-                set (CMAKE_C_FLAGS              "-Wall --target=i686-pc-windows-msvc")
-                set (CMAKE_CXX_FLAGS            "-Wall -Xclang -std=gnu++14 --target=i686-pc-windows-msvc")
-                set (CMAKE_MODULE_LINKER_FLAGS  "/MACHINE:X86")
-                set (CMAKE_STATIC_LINKER_FLAGS  "/MACHINE:X86")
-                set (CMAKE_EXE_LINKER_FLAGS     "/MACHINE:X86")
-            endif($ENV{VSCMD_ARG_TGT_ARCH} MATCHES "x64")
-    else()
-            set (CMAKE_C_FLAGS              "/W4 /wd4514")
-            set (CMAKE_CXX_FLAGS            "/W4 /wd4514 /EHsc /std:c++14")
-    endif(${CMAKE_GENERATOR} MATCHES "Unix Makefiles")
-    set (CMAKE_C_FLAGS_DEBUG            "/Debug /Zi")
-    set (CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 /Debug")
-    set (CMAKE_CXX_FLAGS_DEBUG          "/Debug /Zi")
-    set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 /Debug")
-ENDIF()
-set (CMAKE_C_FLAGS_MINSIZEREL       "-Os -DNDEBUG")
-set (CMAKE_C_FLAGS_RELEASE          "-O4 -DNDEBUG")
-set (CMAKE_C_STANDARD 11)
-set (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
-set (CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG")
+    set(MYGE_TARGET_PLATFORM "Windows")
+ENDIF(${UNIX})
+include_directories("${PROJECT_SOURCE_DIR}/Platform/${MYGE_TARGET_PLATFORM}")
+set(MYGE_EXTERNAL_ROOT ${PROJECT_SOURCE_DIR}/external/${MYGE_TARGET_PLATFORM}/)
+include_directories("${MYGE_EXTERNAL_ROOT}include")
+set(MYGE_EXTERNAL_LIBRARY_PATH ${MYGE_EXTERNAL_ROOT}lib/)
+include(CTest)
+include(CheckCXXSourceCompiles)
+include(PlatformDependencies)
+CHECK_CXX_SOURCE_COMPILES(
+"#include <memory>
+
+int main(int argc, char** argv)
+{
+    std::unique_ptr<int> my_int = std::make_unique<int>();
+    *my_int = 0;
+    return *my_int;
+}
+"
+ HAVE_MAKE_UNIQUE)
+configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_SOURCE_DIR}/config.h)
+add_subdirectory(framework)
+add_subdirectory(platform)
+add_subdirectory(RHI)
+add_subdirectory(Test)
 
 # ------------------------- Begin Generic CMake Variable Logging ------------------
 
@@ -100,6 +111,20 @@ MESSAGE( STATUS "CMAKE_INCLUDE_PATH: " ${CMAKE_INCLUDE_PATH} )
 # this is used when searching for libraries e.g. using the FIND_LIBRARY() command.
 MESSAGE( STATUS "CMAKE_LIBRARY_PATH: " ${CMAKE_LIBRARY_PATH} )
 
+## HOST
+# the complete system name, e.g. "Linux-2.4.22", "FreeBSD-5.4-RELEASE" or "Windows 5.1" 
+MESSAGE( STATUS "CMAKE_HOST_SYSTEM: " ${CMAKE_HOST_SYSTEM} )
+
+# the short system name, e.g. "Linux", "FreeBSD" or "Windows"
+MESSAGE( STATUS "CMAKE_HOST_SYSTEM_NAME: " ${CMAKE_HOST_SYSTEM_NAME} )
+
+# only the version part of CMAKE_SYSTEM 
+MESSAGE( STATUS "CMAKE_HOST_SYSTEM_VERSION: " ${CMAKE_HOST_SYSTEM_VERSION} )
+
+# the processor name (e.g. "Intel(R) Pentium(R) M processor 2.00GHz") 
+MESSAGE( STATUS "CMAKE_HOST_SYSTEM_PROCESSOR: " ${CMAKE_HOST_SYSTEM_PROCESSOR} )
+
+## TARGET
 # the complete system name, e.g. "Linux-2.4.22", "FreeBSD-5.4-RELEASE" or "Windows 5.1" 
 MESSAGE( STATUS "CMAKE_SYSTEM: " ${CMAKE_SYSTEM} )
 
@@ -164,11 +189,18 @@ MESSAGE( STATUS "CMAKE_SUPPRESS_REGENERATION: " ${CMAKE_SUPPRESS_REGENERATION} )
 # But there are also two variables exactly for this purpose: 
 
 # the compiler flags for compiling C sources 
-MESSAGE( STATUS "CMAKE_C_FLAGS: " ${CMAKE_C_FLAGS} )
+MESSAGE( STATUS "CMAKE_C_FLAGS: "                   ${CMAKE_C_FLAGS} )
+MESSAGE( STATUS "CMAKE_C_FLAGS_DEBUG: "             ${CMAKE_C_FLAGS_DEBUG})
+MESSAGE( STATUS "CMAKE_C_FLAGS_RELEASE: "           ${CMAKE_C_FLAGS_RELEASE})
+MESSAGE( STATUS "CMAKE_C_FLAGS_RELWITHDEBINFO: "    ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+MESSAGE( STATUS "CMAKE_C_FLAGS_MINSIZEREL: "        ${CMAKE_C_FLAGS_MINSIZEREL})
 
 # the compiler flags for compiling C++ sources 
-MESSAGE( STATUS "CMAKE_CXX_FLAGS: " ${CMAKE_CXX_FLAGS} )
-
+MESSAGE( STATUS "CMAKE_CXX_FLAGS: "                 ${CMAKE_CXX_FLAGS} )
+MESSAGE( STATUS "CMAKE_CXX_FLAGS_DEBUG: "           ${CMAKE_CXX_FLAGS_DEBUG} )
+MESSAGE( STATUS "CMAKE_CXX_FLAGS_RELEASE: "         ${CMAKE_CXX_FLAGS_RELEASE} )
+MESSAGE( STATUS "CMAKE_CXX_FLAGS_RELWITHDEBINFO: "  ${CMAKE_CXX_FLAGS_RELWITHDEBINFO} )
+MESSAGE( STATUS "CMAKE_CXX_FLAGS_MINSIZEREL: "      ${CMAKE_CXX_FLAGS_MINSIZEREL} )
 
 # Choose the type of build.  Example: SET(CMAKE_BUILD_TYPE Debug) 
 MESSAGE( STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE} )
@@ -192,23 +224,11 @@ MESSAGE( STATUS "CMAKE_COMPILER_IS_GNUCXX : " ${CMAKE_COMPILER_IS_GNUCXX} )
 MESSAGE( STATUS "CMAKE_AR: " ${CMAKE_AR} )
 MESSAGE( STATUS "CMAKE_RANLIB: " ${CMAKE_RANLIB} )
 
+MESSAGE( STATUS "CMAKE_CROSSCOMPILING: " ${CMAKE_CROSSCOMPILING} )
+
+MESSAGE( STATUS "TARGET_ARCH: " ${TARGET_ARCH} )
+
 #
 #MESSAGE( STATUS ": " ${} )
 
 # ------------------------- End of Generic CMake Variable Logging ------------------
-
-project (GameEngineFromScrath)
-include_directories("${PROJECT_SOURCE_DIR}/framework/common")
-include_directories("${PROJECT_SOURCE_DIR}/framework/interface")
-include_directories("${PROJECT_SOURCE_DIR}/framework/GeomMath")
-include_directories("${PROJECT_SOURCE_DIR}/RHI")
-IF(${UNIX})
-    include_directories("${PROJECT_SOURCE_DIR}/platform/Linux")
-ELSEIF(${WIN32})
-    include_directories("${PROJECT_SOURCE_DIR}/platform/Windows")
-ENDIF(${UNIX})
-include(CTest)
-add_subdirectory(framework)
-add_subdirectory(platform)
-add_subdirectory(RHI)
-

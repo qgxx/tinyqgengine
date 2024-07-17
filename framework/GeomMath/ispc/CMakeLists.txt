@@ -4,7 +4,9 @@ set(FUNCTIONS CrossProduct DotProduct MulByElement Transpose Normalize
 
 foreach(FUNC IN LISTS FUNCTIONS)
     add_custom_command(OUTPUT ${FUNC}.o
-        COMMAND ${CMAKE_COMMAND} -E env "PATH=${ISPC_COMPILER_PATH}" ${ISPC_COMPILER} ${ISPC_OPTIONS} -o ${FUNC}.o -h ${GEOMMATH_LIB_HEADER_FOLDER}/${FUNC}.h --target=host ${CMAKE_CURRENT_SOURCE_DIR}/${FUNC}.ispc
+        COMMAND ${CMAKE_COMMAND} -E env "PATH=${ISPC_COMPILER_PATH}" ${ISPC_COMPILER} ${ISPC_OPTIONS} -o ${FUNC}.o -h ${GEOMMATH_LIB_HEADER_FOLDER}/${FUNC}.h ${CMAKE_CURRENT_SOURCE_DIR}/${FUNC}.ispc
+        COMMAND sed -i "s/const uint32_t count/const size_t count/g" ${GEOMMATH_LIB_HEADER_FOLDER}/${FUNC}.h
+        COMMAND rm -f ${GEOMMATH_LIB_HEADER_FOLDER}/sed?????? #quick fix for Gnu for Win32 sed
         MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/${FUNC}.ispc
         COMMENT "Building ${FUNC}"
         )
@@ -14,7 +16,7 @@ foreach(FUNC IN LISTS FUNCTIONS)
 endforeach(FUNC)
 
 add_custom_command(OUTPUT ${GEOMMATH_LIB_FILE}
-        COMMAND ${LIBRARIAN_COMMAND} ${OBJECTS}
+        COMMAND ${CMAKE_AR} ${ISPC_LIBRARIAN_OPTIONS} ${OBJECTS}
         COMMAND rm -v ${OBJECTS}
         DEPENDS ${OBJECTS}
         )

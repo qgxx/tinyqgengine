@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include "IApplication.hpp"
 #include "GraphicsManager.hpp"

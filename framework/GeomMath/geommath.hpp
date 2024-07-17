@@ -1,6 +1,8 @@
 #pragma once
-#include <cmath>
+#include <cstdint>
 #include <iostream>
+#include <limits>
+#include <math.h>
 #include "include/CrossProduct.h"
 #include "include/DotProduct.h"
 #include "include/MulByElement.h"
@@ -20,29 +22,44 @@
 
 namespace qg {
     template<typename T, size_t SizeOfArray>
-        constexpr size_t countof(T (&array)[SizeOfArray]) { return SizeOfArray; }
+        constexpr size_t countof(T (&)[SizeOfArray]) { return SizeOfArray; }
 
     template<typename T, size_t RowSize, size_t ColSize>
-        constexpr size_t countof(T (&array)[RowSize][ColSize]) { return RowSize * ColSize; }
+        constexpr size_t countof(T (&)[RowSize][ColSize]) { return RowSize * ColSize; }
 
-	template< typename T, int ... Indexes>
+#ifdef max
+    #undef max
+#endif
+#ifdef min
+    #undef min
+#endif
+
+    template<typename T>
+        constexpr float normalize(T value) {
+            return value < 0
+                ? -static_cast<float>(value) / std::numeric_limits<T>::min()
+                :  static_cast<float>(value) / std::numeric_limits<T>::max()
+                ;
+        }
+
+    template <template<typename> class TT, typename T, int ... Indexes>
 	class swizzle {
-		float v[sizeof...(Indexes)];
+		T v[sizeof...(Indexes)];
 
 	public:
 		
-		T& operator=(const T& rhs)
+		TT<T>& operator=(const TT<T>& rhs)
 		{
             int indexes[] = { Indexes... };
             for (int i = 0; i < sizeof...(Indexes); i++) {
 			    v[indexes[i]] = rhs[i];
             }
-			return *(T*)this;
+			return *(TT<T>*)this;
 		}
 	
-		operator T () const
+		operator TT<T>() const
 		{
-			return T( v[Indexes]... );
+			return TT<T>( v[Indexes]... );
 		}
 		
 	};
@@ -55,16 +72,16 @@ namespace qg {
             struct { T x, y; };
             struct { T r, g; };
             struct { T u, v; };
-		    swizzle<Vector2Type<T>, 0, 1> xy;
-		    swizzle<Vector2Type<T>, 1, 0> yx;
+		    swizzle<qg::Vector2Type, T, 0, 1> xy;
+		    swizzle<qg::Vector2Type, T, 1, 0> yx;
         };
 
         Vector2Type<T>() {};
         Vector2Type<T>(const T& _v) : x(_v), y(_v) {};
         Vector2Type<T>(const T& _x, const T& _y) : x(_x), y(_y) {};
 
-        operator float*() { return data; };
-        operator const float*() const { return static_cast<const float*>(data); };
+        operator T*() { return data; };
+        operator const T*() const { return static_cast<const T*>(data); };
     };
     
     typedef Vector2Type<float> Vector2f;
@@ -76,26 +93,26 @@ namespace qg {
             T data[3];
             struct { T x, y, z; };
             struct { T r, g, b; };
-		    swizzle<Vector2Type<T>, 0, 1> xy;
-		    swizzle<Vector2Type<T>, 1, 0> yx;
-		    swizzle<Vector2Type<T>, 0, 2> xz;
-		    swizzle<Vector2Type<T>, 2, 0> zx;
-		    swizzle<Vector2Type<T>, 1, 2> yz;
-		    swizzle<Vector2Type<T>, 2, 1> zy;
-		    swizzle<Vector3Type<T>, 0, 1, 2> xyz;
-		    swizzle<Vector3Type<T>, 1, 0, 2> yxz;
-		    swizzle<Vector3Type<T>, 0, 2, 1> xzy;
-		    swizzle<Vector3Type<T>, 2, 0, 1> zxy;
-		    swizzle<Vector3Type<T>, 1, 2, 0> yzx;
-		    swizzle<Vector3Type<T>, 2, 1, 0> zyx;
+		    swizzle<qg::Vector2Type, T, 0, 1> xy;
+		    swizzle<qg::Vector2Type, T, 1, 0> yx;
+		    swizzle<qg::Vector2Type, T, 0, 2> xz;
+		    swizzle<qg::Vector2Type, T, 2, 0> zx;
+		    swizzle<qg::Vector2Type, T, 1, 2> yz;
+		    swizzle<qg::Vector2Type, T, 2, 1> zy;
+		    swizzle<qg::Vector3Type, T, 0, 1, 2> xyz;
+		    swizzle<qg::Vector3Type, T, 1, 0, 2> yxz;
+		    swizzle<qg::Vector3Type, T, 0, 2, 1> xzy;
+		    swizzle<qg::Vector3Type, T, 2, 0, 1> zxy;
+		    swizzle<qg::Vector3Type, T, 1, 2, 0> yzx;
+		    swizzle<qg::Vector3Type, T, 2, 1, 0> zyx;
         };
 
         Vector3Type<T>() {};
         Vector3Type<T>(const T& _v) : x(_v), y(_v), z(_v) {};
         Vector3Type<T>(const T& _x, const T& _y, const T& _z) : x(_x), y(_y), z(_z) {};
 
-        operator float*() { return data; };
-        operator const float*() const { return static_cast<const float*>(data); };
+        operator T*() { return data; };
+        operator const T*() const { return static_cast<const T*>(data); };
     };
 
     typedef Vector3Type<float> Vector3f;
@@ -107,11 +124,12 @@ namespace qg {
             T data[4];
             struct { T x, y, z, w; };
             struct { T r, g, b, a; };
-		    swizzle<Vector3Type<T>, 0, 2, 1> xzy;
-		    swizzle<Vector3Type<T>, 1, 0, 2> yxz;
-		    swizzle<Vector3Type<T>, 1, 2, 0> yzx;
-		    swizzle<Vector3Type<T>, 2, 0, 1> zxy;
-		    swizzle<Vector3Type<T>, 2, 1, 0> zyx;
+		    swizzle<qg::Vector3Type, T, 0, 2, 1> xzy;
+		    swizzle<qg::Vector3Type, T, 1, 0, 2> yxz;
+		    swizzle<qg::Vector3Type, T, 1, 2, 0> yzx;
+		    swizzle<qg::Vector3Type, T, 2, 0, 1> zxy;
+		    swizzle<qg::Vector3Type, T, 2, 1, 0> zyx;
+		    swizzle<qg::Vector4Type, T, 2, 1, 0, 3> bgra;
         };
 
         Vector4Type<T>() {};
@@ -120,17 +138,26 @@ namespace qg {
         Vector4Type<T>(const Vector3Type<T>& v3) : x(v3.x), y(v3.y), z(v3.z), w(1.0f) {};
         Vector4Type<T>(const Vector3Type<T>& v3, const T& _w) : x(v3.x), y(v3.y), z(v3.z), w(_w) {};
 
-        operator float*() { return data; };
-        operator const float*() const { return static_cast<const float*>(data); };
+        operator T*() { return data; };
+        operator const T*() const { return static_cast<const T*>(data); };
+        Vector4Type& operator=(const T* f) 
+        { 
+            memcpy(data, f, sizeof(T) * 4); 
+            return *this;
+        };
+        
     };
 
     typedef Vector4Type<float> Vector4f;
+    typedef Vector4Type<float> Quaternion;
+    typedef Vector4Type<uint8_t> R8G8B8A8Unorm;
+    typedef Vector4Type<uint8_t> Vector4i;
 
     template <template <typename> class TT, typename T>
     std::ostream& operator<<(std::ostream& out, TT<T> vector)
     {
         out << "( ";
-        for (int i = 0; i < countof(vector.data); i++) {
+        for (uint32_t i = 0; i < countof(vector.data); i++) {
                 out << vector.data[i] << ((i == countof(vector.data) - 1)? ' ' : ',');
         }
         out << ")\n";
@@ -186,6 +213,7 @@ namespace qg {
         ispc::MulByElement(a, b, result, countof(result.data));
     }
 
+
     // Matrix
 
     template <typename T, int ROWS, int COLS>
@@ -195,16 +223,22 @@ namespace qg {
             T data[ROWS][COLS];
         };
 
-        auto operator[](int row_index) {
+        T* operator[](int row_index) {
             return data[row_index];
         }
 
-        const auto  operator[](int row_index) const {
+        const T* operator[](int row_index) const {
             return data[row_index];
         }
 
-        operator float*() { return &data[0][0]; };
-        operator const float*() const { return static_cast<const float*>(&data[0][0]); };
+        operator T*() { return &data[0][0]; };
+        operator const T*() const { return static_cast<const T*>(&data[0][0]); };
+
+        Matrix& operator=(const T* _data) 
+        {
+            memcpy(data, _data, ROWS * COLS * sizeof(T));
+            return *this;
+        }
     };
 
     typedef Matrix<float, 4, 4> Matrix4X4f;
@@ -241,7 +275,7 @@ namespace qg {
     template <typename T, int ROWS, int COLS>
     void MatrixSub(Matrix<T, ROWS, COLS>& result, const Matrix<T, ROWS, COLS>& matrix1, const Matrix<T, ROWS, COLS>& matrix2)
     {
-        ispc::SubByElement(matrix1, matrix2, result, countof(result.data));
+        ispc::AddByElement(matrix1, matrix2, result, countof(result.data));
     }
 
     template <typename T, int ROWS, int COLS>
@@ -288,7 +322,7 @@ namespace qg {
         ispc::Normalize(result, countof(result.data));
     }
 
-    void MatrixRotationYawPitchRoll(Matrix4X4f& matrix, const float yaw, const float pitch, const float roll)
+    inline void MatrixRotationYawPitchRoll(Matrix4X4f& matrix, const float yaw, const float pitch, const float roll)
     {
         float cYaw, cPitch, cRoll, sYaw, sPitch, sRoll;
 
@@ -315,19 +349,19 @@ namespace qg {
         return;
     }
 
-    void TransformCoord(Vector3f& vector, const Matrix4X4f& matrix)
+    inline void TransformCoord(Vector3f& vector, const Matrix4X4f& matrix)
     {
         ispc::Transform(vector, matrix);
     }
 
-    void Transform(Vector4f& vector, const Matrix4X4f& matrix)
+    inline void Transform(Vector4f& vector, const Matrix4X4f& matrix)
     {
         ispc::Transform(vector, matrix);
 
         return;
     }
 
-    void BuildViewMatrix(Matrix4X4f& result, const Vector3f position, const Vector3f lookAt, const Vector3f up)
+    inline void BuildViewMatrix(Matrix4X4f& result, const Vector3f position, const Vector3f lookAt, const Vector3f up)
     {
         Vector3f zAxis, xAxis, yAxis;
         float result1, result2, result3;
@@ -360,7 +394,7 @@ namespace qg {
         result = tmp;
     }
 
-    void BuildIdentityMatrix(Matrix4X4f& matrix)
+    inline void BuildIdentityMatrix(Matrix4X4f& matrix)
     {
         Matrix4X4f identity = {{{
             { 1.0f, 0.0f, 0.0f, 0.0f},
@@ -375,7 +409,7 @@ namespace qg {
     }
 
 
-    void BuildPerspectiveFovLHMatrix(Matrix4X4f& matrix, const float fieldOfView, const float screenAspect, const float screenNear, const float screenDepth)
+    inline void BuildPerspectiveFovLHMatrix(Matrix4X4f& matrix, const float fieldOfView, const float screenAspect, const float screenNear, const float screenDepth)
     {
         Matrix4X4f perspective = {{{
             { 1.0f / (screenAspect * tanf(fieldOfView * 0.5f)), 0.0f, 0.0f, 0.0f },
@@ -390,7 +424,7 @@ namespace qg {
     }
 
 
-    void MatrixTranslation(Matrix4X4f& matrix, const float x, const float y, const float z)
+    inline void MatrixTranslation(Matrix4X4f& matrix, const float x, const float y, const float z)
     {
         Matrix4X4f translation = {{{
             { 1.0f, 0.0f, 0.0f, 0.0f},
@@ -404,7 +438,7 @@ namespace qg {
         return;
     }
 
-    void MatrixRotationX(Matrix4X4f& matrix, const float angle)
+    inline void MatrixRotationX(Matrix4X4f& matrix, const float angle)
     {
         float c = cosf(angle), s = sinf(angle);
 
@@ -420,7 +454,21 @@ namespace qg {
         return;
     }
 
-    void MatrixRotationY(Matrix4X4f& matrix, const float angle)
+    inline void MatrixScale(Matrix4X4f& matrix, const float x, const float y, const float z)
+    {
+        Matrix4X4f scale = {{{
+            {    x, 0.0f, 0.0f, 0.0f},
+            { 0.0f,    y, 0.0f, 0.0f},
+            { 0.0f, 0.0f,    z, 0.0f},
+            { 0.0f, 0.0f, 0.0f, 1.0f},
+        }}};
+
+        matrix = scale;
+
+        return;
+    }
+
+    inline void MatrixRotationY(Matrix4X4f& matrix, const float angle)
     {
         float c = cosf(angle), s = sinf(angle);
 
@@ -437,7 +485,7 @@ namespace qg {
     }
 
 
-    void MatrixRotationZ(Matrix4X4f& matrix, const float angle)
+    inline void MatrixRotationZ(Matrix4X4f& matrix, const float angle)
     {
         float c = cosf(angle), s = sinf(angle);
 
@@ -453,4 +501,29 @@ namespace qg {
         return;
     }
 
+    inline void MatrixRotationAxis(Matrix4X4f& matrix, const Vector3f& axis, const float angle)
+    {
+        float c = cosf(angle), s = sinf(angle), one_minus_c = 1.0f - c;
+
+        Matrix4X4f rotation = {{{
+            {   c + axis.x * axis.x * one_minus_c,  axis.x * axis.y * one_minus_c + axis.z * s, axis.x * axis.z * one_minus_c - axis.y * s, 0.0f    },
+            {   axis.x * axis.y * one_minus_c - axis.z * s, c + axis.y * axis.y * one_minus_c,  axis.y * axis.z * one_minus_c + axis.x * s, 0.0f    },
+            {   axis.x * axis.z * one_minus_c + axis.y * s, axis.y * axis.z * one_minus_c - axis.x * s, c + axis.z * axis.z * one_minus_c, 0.0f },
+            {   0.0f,  0.0f,  0.0f,  1.0f   }
+        }}};
+
+        matrix = rotation;
+    }
+
+    inline void MatrixRotationQuaternion(Matrix4X4f& matrix, Quaternion q)
+    {
+        Matrix4X4f rotation = {{{
+            {   1.0f - 2.0f * q.y * q.y - 2.0f * q.z * q.z,  2.0f * q.x * q.y + 2.0f * q.w * q.z,   2.0f * q.x * q.z - 2.0f * q.w * q.y,    0.0f    },
+            {   2.0f * q.x * q.y - 2.0f * q.w * q.z,    1.0f - 2.0f * q.x * q.x - 2.0f * q.z * q.z, 2.0f * q.y * q.z + 2.0f * q.w * q.x,    0.0f    },
+            {   2.0f * q.x * q.z + 2.0f * q.w * q.y,    2.0f * q.y * q.z - 2.0f * q.y * q.z - 2.0f * q.w * q.x, 1.0f - 2.0f * q.x * q.x - 2.0f * q.y * q.y, 0.0f    },
+            {   0.0f,   0.0f,   0.0f,   1.0f    }
+        }}};
+
+        matrix = rotation;
+    }
 }

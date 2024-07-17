@@ -1,6 +1,7 @@
+#include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Allocator.hpp"
-#include <cassert>
-#include <cstring>
 
 #ifndef ALIGN
 #define ALIGN(x, a)         (((x) + ((a) - 1)) & ~((a) - 1))
@@ -68,7 +69,7 @@ void* qg::Allocator::Allocate()
 
         BlockHeader* pBlock = pNewPage->Blocks();
         // link each block in the page
-        for (uint32_t i = 0; i < m_nBlocksPerPage; i++) {
+        for (uint32_t i = 0; i < m_nBlocksPerPage - 1; i++) {
             pBlock->pNext = NextBlock(pBlock);
             pBlock = NextBlock(pBlock);
         }
@@ -137,20 +138,20 @@ void qg::Allocator::FillFreePage(PageHeader *pPage)
 void qg::Allocator::FillFreeBlock(BlockHeader *pBlock)
 {
     // block header + data
-    std::memset(pBlock, PATTERN_FREE, m_szBlockSize - m_szAlignmentSize);
+    memset(pBlock, PATTERN_FREE, m_szBlockSize - m_szAlignmentSize);
  
     // alignment
-    std::memset(reinterpret_cast<uint8_t*>(pBlock) + m_szBlockSize - m_szAlignmentSize, 
+    memset(reinterpret_cast<uint8_t*>(pBlock) + m_szBlockSize - m_szAlignmentSize, 
                 PATTERN_ALIGN, m_szAlignmentSize);
 }
  
 void qg::Allocator::FillAllocatedBlock(BlockHeader *pBlock)
 {
     // block header + data
-    std::memset(pBlock, PATTERN_ALLOC, m_szBlockSize - m_szAlignmentSize);
+    memset(pBlock, PATTERN_ALLOC, m_szBlockSize - m_szAlignmentSize);
  
     // alignment
-    std::memset(reinterpret_cast<uint8_t*>(pBlock) + m_szBlockSize - m_szAlignmentSize, 
+    memset(reinterpret_cast<uint8_t*>(pBlock) + m_szBlockSize - m_szAlignmentSize, 
                 PATTERN_ALIGN, m_szAlignmentSize);
 }
  

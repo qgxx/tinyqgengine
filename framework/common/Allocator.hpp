@@ -1,4 +1,4 @@
-#include <cstddef>
+#include <stddef.h>
 #include <stdint.h>
 
 namespace qg {
@@ -58,7 +58,7 @@ namespace qg {
                 size_t      m_szPageSize;
                 size_t      m_szAlignmentSize;
                 size_t      m_szBlockSize;
-                uint32_t    m_nBlocksPerPage;
+                size_t      m_nBlocksPerPage;
 
                 // statistics
                 uint32_t    m_nPages;
@@ -66,7 +66,7 @@ namespace qg {
                 uint32_t    m_nFreeBlocks;
 
                 // disable copy & assignment
-                Allocator(const Allocator& clone);
-                Allocator &operator=(const Allocator &rhs);
+                Allocator(const Allocator& clone) = delete;
+                Allocator &operator=(const Allocator &rhs) = delete;
     };
 }
