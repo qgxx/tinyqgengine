@@ -1,0 +1,18 @@
+[submodule "external/src/crossguid"]
+	path = external/src/crossguid
+	url = git@github.com:netwarm007/crossguid.git
+[submodule "external/src/opengex"]
+	path = external/src/opengex
+	url = git@github.com:netwarm007/OpenGEX.git
+[submodule "external/src/zlib"]
+	path = external/src/zlib
+	url = git@github.com:netwarm007/zlib.git
+[submodule "external/src/libpng"]
+	path = external/src/libpng
+	url = git@github.com:pnggroup/libpng.git
+[submodule "external/src/ispc"]
+	path = external/src/ispc
+	url = git@github.com:netwarm007/ispc.git
+[submodule "external/src/llvm"]
+	path = external/src/llvm
+	url = git@github.com:llvm/llvm-project.git
