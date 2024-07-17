@@ -160,4 +160,3 @@ qg::BlockHeader* qg::Allocator::NextBlock(BlockHeader *pBlock)
 {
     return reinterpret_cast<BlockHeader *>(reinterpret_cast<uint8_t*>(pBlock) + m_szBlockSize);
 }
-

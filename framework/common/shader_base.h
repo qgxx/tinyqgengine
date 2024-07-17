@@ -7,9 +7,9 @@
 #pragma warning (disable: 5203 5206 8207 5559)
 #endif
 
-#define Vector2Unaligned		float2
-#define Vector3Unaligned		float3
-#define Vector4Unaligned		float4
+#define Vector2f float2
+#define Vector3f float3
+#define Vector4f float4
 
 uint FIRSTBITLOW_SLOW(uint input)
 {
@@ -39,7 +39,7 @@ uint FIRSTBITHIGH_SLOW(uint input)
 
 #else
 #include <stddef.h>
-#include "geommath.h"
+#include "geommath.hpp"
 
 #define __CBREGISTER( i )
 #define ATTR_OFFS			offsetof
