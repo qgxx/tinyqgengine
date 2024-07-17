@@ -289,5 +289,4 @@ void qg::OpenGLApplication::OnDraw()
     glXSwapBuffers(m_pDisplay, m_Drawable);
 }
 
-
 #endif

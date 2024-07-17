@@ -5,3 +5,4 @@ BaseApplication.cpp
 GraphicsManager.cpp 
 main.cpp
 )
+target_link_libraries(common GeomMath)

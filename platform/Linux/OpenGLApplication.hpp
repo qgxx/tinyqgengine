@@ -1,4 +1,4 @@
-#ifdef __linux
+#ifdef __linux__
 
 #pragma once
 #include "glad/glad_glx.h"
