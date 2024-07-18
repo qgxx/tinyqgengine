@@ -1,0 +1,4 @@
+D:/qgxx_workspace/tinyqgengine/external/build/crossguid/CMakeFiles/xg.dir
+D:/qgxx_workspace/tinyqgengine/external/build/crossguid/CMakeFiles/INSTALL.dir
+D:/qgxx_workspace/tinyqgengine/external/build/crossguid/CMakeFiles/ALL_BUILD.dir
+D:/qgxx_workspace/tinyqgengine/external/build/crossguid/CMakeFiles/ZERO_CHECK.dir

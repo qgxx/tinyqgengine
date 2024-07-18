@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\opengex\OpenGEX\OpenGEX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\qgxx_workspace\tinyqgengine\external\src\opengex\OpenGEX\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{11E2BF62-0AFB-32B4-BD56-7A6BBCA412BC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

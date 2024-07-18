@@ -15,7 +15,7 @@ int main(int , char** )
     g_pMemoryManager->Initialize();
 
     AssetLoader asset_loader;
-    string shader_pgm = asset_loader.SyncOpenAndReadTextFileToString("Shaders/copy.vs");
+    string shader_pgm = asset_loader.SyncOpenAndReadTextFileToString("shaders/copy.vs");
 
     cout << shader_pgm;
 

@@ -16,7 +16,7 @@ int main(int , char** )
     g_pMemoryManager->Initialize();
 
     AssetLoader asset_loader;
-    string ogex_text = asset_loader.SyncOpenAndReadTextFileToString("Scene/Example.ogex");
+    string ogex_text = asset_loader.SyncOpenAndReadTextFileToString("scene/Example.ogex");
 
     OgexParser* ogex_parser = new OgexParser ();
     unique_ptr<BaseSceneNode> root_node = ogex_parser->Parse(ogex_text);

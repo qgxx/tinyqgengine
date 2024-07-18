@@ -1,0 +1,10 @@
+^D:\QGXX_WORKSPACE\TINYQGENGINE\EXTERNAL\BUILD\OPENGEX\CMAKEFILES\D2BA3B185BFA0F10EDEF5C6D036E92F9\GENERATE.STAMP.RULE
+setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/external/src/opengex -BD:/qgxx_workspace/tinyqgengine/external/build/opengex --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/qgxx_workspace/tinyqgengine/external/build/opengex/OpenGex.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

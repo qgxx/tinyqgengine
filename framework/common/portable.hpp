@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <climits>
 #include <memory>
-#include "config.h"
+#include "../../config.h"
 
 typedef int32_t four_char_enum;
 

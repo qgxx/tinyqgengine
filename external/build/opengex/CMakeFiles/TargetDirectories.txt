@@ -1,0 +1,7 @@
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/INSTALL.dir
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/ALL_BUILD.dir
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/ZERO_CHECK.dir
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/OpenDDL/CMakeFiles/OpenDDL.dir
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/OpenDDL/CMakeFiles/INSTALL.dir
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/OpenGEX/CMakeFiles/OpenGEX.dir
+D:/qgxx_workspace/tinyqgengine/external/build/opengex/OpenGEX/CMakeFiles/INSTALL.dir

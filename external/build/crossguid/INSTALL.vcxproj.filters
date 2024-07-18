@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\qgxx_workspace\tinyqgengine\external\build\crossguid\CMakeFiles\fb0c0c323ec7bcfe8e13e99c2c8b69e5\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E0C85FFA-BC11-3762-9805-7AE0AA5EBD81}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
