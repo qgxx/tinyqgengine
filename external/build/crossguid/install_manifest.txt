@@ -1,0 +1,3 @@
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/lib/xg.lib
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/Guid.hpp
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/lib/xg.pdb

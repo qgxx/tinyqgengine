@@ -1,7 +1,5 @@
 #include "MemoryManager.hpp"
-
-extern "C" void* malloc(size_t size);
-extern "C" void  free(void* p);
+#include <cstdlib>
 
 #ifndef ALIGN
 #define ALIGN(x, a)         (((x) + ((a) - 1)) & ~((a) - 1))
@@ -36,13 +34,12 @@ namespace qg {
 
     size_t*        MemoryManager::m_pBlockSizeLookup;
     Allocator*     MemoryManager::m_pAllocators;
+    bool           MemoryManager::m_bInitialized = false;
 }
 
 int qg::MemoryManager::Initialize()
 {
-    // one-time initialization
-    static bool s_bInitialized = false;
-    if (!s_bInitialized) {
+    if (!m_bInitialized) {
         // initialize block size lookup table
         m_pBlockSizeLookup = new size_t[kMaxBlockSize + 1];
         size_t j = 0;
@@ -57,7 +54,7 @@ int qg::MemoryManager::Initialize()
             m_pAllocators[i].Reset(kBlockSizes[i], kPageSize, kAlignment);
         }
 
-        s_bInitialized = true;
+        m_bInitialized = true;
     }
 
     return 0;
@@ -67,6 +64,7 @@ void qg::MemoryManager::Finalize()
 {
     delete[] m_pAllocators;
     delete[] m_pBlockSizeLookup;
+    m_bInitialized = false;
 }
 
 void qg::MemoryManager::Tick()
@@ -108,9 +106,11 @@ void* qg::MemoryManager::Allocate(size_t size, size_t alignment)
 
 void qg::MemoryManager::Free(void* p, size_t size)
 {
-    Allocator* pAlloc = LookUpAllocator(size);
-    if (pAlloc)
-        pAlloc->Free(p);
-    else
-        free(p);
+    if (m_bInitialized) {
+        Allocator* pAlloc = LookUpAllocator(size);
+        if (pAlloc)
+            pAlloc->Free(p);
+        else
+            free(p);
+    }
 }

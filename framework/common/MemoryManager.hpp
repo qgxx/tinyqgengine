@@ -33,7 +33,12 @@ namespace qg {
     private:
         static size_t*        m_pBlockSizeLookup;
         static Allocator*     m_pAllocators;
+        static bool           m_bInitialized;
+        
     private:
         static Allocator* LookUpAllocator(size_t size);
+
     };
+
+    extern MemoryManager*   g_pMemoryManager;
 }

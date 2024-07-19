@@ -1,7 +1,7 @@
 #pragma once
 #include "geommath.hpp"
 #include "IRuntimeModule.hpp"
-#include "SceneNode.hpp"
+#include "SceneParser.hpp"
 
 namespace qg {
     class SceneManager : implements IRuntimeModule
@@ -14,7 +14,16 @@ namespace qg {
 
         virtual void Tick();
 
+        int LoadScene(const char* scene_file_name);
+
+        const Scene& GetSceneForRendering();
+
     protected:
-        SceneEmptyNode m_RootNode;
+        bool LoadOgexScene(const char* ogex_scene_file_name);
+
+    protected:
+        std::unique_ptr<Scene>  m_pScene;
     };
+
+    extern SceneManager*    g_pSceneManager;
 }

@@ -40,7 +40,9 @@ namespace ispc { /* namespace */
 #if defined(__cplusplus) && (! defined(__ISPC_NO_EXTERN_C) || !__ISPC_NO_EXTERN_C )
 extern "C" {
 #endif // __cplusplus
-    extern void MulByElement(const float * a, const float * b, float * result, const int32_t count);
+    extern void MulByElement(const float * a, const float * b, float * result, const size_t count);
+    extern void MulByElementi16(const int16_t * a, const int16_t * b, int16_t * result, const size_t count);
+    extern void MulByElementi32(const int32_t * a, const int32_t * b, int32_t * result, const size_t count);
 #if defined(__cplusplus) && (! defined(__ISPC_NO_EXTERN_C) || !__ISPC_NO_EXTERN_C )
 } /* end extern C */
 #endif // __cplusplus

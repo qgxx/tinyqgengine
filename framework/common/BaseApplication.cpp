@@ -32,6 +32,12 @@ void qg::BaseApplication::Tick()
 {
 }
 
+void qg::BaseApplication::SetCommandLineParameters(int argc, char** argv)
+{
+    m_nArgC = argc;
+    m_ppArgV = argv;
+}
+
 bool qg::BaseApplication::IsQuit()
 {
 	return m_bQuit;

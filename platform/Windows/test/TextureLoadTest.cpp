@@ -4,8 +4,11 @@
 #include "DirectX2D/D2dGraphicsManager.hpp"
 #include "MemoryManager.hpp"
 #include "AssetLoader.hpp"
+#include "SceneManager.hpp"
 #include "utility.hpp"
 #include "BMP.hpp"
+#include "JPEG.hpp"
+#include "PNG.hpp"
 
 using namespace qg;
 using namespace std;
@@ -15,7 +18,7 @@ namespace qg {
     {
         public:
             using D2dGraphicsManager::D2dGraphicsManager;
-            void DrawBitmap(const Image image[], int32_t index);
+            void DrawBitmap(const Image image);
         private:
             ID2D1Bitmap* m_pBitmap = nullptr;
     };
@@ -30,16 +33,17 @@ namespace qg {
         virtual void OnDraw();
 
     private:
-        Image m_Image[2];
+        Image m_Image;
     };
 }
 
 namespace qg {
-    GfxConfiguration config(8, 8, 8, 8, 32, 0, 0, 1024, 512, _T("Texture Load Test (Windows)"));
+    GfxConfiguration config(8, 8, 8, 8, 32, 0, 0, 1024, 512, ("Texture Load Test (Windows)"));
 	IApplication* g_pApp                = static_cast<IApplication*>(new TestApplication(config));
     GraphicsManager* g_pGraphicsManager = static_cast<GraphicsManager*>(new TestGraphicsManager);
     MemoryManager*   g_pMemoryManager   = static_cast<MemoryManager*>(new MemoryManager);
-
+    AssetLoader*     g_pAssetLoader     = static_cast<AssetLoader*>(new AssetLoader);
+    SceneManager*    g_pSceneManager    = static_cast<SceneManager*>(new SceneManager);
 }
 
 int qg::TestApplication::Initialize()
@@ -49,15 +53,16 @@ int qg::TestApplication::Initialize()
     result = WindowsApplication::Initialize();
 
     if (result == 0) {
-        AssetLoader asset_loader;
-        BmpParser   parser;
-        Buffer buf = asset_loader.SyncOpenAndReadBinary("textures/icelogo-color.bmp");
+        Buffer buf;
 
-        m_Image[0] = parser.Parse(buf);
+        PngParser  png_parser;
+        if (m_nArgC > 1) {
+            buf = g_pAssetLoader->SyncOpenAndReadBinary(m_ppArgV[1]);
+        } else {
+            buf = g_pAssetLoader->SyncOpenAndReadBinary("textures/eye.png");
+        }
 
-        buf = asset_loader.SyncOpenAndReadBinary("textures/icelogo-normal.bmp");
-
-        m_Image[1] = parser.Parse(buf);
+        m_Image = png_parser.Parse(buf);
     }
 
     return result;
@@ -65,11 +70,10 @@ int qg::TestApplication::Initialize()
 
 void qg::TestApplication::OnDraw()
 {
-    dynamic_cast<TestGraphicsManager*>(g_pGraphicsManager)->DrawBitmap(m_Image, 0);
-    dynamic_cast<TestGraphicsManager*>(g_pGraphicsManager)->DrawBitmap(m_Image, 1);
+    dynamic_cast<TestGraphicsManager*>(g_pGraphicsManager)->DrawBitmap(m_Image);
 }
 
-void qg::TestGraphicsManager::DrawBitmap(const Image* image, int32_t index)
+void qg::TestGraphicsManager::DrawBitmap(const Image image)
 {
 	HRESULT hr;
 
@@ -82,8 +86,8 @@ void qg::TestGraphicsManager::DrawBitmap(const Image* image, int32_t index)
     props.dpiX = 72.0f;
     props.dpiY = 72.0f;
     SafeRelease(&m_pBitmap);
-    hr = m_pRenderTarget->CreateBitmap(D2D1::SizeU(image[index].Width, image[index].Height), 
-                                                    image[index].data, image[index].pitch, props, &m_pBitmap);
+    hr = m_pRenderTarget->CreateBitmap(D2D1::SizeU(image.Width, image.Height), 
+                                                    image.data, image.pitch, props, &m_pBitmap);
 
     D2D1_SIZE_F rtSize = m_pRenderTarget->GetSize();
     D2D1_SIZE_F bmpSize = m_pBitmap->GetSize();
@@ -100,9 +104,9 @@ void qg::TestGraphicsManager::DrawBitmap(const Image* image, int32_t index)
 	float dest_width = rtSize.height * aspect;
 
     D2D1_RECT_F dest_rect = D2D1::RectF(
-                     dest_width * index,
                      0,
-                     dest_width * (index + 1),
+                     0,
+                     dest_width,
                      dest_height 
                      );
 

@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{71CA1320-1137-31EB-BFBA-11C826620A4A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>zlib</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">zlib.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">zlibd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">zlib.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">zlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">zlib.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">zlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">zlib.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">zlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -v</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -v</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -v</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -v</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\qgxx_workspace\tinyqgengine\external\src\zlib;D:\qgxx_workspace\tinyqgengine\external\build\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/qgxx_workspace/tinyqgengine/external/src/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/external/src/zlib -BD:/qgxx_workspace/tinyqgengine/external/build/zlib --check-stamp-file D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompilerABI.c;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCompilerIdDetection.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompileFeatures.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerABI.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerId.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeFindBinUtils.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitLinkInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseLibraryArchitecture.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystem.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCompilerCommon.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckCSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckFunctionExists.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFile.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFileCXX.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckTypeSize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\LCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CompilerId\VS-10.vcxproj.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\CheckSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\FeatureTesting.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zconf.h.cmakein;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zlib.pc.cmakein;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/qgxx_workspace/tinyqgengine/external/src/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/external/src/zlib -BD:/qgxx_workspace/tinyqgengine/external/build/zlib --check-stamp-file D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompilerABI.c;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCompilerIdDetection.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompileFeatures.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerABI.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerId.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeFindBinUtils.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitLinkInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseLibraryArchitecture.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystem.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCompilerCommon.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckCSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckFunctionExists.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFile.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFileCXX.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckTypeSize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\LCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CompilerId\VS-10.vcxproj.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\CheckSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\FeatureTesting.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zconf.h.cmakein;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zlib.pc.cmakein;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/qgxx_workspace/tinyqgengine/external/src/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/external/src/zlib -BD:/qgxx_workspace/tinyqgengine/external/build/zlib --check-stamp-file D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompilerABI.c;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCompilerIdDetection.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompileFeatures.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerABI.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerId.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeFindBinUtils.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitLinkInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseLibraryArchitecture.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystem.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCompilerCommon.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckCSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckFunctionExists.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFile.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFileCXX.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckTypeSize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\LCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CompilerId\VS-10.vcxproj.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\CheckSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\FeatureTesting.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zconf.h.cmakein;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zlib.pc.cmakein;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/qgxx_workspace/tinyqgengine/external/src/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/external/src/zlib -BD:/qgxx_workspace/tinyqgengine/external/build/zlib --check-stamp-file D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCCompilerABI.c;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCommonLanguageInclude.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeCompilerIdDetection.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompileFeatures.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerABI.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineCompilerId.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeDetermineSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeFindBinUtils.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeGenericSystem.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeInitializeConfigs.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeLanguageInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseImplicitLinkInfo.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeParseLibraryArchitecture.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCCompiler.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeRCInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystem.cmake.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInformation.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeSystemSpecificInitialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestCompilerCommon.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CMakeTestRCCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckCSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckFunctionExists.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFile.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckIncludeFileCXX.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CheckTypeSize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Bruce-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Compaq-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\GNU-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\HP-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMCPP-C-DetermineVersionInternal.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IBMClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\LCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SDCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\SunPro-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TI-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\TinyCC-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\VisualAge-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XL-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\XLClang-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Compiler\zOS-C-DetermineCompiler.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\CompilerId\VS-10.vcxproj.in;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\CheckSourceCompiles.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Internal\FeatureTesting.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-Initialize.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC-C.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows-MSVC.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\Windows.cmake;D:\cmake-3.27.7-windows-x86_64\share\cmake-3.27\Modules\Platform\WindowsPaths.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeRCCompiler.cmake;D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\3.27.7\CMakeSystem.cmake;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zconf.h.cmakein;D:\qgxx_workspace\tinyqgengine\external\src\zlib\zlib.pc.cmakein;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\qgxx_workspace\tinyqgengine\external\build\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\adler32.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\compress.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\crc32.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\deflate.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzclose.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzlib.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzread.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzwrite.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inflate.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\infback.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inftrees.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inffast.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\trees.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\uncompr.c" />
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\zutil.c" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\build\zlib\zconf.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\zlib.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\crc32.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\deflate.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzguts.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inffast.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inffixed.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inflate.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inftrees.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\trees.h" />
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\qgxx_workspace\tinyqgengine\external\build\zlib\ZERO_CHECK.vcxproj">
+      <Project>{6E4D7AD6-749A-33DE-8AF3-5297E49A556E}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

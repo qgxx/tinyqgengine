@@ -1,0 +1,10 @@
+^D:\QGXX_WORKSPACE\TINYQGENGINE\EXTERNAL\BUILD\ZLIB\CMAKEFILES\DA6D9D8508F278F485FAE31C16B232C9\GENERATE.STAMP.RULE
+setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/external/src/zlib -BD:/qgxx_workspace/tinyqgengine/external/build/zlib --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/qgxx_workspace/tinyqgengine/external/build/zlib/zlib.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

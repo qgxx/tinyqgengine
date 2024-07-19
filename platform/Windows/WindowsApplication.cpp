@@ -16,8 +16,6 @@ int qg::WindowsApplication::Initialize()
     // get the HINSTANCE of the Console Program
     HINSTANCE hInstance = GetModuleHandle(NULL);
 
-    // the handle for the window, filled by a function
-    HWND hWnd;
     // this struct holds information for the window class
     WNDCLASSEX wc;
 
@@ -37,7 +35,7 @@ int qg::WindowsApplication::Initialize()
     RegisterClassEx(&wc);
 
     // create the window and use the result as the handle
-    hWnd = CreateWindowEx(0,
+    m_hWnd = CreateWindowEx(0,
                           _T("GameEngineFromScratch"),      // name of the window class
                           m_Config.appName,                 // title of the window
                           WS_OVERLAPPEDWINDOW,              // window style
@@ -51,9 +49,7 @@ int qg::WindowsApplication::Initialize()
                           this);                            // pass pointer to current object
 
     // display the window on the screen
-    ShowWindow(hWnd, SW_SHOW);
-
-    m_hWnd = hWnd;
+    ShowWindow(m_hWnd, SW_SHOW);
 
     return result;
 }
@@ -102,27 +98,25 @@ LRESULT CALLBACK qg::WindowsApplication::WindowProc(HWND hWnd, UINT message, WPA
     // sort through and find what code to run for the message given
     switch(message)
     {
-	case WM_PAINT:
-	    {
-            pThis->OnDraw();
-	    } 
-        break;
+        case WM_PAINT:
+            {
+                g_pApp->OnDraw();
+            }
+            break;
+        case WM_KEYDOWN:
+            {
+                // we will replace this with input manager
+                m_bQuit = true;
+            } 
+            break;
 
-    case WM_KEYDOWN:
-        {
-            // we will replace this with input manager
-            m_bQuit = true;
-        } 
-        break;
-
-        // this message is read when the window is closed
-    case WM_DESTROY:
-        {
-            // close the application entirely
-            PostQuitMessage(0);
-            m_bQuit = true;
-            return 0;
-        }
+            // this message is read when the window is closed
+        case WM_DESTROY:
+            {
+                // close the application entirely
+                PostQuitMessage(0);
+                m_bQuit = true;
+            }
     }
 
     // Handle any messages the switch statement didn't

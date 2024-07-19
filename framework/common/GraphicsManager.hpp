@@ -1,7 +1,6 @@
 #pragma once
 #include "Image.hpp"
 #include "IRuntimeModule.hpp"
-#include "Mesh.hpp"
 
 namespace qg {
     class GraphicsManager : implements IRuntimeModule
@@ -14,6 +13,9 @@ namespace qg {
 
         virtual void Tick();
 
-        void DrawSingleMesh(const Mesh& mesh);
+        virtual void Clear();
+        virtual void Draw();
     };
+
+    extern GraphicsManager* g_pGraphicsManager;
 }

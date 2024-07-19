@@ -24,7 +24,7 @@ events:
       The output was:
       0
       适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-      生成启动时间为 2024/7/18 10:07:45。
+      生成启动时间为 2024/7/19 11:36:04。
       
       节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj”(默认目标)。
       PrepareForBuild:
@@ -62,7 +62,7 @@ events:
           0 个警告
           0 个错误
       
-      已用时间 00:00:00.89
+      已用时间 00:00:00.98
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -88,7 +88,7 @@ events:
       The output was:
       0
       适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-      生成启动时间为 2024/7/18 10:07:46。
+      生成启动时间为 2024/7/19 11:36:06。
       
       节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\3.27.7\\CompilerIdCXX\\CompilerIdCXX.vcxproj”(默认目标)。
       PrepareForBuild:
@@ -126,7 +126,7 @@ events:
           0 个警告
           0 个错误
       
-      已用时间 00:00:00.88
+      已用时间 00:00:00.91
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -145,57 +145,57 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-67hnf4"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-67hnf4"
+      source: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-8pfc7u"
+      binary: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-8pfc7u"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-67hnf4'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-8pfc7u'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6bc72.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ba587.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/18 10:07:47。
+        生成启动时间为 2024/7/19 11:36:07。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\cmTC_6bc72.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\cmTC_ba587.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_6bc72.dir\\Debug\\”。
+          正在创建目录“cmTC_ba587.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\Debug\\”。
-          正在创建目录“cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\Debug\\”。
+          正在创建目录“cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6bc72.dir\\Debug\\\\" /Fd"cmTC_6bc72.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ba587.dir\\Debug\\\\" /Fd"cmTC_ba587.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6bc72.dir\\Debug\\\\" /Fd"cmTC_6bc72.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ba587.dir\\Debug\\\\" /Fd"cmTC_ba587.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\Debug\\cmTC_6bc72.exe" /INCREMENTAL /ILK:"cmTC_6bc72.dir\\Debug\\cmTC_6bc72.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-67hnf4/Debug/cmTC_6bc72.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-67hnf4/Debug/cmTC_6bc72.lib" /MACHINE:X64  /machine:x64 cmTC_6bc72.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_6bc72.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\Debug\\cmTC_6bc72.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\Debug\\cmTC_ba587.exe" /INCREMENTAL /ILK:"cmTC_ba587.dir\\Debug\\cmTC_ba587.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-8pfc7u/Debug/cmTC_ba587.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-8pfc7u/Debug/cmTC_ba587.lib" /MACHINE:X64  /machine:x64 cmTC_ba587.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_ba587.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\Debug\\cmTC_ba587.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\Debug\\cmTC_6bc72.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\cmTC_6bc72.write.1u.tlog" "cmTC_6bc72.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\Debug\\cmTC_ba587.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\cmTC_ba587.write.1u.tlog" "cmTC_ba587.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
           或批处理文件。
-          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\Debug\\cmTC_6bc72.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\cmTC_6bc72.write.1u.tlog" "cmTC_6bc72.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\Debug\\cmTC_6bc72.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\cmTC_6bc72.write.1u.tlog" "cmTC_6bc72.dir\\Debug\\vcpkg.applocal.log"
+          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\Debug\\cmTC_ba587.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\cmTC_ba587.write.1u.tlog" "cmTC_ba587.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\Debug\\cmTC_ba587.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\cmTC_ba587.write.1u.tlog" "cmTC_ba587.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          正在删除文件“cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\unsuccessfulbuild”。
-          正在对“cmTC_6bc72.dir\\Debug\\cmTC_6bc72.tlog\\cmTC_6bc72.lastbuildstate”执行 Touch 任务。
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-67hnf4\\cmTC_6bc72.vcxproj”(默认目标)的操作。
+          正在删除文件“cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\unsuccessfulbuild”。
+          正在对“cmTC_ba587.dir\\Debug\\cmTC_ba587.tlog\\cmTC_ba587.lastbuildstate”执行 Touch 任务。
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-8pfc7u\\cmTC_ba587.vcxproj”(默认目标)的操作。
         
         已成功生成。
             0 个警告
             0 个错误
         
-        已用时间 00:00:00.87
+        已用时间 00:00:00.91
         
       exitCode: 0
   -
@@ -207,57 +207,57 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-79emhv"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-79emhv"
+      source: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-dejf76"
+      binary: "D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-dejf76"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
     buildResult:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-79emhv'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-dejf76'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_9b832.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6b438.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/18 10:07:48。
+        生成启动时间为 2024/7/19 11:36:08。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\cmTC_9b832.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\cmTC_6b438.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_9b832.dir\\Debug\\”。
+          正在创建目录“cmTC_6b438.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\Debug\\”。
-          正在创建目录“cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\Debug\\”。
+          正在创建目录“cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_9b832.dir\\Debug\\\\" /Fd"cmTC_9b832.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_6b438.dir\\Debug\\\\" /Fd"cmTC_6b438.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_9b832.dir\\Debug\\\\" /Fd"cmTC_9b832.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_6b438.dir\\Debug\\\\" /Fd"cmTC_6b438.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\Debug\\cmTC_9b832.exe" /INCREMENTAL /ILK:"cmTC_9b832.dir\\Debug\\cmTC_9b832.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-79emhv/Debug/cmTC_9b832.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-79emhv/Debug/cmTC_9b832.lib" /MACHINE:X64  /machine:x64 cmTC_9b832.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_9b832.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\Debug\\cmTC_9b832.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\Debug\\cmTC_6b438.exe" /INCREMENTAL /ILK:"cmTC_6b438.dir\\Debug\\cmTC_6b438.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-dejf76/Debug/cmTC_6b438.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/opengex/CMakeFiles/CMakeScratch/TryCompile-dejf76/Debug/cmTC_6b438.lib" /MACHINE:X64  /machine:x64 cmTC_6b438.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_6b438.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\Debug\\cmTC_6b438.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\Debug\\cmTC_9b832.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\cmTC_9b832.write.1u.tlog" "cmTC_9b832.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\Debug\\cmTC_6b438.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\cmTC_6b438.write.1u.tlog" "cmTC_6b438.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
           或批处理文件。
-          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\Debug\\cmTC_9b832.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\cmTC_9b832.write.1u.tlog" "cmTC_9b832.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\Debug\\cmTC_9b832.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\cmTC_9b832.write.1u.tlog" "cmTC_9b832.dir\\Debug\\vcpkg.applocal.log"
+          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\Debug\\cmTC_6b438.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\cmTC_6b438.write.1u.tlog" "cmTC_6b438.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\Debug\\cmTC_6b438.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\cmTC_6b438.write.1u.tlog" "cmTC_6b438.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          正在删除文件“cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\unsuccessfulbuild”。
-          正在对“cmTC_9b832.dir\\Debug\\cmTC_9b832.tlog\\cmTC_9b832.lastbuildstate”执行 Touch 任务。
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-79emhv\\cmTC_9b832.vcxproj”(默认目标)的操作。
+          正在删除文件“cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\unsuccessfulbuild”。
+          正在对“cmTC_6b438.dir\\Debug\\cmTC_6b438.tlog\\cmTC_6b438.lastbuildstate”执行 Touch 任务。
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\opengex\\CMakeFiles\\CMakeScratch\\TryCompile-dejf76\\cmTC_6b438.vcxproj”(默认目标)的操作。
         
         已成功生成。
             0 个警告
             0 个错误
         
-        已用时间 00:00:00.86
+        已用时间 00:00:01.01
         
       exitCode: 0
 ...

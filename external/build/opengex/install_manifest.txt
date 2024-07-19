@@ -1,0 +1,11 @@
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/lib/OpenDDL.lib
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/OpenDDL.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/ODDLArray.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/ODDLMap.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/ODDLString.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/ODDLTree.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/ODDLTypes.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/lib/OpenDDL.pdb
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/lib/OpenGEX.lib
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/include/OpenGEX.h
+D:/qgxx_workspace/tinyqgengine/external/Windows/Windows/lib/OpenGEX.pdb

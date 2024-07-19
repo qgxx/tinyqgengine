@@ -1,0 +1,5 @@
+D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/zlib.dir
+D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/RUN_TESTS.dir
+D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/INSTALL.dir
+D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/ALL_BUILD.dir
+D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/ZERO_CHECK.dir
