@@ -1,7 +1,6 @@
-
 #pragma once
 #include <iostream>
-#include "..\..\config.h"
+#include "config.h"
 #include "geommath.hpp"
 
 namespace qg {

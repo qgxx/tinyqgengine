@@ -1,0 +1,10 @@
+^D:\QGXX_WORKSPACE\TINYQGENGINE\EXTERNAL\BUILD\BULLET\CMAKEFILES\B876965394765A605444DE691B5D6877\GENERATE.STAMP.RULE
+setlocal
+D:\cmake-3.27.7-windows-x86_64\bin\cmake.exe -SD:/qgxx_workspace/tinyqgengine/External/src/bullet -BD:/qgxx_workspace/tinyqgengine/External/build/bullet --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/qgxx_workspace/tinyqgengine/External/build/bullet/BULLET_PHYSICS.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

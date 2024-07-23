@@ -20,6 +20,9 @@ AMD64:BOOL=OFF
 //Enable building i686 assembly implementation
 ASM686:BOOL=OFF
 
+//No help, variable specified on the command line.
+BUILD_SHARED_LIBS:UNINITIALIZED=off
+
 //Path to a program.
 CMAKE_AR:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.38.33130/bin/Hostx64/x64/lib.exe
 

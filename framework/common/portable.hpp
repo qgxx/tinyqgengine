@@ -4,7 +4,7 @@
 #include <memory>
 #include <algorithm>
 #include <assert.h>
-#include "..\..\config.h"
+#include "config.h"
 
 typedef int32_t four_char_enum;
 

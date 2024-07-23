@@ -16,7 +16,10 @@ namespace qg {
         // One cycle of the main loop
         virtual void Tick();
 
-        HWND GetMainWindow() { return m_hWnd; }
+        HWND GetMainWindow() { return m_hWnd; };
+
+    protected:
+        void CreateMainWindow();
 
     private:
         // the WindowProc function prototype
@@ -27,5 +30,9 @@ namespace qg {
 
     protected:
         HWND m_hWnd;
+        HDC  m_hDc;
+        bool m_bInDrag = false;
+        int  m_iPreviousX = 0;
+        int  m_iPreviousY = 0;
     };
 }

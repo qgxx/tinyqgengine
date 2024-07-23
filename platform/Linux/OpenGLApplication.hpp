@@ -1,5 +1,3 @@
-#ifdef __linux__
-
 #pragma once
 #include "glad/glad_glx.h"
 #include "XcbApplication.hpp"
@@ -23,5 +21,3 @@ namespace qg {
         GLXDrawable m_Drawable;
     };
 }
-
-#endif

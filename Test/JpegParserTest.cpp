@@ -26,7 +26,7 @@ int main(int argc, const char** argv)
         if (argc >= 2) {
             buf = g_pAssetLoader->SyncOpenAndReadBinary(argv[1]);
         } else {
-            buf = g_pAssetLoader->SyncOpenAndReadBinary("textures/huff_simple0.jpg");
+            buf = g_pAssetLoader->SyncOpenAndReadBinary("Textures/b.jpg");
         }
 
         JfifParser jfif_parser;

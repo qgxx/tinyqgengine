@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <functional>
 #include "Guid.hpp"
 #include "Image.hpp"
 #include "portable.hpp"
@@ -12,6 +13,8 @@
 #include "JPEG.hpp"
 #include "PNG.hpp"
 #include "BMP.hpp"
+#include "TGA.hpp"
+#include "ConvexHull.hpp"
 
 namespace qg {
     ENUM(SceneObjectType) {
@@ -25,6 +28,25 @@ namespace qg {
         kSceneObjectTypeVertexArray   =   "VARR"_i32,
         kSceneObjectTypeIndexArray    =   "VARR"_i32,
         kSceneObjectTypeGeometry =  "GEOM"_i32,
+        kSceneObjectTypeTransform =  "TRFM"_i32,
+        kSceneObjectTypeTranslate =  "TSLT"_i32,
+        kSceneObjectTypeRotate =  "ROTA"_i32,
+        kSceneObjectTypeScale =  "SCAL"_i32
+    };
+
+    ENUM(SceneObjectCollisionType) {
+        kSceneObjectCollisionTypeNone   =   "CNON"_i32,
+        kSceneObjectCollisionTypeSphere =   "CSPH"_i32,
+        kSceneObjectCollisionTypeBox    =   "CBOX"_i32,
+        kSceneObjectCollisionTypeCylinder = "CCYL"_i32,
+        kSceneObjectCollisionTypeCapsule  = "CCAP"_i32,
+        kSceneObjectCollisionTypeCone   =   "CCON"_i32,
+        kSceneObjectCollisionTypeMultiSphere = "CMUL"_i32,
+        kSceneObjectCollisionTypeConvexHull =  "CCVH"_i32,
+        kSceneObjectCollisionTypeConvexMesh =  "CCVM"_i32,
+        kSceneObjectCollisionTypeBvhMesh =  "CBVM"_i32,
+        kSceneObjectCollisionTypeHeightfield = "CHIG"_i32,
+        kSceneObjectCollisionTypePlane  =   "CPLN"_i32,
     };
 
     std::ostream& operator<<(std::ostream& out, SceneObjectType type);
@@ -239,6 +261,11 @@ namespace qg {
 		kPrimitiveTypePolygon = "POLY"_i32,     ///< For N>=0, vertices [0, N+1, N+2] render a triangle.
 	};
 
+    struct BoundingBox {
+        Vector3f centroid;
+        Vector3f extent;
+    };
+
     std::ostream& operator<<(std::ostream& out, PrimitiveType type);
   
     class SceneObjectMesh : public BaseSceneObject
@@ -248,20 +275,13 @@ namespace qg {
             std::vector<SceneObjectVertexArray> m_VertexArray;
 			PrimitiveType	m_PrimitiveType;
 
-            bool        m_bVisible;
-            bool        m_bShadow;
-            bool        m_bMotionBlur;
-            
         public:
-            SceneObjectMesh(bool visible = true, bool shadow = true, bool motion_blur = true) : BaseSceneObject(SceneObjectType::kSceneObjectTypeMesh), m_bVisible(visible), m_bShadow(shadow), m_bMotionBlur(motion_blur) {};
+            SceneObjectMesh(bool visible = true, bool shadow = true, bool motion_blur = true) : BaseSceneObject(SceneObjectType::kSceneObjectTypeMesh) {};
             SceneObjectMesh(SceneObjectMesh&& mesh)
                 : BaseSceneObject(SceneObjectType::kSceneObjectTypeMesh), 
                 m_IndexArray(std::move(mesh.m_IndexArray)),
                 m_VertexArray(std::move(mesh.m_VertexArray)),
-                m_PrimitiveType(mesh.m_PrimitiveType),
-                m_bVisible(mesh.m_bVisible),
-                m_bShadow(mesh.m_bShadow),
-                m_bMotionBlur(mesh.m_bMotionBlur)
+                m_PrimitiveType(mesh.m_PrimitiveType)
             {
             };
             void AddIndexArray(SceneObjectIndexArray&& array) { m_IndexArray.push_back(std::move(array)); };
@@ -275,6 +295,8 @@ namespace qg {
             const SceneObjectVertexArray& GetVertexPropertyArray(const size_t index) const { return m_VertexArray[index]; };
             const SceneObjectIndexArray& GetIndexArray(const size_t index) const { return m_IndexArray[index]; };
             const PrimitiveType& GetPrimitiveType() { return m_PrimitiveType; };
+            BoundingBox GetBoundingBox() const;
+            ConvexHull GetConvexHull() const;
 
         friend std::ostream& operator<<(std::ostream& out, const SceneObjectMesh& obj);
     };
@@ -320,6 +342,11 @@ namespace qg {
                         BmpParser bmp_parser;
                         m_pImage = std::make_shared<Image>(bmp_parser.Parse(buf));
                     }
+                    else if (ext == ".tga")
+                    {
+                        TgaParser tga_parser;
+                        m_pImage = std::make_shared<Image>(tga_parser.Parse(buf));
+                    }
                 }
             }
 
@@ -344,7 +371,7 @@ namespace qg {
 
         ParameterValueMap() = default;
 
-        ParameterValueMap(const T value) : Value(value) {};
+        ParameterValueMap(const T value) : Value(value), ValueMap(nullptr) {};
         ParameterValueMap(const std::shared_ptr<SceneObjectTexture>& value) : ValueMap(value) {};
 
         ParameterValueMap(const ParameterValueMap<T>& rhs) = default;
@@ -416,6 +443,7 @@ namespace qg {
             const Color& GetBaseColor() const { return m_BaseColor; };
             const Color& GetSpecularColor() const { return m_Specular; };
             const Parameter& GetSpecularPower() const { return m_SpecularPower; };
+            const Normal& GetNormal() const { return m_Normal; };
             void SetName(const std::string& name) { m_Name = name; };
             void SetName(std::string&& name) { m_Name = std::move(name); };
             void SetColor(const std::string& attrib, const Vector4f& color) 
@@ -528,25 +556,37 @@ namespace qg {
 			bool        m_bVisible;
 			bool        m_bShadow;
 			bool        m_bMotionBlur;
+            SceneObjectCollisionType m_CollisionType;
+            float       m_CollisionParameters[10];
 
         public:
-            SceneObjectGeometry(void) : BaseSceneObject(SceneObjectType::kSceneObjectTypeGeometry) {};
+            SceneObjectGeometry(void) : BaseSceneObject(SceneObjectType::kSceneObjectTypeGeometry), m_CollisionType(SceneObjectCollisionType::kSceneObjectCollisionTypeNone) {}
 
-			void SetVisibility(bool visible) { m_bVisible = visible; };
-			const bool Visible() { return m_bVisible; };
-			void SetIfCastShadow(bool shadow) { m_bShadow = shadow; };
-			const bool CastShadow() { return m_bShadow; };
-			void SetIfMotionBlur(bool motion_blur) { m_bMotionBlur = motion_blur; };
+			void SetVisibility(bool visible) { m_bVisible = visible; }
+			const bool Visible() { return m_bVisible; }
+			void SetIfCastShadow(bool shadow) { m_bShadow = shadow; }
+			const bool CastShadow() { return m_bShadow; }
+			void SetIfMotionBlur(bool motion_blur) { m_bMotionBlur = motion_blur; }
 			const bool MotionBlur() { return m_bMotionBlur; };
+            void SetCollisionType(SceneObjectCollisionType collision_type) { m_CollisionType = collision_type; }
+            const SceneObjectCollisionType CollisionType() const { return  m_CollisionType; }
+            void SetCollisionParameters(const float* param, int32_t count)
+            {
+                assert(count > 0 && count < 10);
+                memcpy(m_CollisionParameters, param, sizeof(float) * count);
+            }
+            const float* CollisionParameters() const { return m_CollisionParameters; }
 
-            void AddMesh(std::shared_ptr<SceneObjectMesh>& mesh) { m_Mesh.push_back(std::move(mesh)); };
-            const std::weak_ptr<SceneObjectMesh> GetMesh() { return (m_Mesh.empty()? nullptr : m_Mesh[0]); };
-            const std::weak_ptr<SceneObjectMesh> GetMeshLOD(size_t lod) { return (lod < m_Mesh.size()? m_Mesh[lod] : nullptr); };
+            void AddMesh(std::shared_ptr<SceneObjectMesh>& mesh) { m_Mesh.push_back(std::move(mesh)); }
+            const std::weak_ptr<SceneObjectMesh> GetMesh() { return (m_Mesh.empty()? nullptr : m_Mesh[0]); }
+            const std::weak_ptr<SceneObjectMesh> GetMeshLOD(size_t lod) { return (lod < m_Mesh.size()? m_Mesh[lod] : nullptr); }
+            BoundingBox GetBoundingBox() const { return m_Mesh.empty()? BoundingBox() : m_Mesh[0]->GetBoundingBox(); }
+            ConvexHull GetConvexHull() const { return m_Mesh.empty()? ConvexHull() : m_Mesh[0]->GetConvexHull(); }
 
         friend std::ostream& operator<<(std::ostream& out, const SceneObjectGeometry& obj);
     };
 
-    typedef float (*AttenFunc)(float /* Intensity */, float /* Distance */);
+    typedef std::function<float(float /* Intensity */, float /* Distance */)> AttenFunc;
 
     float DefaultAttenFunc(float intensity, float distance);
 
@@ -693,19 +733,21 @@ namespace qg {
         friend std::ostream& operator<<(std::ostream& out, const SceneObjectPerspectiveCamera& obj);
     };
 
-    class SceneObjectTransform
+    class SceneObjectTransform : public BaseSceneObject
     {
         protected:
             Matrix4X4f m_matrix;
             bool m_bSceneObjectOnly;
 
         public:
-            SceneObjectTransform() { BuildIdentityMatrix(m_matrix); m_bSceneObjectOnly = false; };
+            SceneObjectTransform() : BaseSceneObject(SceneObjectType::kSceneObjectTypeTransform) 
+            { BuildIdentityMatrix(m_matrix); m_bSceneObjectOnly = false; }
 
-            SceneObjectTransform(const Matrix4X4f& matrix, const bool object_only = false) { m_matrix = matrix; m_bSceneObjectOnly = object_only; };
+            SceneObjectTransform(const Matrix4X4f& matrix, const bool object_only = false) : SceneObjectTransform() 
+            { m_matrix = matrix; m_bSceneObjectOnly = object_only; }
 
-            operator Matrix4X4f() { return m_matrix; };
-            operator const Matrix4X4f() const { return m_matrix; };
+            operator Matrix4X4f() { return m_matrix; }
+            operator const Matrix4X4f() const { return m_matrix; }
 
         friend std::ostream& operator<<(std::ostream& out, const SceneObjectTransform& obj);
     };
@@ -713,7 +755,9 @@ namespace qg {
     class SceneObjectTranslation : public SceneObjectTransform
     {
         public:
-            SceneObjectTranslation(const char axis, const float amount)  
+            SceneObjectTranslation() { m_Type = SceneObjectType::kSceneObjectTypeTranslate; }
+            SceneObjectTranslation(const char axis, const float amount, const bool object_only = false)  
+                : SceneObjectTranslation()
             { 
                 switch (axis) {
                     case 'x':
@@ -728,18 +772,24 @@ namespace qg {
                     default:
                         assert(0);
                 }
+
+                m_bSceneObjectOnly = object_only;
             }
 
-            SceneObjectTranslation(const float x, const float y, const float z) 
+            SceneObjectTranslation(const float x, const float y, const float z, const bool object_only = false) 
+                : SceneObjectTranslation()
             {
                 MatrixTranslation(m_matrix, x, y, z);
+                m_bSceneObjectOnly = object_only;
             }
     };
 
     class SceneObjectRotation : public SceneObjectTransform
     {
         public:
-            SceneObjectRotation(const char axis, const float theta)
+            SceneObjectRotation() { m_Type = SceneObjectType::kSceneObjectTypeRotate; }
+            SceneObjectRotation(const char axis, const float theta, const bool object_only = false)
+                : SceneObjectRotation()
             {
                 switch (axis) {
                     case 'x':
@@ -754,24 +804,34 @@ namespace qg {
                     default:
                         assert(0);
                 }
+
+                m_bSceneObjectOnly = object_only;
             }
 
-            SceneObjectRotation(Vector3f& axis, const float theta)
+            SceneObjectRotation(Vector3f axis, const float theta, const bool object_only = false)
+                : SceneObjectRotation()
             {
                 Normalize(axis);
                 MatrixRotationAxis(m_matrix, axis, theta);
+
+                m_bSceneObjectOnly = object_only;
             }
 
-            SceneObjectRotation(const Quaternion quaternion)
+            SceneObjectRotation(const Quaternion quaternion, const bool object_only = false)
+                : SceneObjectRotation()
             {
                 MatrixRotationQuaternion(m_matrix, quaternion);
+
+                m_bSceneObjectOnly = object_only;
             }
     };
 
     class SceneObjectScale : public SceneObjectTransform
     {
         public:
+            SceneObjectScale() { m_Type = SceneObjectType::kSceneObjectTypeScale; }
             SceneObjectScale(const char axis, const float amount)  
+                : SceneObjectScale()
             { 
                 switch (axis) {
                     case 'x':
@@ -789,6 +849,7 @@ namespace qg {
             }
 
             SceneObjectScale(const float x, const float y, const float z) 
+                : SceneObjectScale()
             {
                 MatrixScale(m_matrix, x, y, z);
             }

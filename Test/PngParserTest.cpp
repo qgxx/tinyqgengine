@@ -26,7 +26,7 @@ int main(int argc, const char** argv)
         if (argc >= 2) {
             buf = g_pAssetLoader->SyncOpenAndReadBinary(argv[1]);
         } else {
-            buf = g_pAssetLoader->SyncOpenAndReadBinary("textures/eye.png");
+            buf = g_pAssetLoader->SyncOpenAndReadBinary("Textures/eye.png");
         }
 
         PngParser png_parser;

@@ -1,18 +1,26 @@
 #pragma once
+#include <algorithm>
+#include <cassert>
 #include <cstdint>
+#include <cstring>
 #include <iostream>
 #include <limits>
-#include <math.h>
-#include "include/CrossProduct.h"
-#include "include/MulByElement.h"
-#include "include/Normalize.h"
-#include "include/Transform.h"
-#include "include/Transpose.h"
-#include "include/AddByElement.h"
-#include "include/SubByElement.h"
-#include "include/MatrixExchangeYandZ.h"
-#include "include/InverseMatrix4X4f.h"
-#include "include/DCT.h"
+#include <cmath>
+#include <memory>
+#include <set>
+#include <unordered_set>
+#include <vector>
+#include "CrossProduct.h"
+#include "MulByElement.h"
+#include "Normalize.h"
+#include "Transform.h"
+#include "Transpose.h"
+#include "AddByElement.h"
+#include "SubByElement.h"
+#include "MatrixExchangeYandZ.h"
+#include "InverseMatrix4X4f.h"
+#include "DCT.h"
+#include "Absolute.h"
 
 #ifndef PI
 #define PI 3.14159265358979323846f
@@ -78,12 +86,15 @@ namespace qg {
 		    swizzle<qg::Vector2Type, T, 1, 0> yx;
         };
 
-        Vector2Type<T>() {};
-        Vector2Type<T>(const T& _v) : x(_v), y(_v) {};
-        Vector2Type<T>(const T& _x, const T& _y) : x(_x), y(_y) {};
+        Vector2Type<T>() {}
+        Vector2Type<T>(const T& _v) : x(_v), y(_v) {}
+        Vector2Type<T>(const T& _x, const T& _y) : x(_x), y(_y) {}
 
         operator T*() { return data; };
-        operator const T*() const { return static_cast<const T*>(data); };
+        operator const T*() const { return static_cast<const T*>(data); }
+
+        void Set(const T& _v) { x = _v; y = _v; }
+        void Set(const T& _x, const T& _y) { x = _x; y = _y; }
     };
     
     typedef Vector2Type<float> Vector2f;
@@ -110,15 +121,19 @@ namespace qg {
 		    swizzle<qg::Vector3Type, T, 0, 1, 2> rgb;
         };
 
-        Vector3Type<T>() {};
-        Vector3Type<T>(const T& _v) : x(_v), y(_v), z(_v) {};
-        Vector3Type<T>(const T& _x, const T& _y, const T& _z) : x(_x), y(_y), z(_z) {};
+        Vector3Type<T>() {}
+        Vector3Type<T>(const T& _v) : x(_v), y(_v), z(_v) {}
+        Vector3Type<T>(const T& _x, const T& _y, const T& _z) : x(_x), y(_y), z(_z) {}
         
         operator T*() { return data; };
         operator const T*() const { return static_cast<const T*>(data); };
+
+        void Set(const T& _v) { x = _v; y = _v; z=_v; }
+        void Set(const T& _x, const T& _y, const T& _z) { x = _x; y = _y; z = _z; }
     };
 
     typedef Vector3Type<float> Vector3f;
+    typedef Vector3Type<double> Vector3;
     typedef Vector3Type<int16_t> Vector3i16;
     typedef Vector3Type<int32_t> Vector3i32;
 
@@ -148,6 +163,10 @@ namespace qg {
 
         operator T*() { return data; };
         operator const T*() const { return static_cast<const T*>(data); };
+
+        void Set(const T& _v) { x = _v; y = _v; z=_v; w=_v; }
+        void Set(const T& _x, const T& _y, const T& _z, const T& _w) { x = _x; y = _y; z = _z; w = _w; }
+        
         Vector4Type& operator=(const T* f) 
         { 
             for (int32_t i = 0; i < 4; i++)
@@ -216,6 +235,15 @@ namespace qg {
     }
 
     template <template<typename> class TT, typename T>
+    TT<T> operator+(const TT<T>& vec, const T scalar)
+    {
+        TT<T> result(scalar);
+        VectorAdd(result, vec, result);
+
+        return result;
+    }
+
+    template <template<typename> class TT, typename T>
     void VectorSub(TT<T>& result, const TT<T>& vec1, const TT<T>& vec2)
     {
         ispc::SubByElement(vec1, vec2, result, countof(result.data));
@@ -230,6 +258,15 @@ namespace qg {
         return result;
     }
 
+    template <template<typename> class TT, typename T>
+    TT<T> operator-(const TT<T>& vec, const T scalar)
+    {
+        TT<T> result(scalar);
+        VectorSub(result, vec, result);
+
+        return result;
+    }
+
     template <template <typename> class TT, typename T>
     inline void CrossProduct(TT<T>& result, const TT<T>& vec1, const TT<T>& vec2)
     {
@@ -237,7 +274,7 @@ namespace qg {
     }
 
     template <typename T>
-    inline void DotProduct(T& result, const T* a, const T* b, size_t count)
+    inline void DotProduct(T& result, const T* a, const T* b, const size_t count)
     {
         T* _result = new T[count];
 
@@ -258,11 +295,34 @@ namespace qg {
     }
 
     template <typename T>
-    inline void MulByElement(T& result, const T& a, const T& b)
+    inline void MulByElement(T& result, const T& a, const T b)
     {
         ispc::MulByElement(a, b, result, countof(result.data));
     }
 
+    template <template <typename> class TT, typename T>
+    inline void MulByElement(TT<T>& result, const TT<T>& a, const T b)
+    {
+        TT<T> v_b(b);
+        ispc::MulByElement(a, v_b, result, countof(result.data));
+    }
+
+    template <template<typename> class TT, typename T>
+    TT<T> operator*(const TT<T>& vec, const T scalar)
+    {
+        TT<T> result;
+        MulByElement(result, vec, scalar);
+
+        return result;
+    }
+
+    template <template <typename> class TT, typename T>
+    inline T Length(const TT<T>& vec)
+    {
+        T result;
+        DotProduct(result, vec, vec);
+        return static_cast<T>(sqrt(result));
+    }
 
     // Matrix
 
@@ -365,7 +425,6 @@ namespace qg {
         for (int i = 0; i < Da; i++) {
             for (int j = 0; j < Dc; j++) {
                 DotProduct(result[i][j], matrix1[i], matrix2_transpose[j], Db);
-
             }
         }
 
@@ -381,19 +440,59 @@ namespace qg {
         return result;
     }
 
+    template <typename T, int ROWS1, int COLS1, int ROWS2, int COLS2>
+    void Shrink(Matrix<T, ROWS1, COLS1>& matrix1, const Matrix<T, ROWS2, COLS2>& matrix2)
+    {
+        static_assert(ROWS1 < ROWS2, "[Error] Target matrix ROWS must smaller than source matrix ROWS!");
+        static_assert(COLS1 < COLS2, "[Error] Target matrix COLS must smaller than source matrix COLS!");
+
+        const size_t size = sizeof(T) * COLS1;
+        for (int i = 0; i < ROWS1; i++)
+        {
+            std::memcpy(matrix1[i], matrix2[i], size);
+        }
+    }
+
+    template <typename T, int ROWS, int COLS>
+    void Absolute(Matrix<T, ROWS, COLS>& result, const Matrix<T, ROWS, COLS>& matrix)
+    {
+        ispc::Absolute(result, matrix, countof(matrix.data));
+    }
+
     template <template <typename, int, int> class TT, typename T, int ROWS, int COLS>
     inline void Transpose(TT<T, ROWS, COLS>& result, const TT<T, ROWS, COLS>& matrix1)
     {
         ispc::Transpose(matrix1, result, ROWS, COLS);
     }
 
+    template <template <typename, int, int> class M, typename T, int ROWS, int COLS>
+    inline void DotProduct3(Vector3Type<T>& result, Vector3Type<T>& source, const M<T, ROWS, COLS>& matrix)
+    {
+        static_assert(ROWS >= 3, "[Error] Only 3x3 and above matrix can be passed to this method!");
+        static_assert(COLS >= 3, "[Error] Only 3x3 and above matrix can be passed to this method!");
+        Vector3Type<T> basis[3] = {{matrix[0][0], matrix[1][0], matrix[2][0]}, 
+                         {matrix[0][1], matrix[1][1], matrix[2][1]},
+                         {matrix[0][2], matrix[1][2], matrix[2][2]},
+                        };
+        DotProduct(result.x, source, basis[0]);
+        DotProduct(result.y, source, basis[1]);
+        DotProduct(result.z, source, basis[2]);
+    }
+
+    template <template <typename, int, int> class M, typename T, int ROWS, int COLS>
+    inline void GetOrigin(Vector3Type<T>& result, const M<T, ROWS, COLS>& matrix)
+    {
+        static_assert(ROWS >= 3, "[Error] Only 3x3 and above matrix can be passed to this method!");
+        static_assert(COLS >= 3, "[Error] Only 3x3 and above matrix can be passed to this method!");
+        result = {matrix[3][0], matrix[3][1], matrix[3][2]}; 
+    }
     template <template <typename> class TT, typename T>
     inline void Normalize(TT<T>& a)
     {
         T length;
         DotProduct(length, static_cast<T*>(a), static_cast<T*>(a), countof(a.data));
         length = sqrt(length);
-        ispc::Normalize(a, length, countof(a.data));
+        ispc::Normalize(countof(a.data), a, length);
     }
 
     inline void MatrixRotationYawPitchRoll(Matrix4X4f& matrix, const float yaw, const float pitch, const float roll)
@@ -425,7 +524,9 @@ namespace qg {
 
     inline void TransformCoord(Vector3f& vector, const Matrix4X4f& matrix)
     {
-        ispc::Transform(vector, matrix);
+		Vector4f tmp (vector, 1.0f);
+        ispc::Transform(tmp, matrix);
+		vector.xyz = tmp.xyz;
     }
 
     inline void Transform(Vector4f& vector, const Matrix4X4f& matrix)
@@ -638,4 +739,76 @@ namespace qg {
         ispc::IDCT8X8(matrix, result);
         return result;
     }
+
+    typedef Vector3Type<float> Point;
+    typedef std::shared_ptr<Point> PointPtr;
+    typedef std::unordered_set<PointPtr> PointSet;
+    typedef std::vector<PointPtr> PointList;
+    typedef std::pair<PointPtr, PointPtr> Edge;
+    inline bool operator==(const Edge& a, const Edge& b)
+    {
+        return (a.first == b.first && a.second == b.second) || (a.first == b.second && a.second == b.first);
+    }
+    typedef std::shared_ptr<Edge> EdgePtr;
+    inline bool operator==(const EdgePtr& a, const EdgePtr& b)
+    {
+        return (a->first == b->first && a->second == b->second) || (a->first == b->second && a->second == b->first);
+    }
+    typedef std::unordered_set<EdgePtr> EdgeSet;
+    typedef std::vector<EdgePtr> EdgeList;
+    struct Face {
+        EdgeList    Edges;
+        Vector3f    Normal;
+        PointList GetVertices() const 
+        {
+            PointList vertices;
+            for (auto edge : Edges)
+            {
+                vertices.push_back(edge->first);
+            }
+
+            return vertices;
+        }
+    };
+    typedef std::shared_ptr<Face> FacePtr;
+    typedef std::unordered_set<FacePtr> FaceSet;
+    typedef std::vector<FacePtr> FaceList;
+
+    inline bool isPointAbovePlane(const PointList& vertices, const Point& point)
+    {
+        auto count = vertices.size();
+        assert(count > 2);
+        auto ab = *vertices[1] - *vertices[0];
+        auto ac = *vertices[2] - *vertices[0];
+        Vector3f normal;
+        float cos_theta;
+        CrossProduct(normal, ab, ac);
+        auto dir = point - *vertices[0];
+        DotProduct(cos_theta, normal, dir);
+
+        return cos_theta > 0;
+    }
+
+    inline bool isPointAbovePlane(const FacePtr& pface, const Point& point)
+    {
+        assert(pface->Edges.size() > 2);
+        PointList vertices = {pface->Edges[0]->first, pface->Edges[1]->first, pface->Edges[2]->first};
+        return isPointAbovePlane(vertices, point);
+    }
+
+    inline float PointToPlaneDistance(const PointList& vertices, const PointPtr& point_ptr)
+    {
+        Vector3f normal;
+        float distance;
+        auto A = vertices[0];
+        auto B = vertices[1];
+        auto C = vertices[2];
+        CrossProduct(normal, *B - *A, *C - *A);
+        Normalize(normal);
+        DotProduct(distance, normal, *point_ptr - *A);
+        distance = std::abs(distance);
+
+        return distance;
+    }
+
 }
