@@ -16,3 +16,6 @@
 [submodule "external/src/llvm"]
 	path = external/src/llvm
 	url = git@github.com:llvm/llvm-project.git
+[submodule "external/src/bullet"]
+	path = external/src/bullet
+	url = git@github.com:bulletphysics/bullet3.git
