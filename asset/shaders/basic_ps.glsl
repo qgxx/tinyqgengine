@@ -46,7 +46,7 @@ void main(void)
     // vertex normal
     vec3 N = normalize(normal.xyz);
 
-    vec3 L = normalize((viewMatrix * vec4(lightPosition, 1.0f)).xyz - v.xyz);
+    vec3 L = normalize((viewMatrix * worldMatrix * vec4(lightPosition, 1.0f)).xyz - v.xyz);
     vec3 R = normalize(2.0f * clamp(dot(L,N), 0.0f, 1.0f) * N - L);
     vec3 V = normalize(v.xyz);
     /*
@@ -56,7 +56,7 @@ void main(void)
     }
     */
     if (usingDiffuseMap)
-        outputColor = vec4(ambientColor.rgb + lightColor.rgb * texture(diffuseMap, uv).rgb * clamp(dot(N, L), 0.0f, 1.0f) + specularColor.rgb * pow(clamp(dot(R, V), 0.0f, 1.0f), specularPower), 1.0f); 
+        outputColor = vec4(ambientColor.rgb + lightColor.rgb * (texture(diffuseMap, uv).rgb * clamp(dot(N, L), 0.0f, 1.0f) + specularColor.rgb * pow(clamp(dot(R, V), 0.0f, 1.0f), specularPower)), 1.0f); 
     else
-        outputColor = vec4(ambientColor.rgb + lightColor.rgb * diffuseColor.rgb * clamp(dot(N, L), 0.0f, 1.0f) + specularColor.rgb * pow(clamp(dot(R,V), 0.0f, 1.0f), specularPower), 1.0f); 
+        outputColor = vec4(ambientColor.rgb + lightColor.rgb * (diffuseColor.rgb * clamp(dot(N, L), 0.0f, 1.0f) + specularColor.rgb * pow(clamp(dot(R,V), 0.0f, 1.0f), specularPower)), 1.0f); 
 }
