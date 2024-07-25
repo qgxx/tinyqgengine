@@ -1,9 +1,8 @@
 @echo off
-git submodule update --init external\src\crossguid
-mkdir external\build\crossguid
-pushd external\build\crossguid
+git submodule update --init External\src\crossguid
+mkdir External\build\crossguid
+pushd External\build\crossguid
 rm -rf *
-cmake -DCMAKE_INSTALL_PREFIX=..\..\Windows -G "Visual Studio 17 2022" -Thost=x64 ..\..\src\crossguid
+cmake -DCMAKE_INSTALL_PREFIX=..\..\ -G "Visual Studio 17 2022" -Thost=x64 ..\..\src\crossguid
 cmake --build . --config debug --target install
 popd
-copy external\build\crossguid\Debug\xg.lib external\Windows\lib

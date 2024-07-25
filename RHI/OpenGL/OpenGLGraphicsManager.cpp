@@ -11,11 +11,11 @@ using namespace std;
 
 extern struct gladGLversionStruct GLVersion;
 
-const char VS_SHADER_SOURCE_FILE[] = "shaders/basic_vs.glsl";
-const char PS_SHADER_SOURCE_FILE[] = "shaders/basic_ps.glsl";
+const char VS_SHADER_SOURCE_FILE[] = "Shaders/basic_vs.glsl";
+const char PS_SHADER_SOURCE_FILE[] = "Shaders/basic_ps.glsl";
 #ifdef DEBUG
-const char DEBUG_VS_SHADER_SOURCE_FILE[] = "shaders/debug_vs.glsl";
-const char DEBUG_PS_SHADER_SOURCE_FILE[] = "shaders/debug_ps.glsl";
+const char DEBUG_VS_SHADER_SOURCE_FILE[] = "Shaders/debug_vs.glsl";
+const char DEBUG_PS_SHADER_SOURCE_FILE[] = "Shaders/debug_ps.glsl";
 #endif
 
 namespace qg {
@@ -135,6 +135,9 @@ int OpenGLGraphicsManager::Initialize()
 
             glEnable(GL_PROGRAM_POINT_SIZE);
         }
+
+        auto config = g_pApp->GetConfiguration();
+        glViewport(0, 0, config.screenWidth, config.screenHeight);
     }
 
     return result;
@@ -289,8 +292,8 @@ void OpenGLGraphicsManager::InitializeBuffers(const Scene& scene)
     // Geometries
     for (auto _it : scene.GeometryNodes)
     {
-        auto pGeometryNode = _it.second;
-        if (pGeometryNode->Visible()) 
+        auto pGeometryNode = _it.second.lock();
+        if (pGeometryNode && pGeometryNode->Visible()) 
         {
             auto pGeometry = scene.GetGeometry(pGeometryNode->GetSceneObjectRef());
             assert(pGeometry);
@@ -309,7 +312,7 @@ void OpenGLGraphicsManager::InitializeBuffers(const Scene& scene)
 
             GLuint buffer_id;
 
-            for (int32_t i = 0; i < vertexPropertiesCount; i++)
+            for (uint32_t i = 0; i < vertexPropertiesCount; i++)
             {
                 const SceneObjectVertexArray& v_property_array = pMesh->GetVertexPropertyArray(i);
                 auto v_property_array_data_size = v_property_array.GetDataSize();
@@ -544,7 +547,7 @@ void OpenGLGraphicsManager::RenderBuffers()
             }
             else
             {
-                SetPerBatchShaderParameters(m_shaderProgram, "diffuseColor", color.Value.rgb);
+                SetPerBatchShaderParameters(m_shaderProgram, "diffuseColor", Vector3f({color.Value[0], color.Value[1], color.Value[2]}));
             }
 
             Normal normal = dbc.material->GetNormal();
@@ -555,7 +558,7 @@ void OpenGLGraphicsManager::RenderBuffers()
             }
 
             color = dbc.material->GetSpecularColor();
-            SetPerBatchShaderParameters(m_shaderProgram, "specularColor", color.Value.rgb);
+            SetPerBatchShaderParameters(m_shaderProgram, "specularColor", Vector3f({color.Value[0], color.Value[1], color.Value[2]}));
 
             Parameter param = dbc.material->GetSpecularPower();
             SetPerBatchShaderParameters(m_shaderProgram, "specularPower", param.Value);
@@ -817,7 +820,7 @@ void OpenGLGraphicsManager::DrawPoints(const Point* buffer, const size_t count, 
     DebugDrawBatchContext& dbc = *(new DebugDrawBatchContext);
     dbc.vao     = vao;
     dbc.mode    = GL_POINTS;
-    dbc.count   = count;
+    dbc.count   = static_cast<GLsizei>(count);
     dbc.color   = color;
     dbc.trans   = trans;
 
@@ -854,9 +857,9 @@ void OpenGLGraphicsManager::DrawLine(const PointList& vertices, const Matrix4X4f
 
     for (auto i = 0; i < count; i++)
     {
-        _vertices[3 * i] = vertices[i]->x;
-        _vertices[3 * i + 1] = vertices[i]->y;
-        _vertices[3 * i + 2] = vertices[i]->z;
+        _vertices[3 * i] = vertices[i]->data[0];
+        _vertices[3 * i + 1] = vertices[i]->data[1];
+        _vertices[3 * i + 2] = vertices[i]->data[2];
     }
 
     GLuint vao;
@@ -885,7 +888,7 @@ void OpenGLGraphicsManager::DrawLine(const PointList& vertices, const Matrix4X4f
     DebugDrawBatchContext& dbc = *(new DebugDrawBatchContext);
     dbc.vao     = vao;
     dbc.mode    = GL_LINES;
-    dbc.count   = count;
+    dbc.count   = static_cast<GLsizei>(count);
     dbc.color   = color;
     dbc.trans   = trans;
 
@@ -952,7 +955,7 @@ void OpenGLGraphicsManager::DrawTriangle(const PointList& vertices, const Matrix
     DebugDrawBatchContext& dbc = *(new DebugDrawBatchContext);
     dbc.vao     = vao;
     dbc.mode    = GL_TRIANGLES;
-    dbc.count   = vertices.size();
+    dbc.count   = static_cast<GLsizei>(vertices.size());
     dbc.color   = color;
     dbc.trans   = trans;
 
@@ -994,7 +997,7 @@ void OpenGLGraphicsManager::DrawTriangleStrip(const PointList& vertices, const V
     DebugDrawBatchContext& dbc = *(new DebugDrawBatchContext);
     dbc.vao     = vao;
     dbc.mode    = GL_TRIANGLE_STRIP;
-    dbc.count   = vertices.size();
+    dbc.count   = static_cast<GLsizei>(vertices.size());
     dbc.color   = color * 0.5f;
 
     m_DebugDrawBatchContext.push_back(std::move(dbc));

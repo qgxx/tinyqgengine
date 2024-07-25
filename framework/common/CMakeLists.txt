@@ -1,4 +1,5 @@
 add_library(Common
+AnimationManager.cpp
 Allocator.cpp
 AssetLoader.cpp
 BaseApplication.cpp
@@ -10,6 +11,9 @@ MemoryManager.cpp
 Scene.cpp
 SceneManager.cpp
 SceneObject.cpp
+SceneObjectAnimation.cpp
+SceneObjectMesh.cpp
+SceneObjectTrack.cpp
 main.cpp
 )
 target_link_libraries(Common 

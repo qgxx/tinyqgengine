@@ -1,3 +1,4 @@
+
 uniform const float one_over_four = 1.0f / 4.0f;
 uniform const float PI_over_sixteen = PI / 16.0f;
 

@@ -8,6 +8,7 @@
 #include "IPhysicsManager.hpp"
 #include "IGameLogic.hpp"
 #include "DebugManager.hpp"
+#include "AnimationManager.hpp"
 
 namespace qg {
     class BaseApplication : implements IApplication
@@ -26,8 +27,6 @@ namespace qg {
         bool IsQuit() const;
 
         inline const GfxConfiguration& GetConfiguration() const { return m_Config; };
-
-        void OnDraw() {};
 
     protected:
         // Flag if need quit the main loop of the application

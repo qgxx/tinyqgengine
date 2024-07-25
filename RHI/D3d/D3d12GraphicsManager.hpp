@@ -74,21 +74,23 @@ namespace qg {
 
         std::vector<ID3D12Resource*>    m_Buffers;                          // the pointer to the vertex buffer
         std::vector<ID3D12Resource*>    m_Textures;                          // the pointer to the vertex buffer
-        std::map<std::string, int32_t>  m_TextureIndex;
+        std::map<std::string, size_t>  m_TextureIndex;
         std::vector<D3D12_VERTEX_BUFFER_VIEW>       m_VertexBufferView;                 // a view of the vertex buffer
         std::vector<D3D12_INDEX_BUFFER_VIEW>        m_IndexBufferView;                  // a view of the vertex buffer
 
         struct PerBatchConstants
         {
             Matrix4X4f objectMatrix;
-            Vector4f   ambientColor;
             Vector4f   diffuseColor;
             Vector4f   specularColor;
             float specularPower;
+	        bool usingDiffuseMap;
+	        bool usingNormalMap;
         };
 
         struct DrawBatchContext {
-            int32_t count;
+            uint32_t index_count;
+            uint32_t property_count;
             std::shared_ptr<SceneGeometryNode> node;
             std::shared_ptr<SceneObjectMaterial> material;
         };

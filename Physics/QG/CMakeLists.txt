@@ -1,1 +1,3 @@
 add_library(QGPhysics QGPhysicsManager.cpp)
+target_include_directories(QGPhysics PUBLIC GeomMath)
+target_link_libraries(QGPhysics GeomMath)

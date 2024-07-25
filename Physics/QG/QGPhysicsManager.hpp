@@ -3,7 +3,7 @@
 #include "Geometry.hpp"
 
 namespace qg {
-    class QGPhysicsManager : public IPhysicsManager
+    class qgPhysicsManager : public IPhysicsManager
     {
     public:
         int Initialize();
@@ -20,6 +20,8 @@ namespace qg {
         void UpdateRigidBodyTransform(SceneGeometryNode& node);
 
         void ApplyCentralForce(void* rigidBody, Vector3f force);
+
+        void IterateConvexHull();
 
 #ifdef DEBUG
 	    void DrawDebugInfo();
