@@ -12,7 +12,7 @@ endif(${CMAKE_HOST_SYSTEM_NAME} MATCHES FreeBSD)
 add_library(PlatformInterface
                 XcbApplication.cpp 
                 OpenGLApplication.cpp
-	            ${PROJECT_SOURCE_DIR}/external/src/glad/src/glad_glx.c
+	            ${PROJECT_SOURCE_DIR}/External/src/glad/src/glad_glx.c
 )
 target_link_libraries(PlatformInterface
         ${XCB_LIBRARY} 
@@ -21,7 +21,9 @@ target_link_libraries(PlatformInterface
         ${OPENGL_LIBRARY} 
         ${DL_LIBRARY}
 )
-target_include_directories(PlatformInterface PRIVATE "${PROJECT_SOURCE_DIR}/external/src/glad/include")
+target_include_directories(PlatformInterface PRIVATE "${PROJECT_SOURCE_DIR}/External/src/glad/include")
+target_include_directories(PlatformInterface PUBLIC GeomMath)
+target_link_libraries(PlatformInterface GeomMath)
 
 add_library(MyGameEngine
                 OpenGLApplicationConfig.cpp
@@ -31,4 +33,4 @@ target_link_libraries(MyGameEngine
                         OpenGLRHI 
                         PlatformInterface
 )
-target_include_directories(MyGameEngine PRIVATE "${PROJECT_SOURCE_DIR}/external/src/glad/include")
+target_include_directories(MyGameEngine PRIVATE "${PROJECT_SOURCE_DIR}/External/src/glad/include")

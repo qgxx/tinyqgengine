@@ -1,3 +1,4 @@
+
 #include <xcb/xcb.h>
 #include "BaseApplication.hpp"
 

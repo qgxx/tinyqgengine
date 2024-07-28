@@ -12,9 +12,6 @@ namespace qg {
         virtual void Finalize();
         virtual void Tick();
 
-    protected:
-        virtual void OnDraw();
-
     private:
         Display *m_pDisplay;
         GLXContext m_Context;

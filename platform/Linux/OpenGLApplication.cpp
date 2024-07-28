@@ -270,11 +270,5 @@ void qg::OpenGLApplication::Finalize()
 void qg::OpenGLApplication::Tick()
 {
     XcbApplication::Tick();
-}
-
-void qg::OpenGLApplication::OnDraw()
-{
-    g_pGraphicsManager->Clear();
-    g_pGraphicsManager->Draw();
     glXSwapBuffers(m_pDisplay, m_Drawable);
 }
