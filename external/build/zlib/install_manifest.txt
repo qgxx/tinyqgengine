@@ -1,5 +1,5 @@
-D:/qgxx_workspace/tinyqgengine/external/Windows/lib/zlib.lib
-D:/qgxx_workspace/tinyqgengine/external/Windows/include/zconf.h
-D:/qgxx_workspace/tinyqgengine/external/Windows/include/zlib.h
-D:/qgxx_workspace/tinyqgengine/external/Windows/share/man/man3/zlib.3
-D:/qgxx_workspace/tinyqgengine/external/Windows/share/pkgconfig/zlib.pc
+D:/qgxx_workspace/tinyqgengine/External/Windows/lib/zlib.lib
+D:/qgxx_workspace/tinyqgengine/External/Windows/include/zconf.h
+D:/qgxx_workspace/tinyqgengine/External/Windows/include/zlib.h
+D:/qgxx_workspace/tinyqgengine/External/Windows/share/man/man3/zlib.3
+D:/qgxx_workspace/tinyqgengine/External/Windows/share/pkgconfig/zlib.pc

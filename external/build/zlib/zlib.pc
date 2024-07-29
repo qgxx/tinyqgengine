@@ -1,8 +1,8 @@
-prefix=D:/qgxx_workspace/tinyqgengine/external
-exec_prefix=D:/qgxx_workspace/tinyqgengine/external
-libdir=D:/qgxx_workspace/tinyqgengine/external/Windows/lib
-sharedlibdir=D:/qgxx_workspace/tinyqgengine/external/Windows/lib
-includedir=D:/qgxx_workspace/tinyqgengine/external/Windows/include
+prefix=D:/qgxx_workspace/tinyqgengine/External
+exec_prefix=D:/qgxx_workspace/tinyqgengine/External
+libdir=D:/qgxx_workspace/tinyqgengine/External/Windows/lib
+sharedlibdir=D:/qgxx_workspace/tinyqgengine/External/Windows/lib
+includedir=D:/qgxx_workspace/tinyqgengine/External/Windows/include
 
 Name: zlib
 Description: zlib compression library

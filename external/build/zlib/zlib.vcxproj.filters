@@ -1,96 +1,96 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\adler32.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\adler32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\compress.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\compress.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\crc32.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\crc32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\deflate.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\deflate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzclose.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\gzclose.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzlib.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\gzlib.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzread.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\gzread.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzwrite.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\gzwrite.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inflate.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inflate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\infback.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\infback.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inftrees.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inftrees.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inffast.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inffast.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\trees.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\trees.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\uncompr.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\uncompr.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\zutil.c">
+    <ClCompile Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\zutil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\build\zlib\zconf.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\build\zlib\zconf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\zlib.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\crc32.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\crc32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\deflate.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\deflate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\gzguts.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\gzguts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inffast.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inffast.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inffixed.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inffixed.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inflate.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inflate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\inftrees.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\inftrees.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\trees.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\trees.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\zutil.h">
+    <ClInclude Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\zutil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\qgxx_workspace\tinyqgengine\external\src\zlib\CMakeLists.txt" />
+    <CustomBuild Include="D:\qgxx_workspace\tinyqgengine\External\src\zlib\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{C07DA6FF-6AB4-35F1-97C1-488BDD23DC15}</UniqueIdentifier>
+      <UniqueIdentifier>{0F60FAA0-3C86-323E-8AC7-284A8D8CE5E2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{735667FB-2790-3F78-B465-6597FBA9D89B}</UniqueIdentifier>
+      <UniqueIdentifier>{77514270-3AC2-3C37-9568-8951EFC8296D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

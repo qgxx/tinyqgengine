@@ -1,8 +1,8 @@
-# Install script for directory: D:/qgxx_workspace/tinyqgengine/external/src/zlib
+# Install script for directory: D:/qgxx_workspace/tinyqgengine/External/src/zlib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/qgxx_workspace/tinyqgengine/external")
+  set(CMAKE_INSTALL_PREFIX "D:/qgxx_workspace/tinyqgengine/External")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -35,84 +35,84 @@ endif()
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/qgxx_workspace/tinyqgengine/external/Windows/lib/zlibd.lib")
+     "D:/qgxx_workspace/tinyqgengine/External/Windows/lib/zlibd.lib")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/external/build/zlib/Debug/zlibd.lib")
+    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/External/build/zlib/Debug/zlibd.lib")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/qgxx_workspace/tinyqgengine/external/Windows/lib/zlib.lib")
+     "D:/qgxx_workspace/tinyqgengine/External/Windows/lib/zlib.lib")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/external/build/zlib/Release/zlib.lib")
+    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/External/build/zlib/Release/zlib.lib")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/qgxx_workspace/tinyqgengine/external/Windows/lib/zlib.lib")
+     "D:/qgxx_workspace/tinyqgengine/External/Windows/lib/zlib.lib")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/external/build/zlib/MinSizeRel/zlib.lib")
+    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/External/build/zlib/MinSizeRel/zlib.lib")
   elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-     "D:/qgxx_workspace/tinyqgengine/external/Windows/lib/zlib.lib")
+     "D:/qgxx_workspace/tinyqgengine/External/Windows/lib/zlib.lib")
     if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/external/build/zlib/RelWithDebInfo/zlib.lib")
+    file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/lib" TYPE STATIC_LIBRARY FILES "D:/qgxx_workspace/tinyqgengine/External/build/zlib/RelWithDebInfo/zlib.lib")
   endif()
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "D:/qgxx_workspace/tinyqgengine/external/Windows/include/zconf.h;D:/qgxx_workspace/tinyqgengine/external/Windows/include/zlib.h")
+   "D:/qgxx_workspace/tinyqgengine/External/Windows/include/zconf.h;D:/qgxx_workspace/tinyqgengine/External/Windows/include/zlib.h")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/include" TYPE FILE FILES
-    "D:/qgxx_workspace/tinyqgengine/external/build/zlib/zconf.h"
-    "D:/qgxx_workspace/tinyqgengine/external/src/zlib/zlib.h"
+  file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/include" TYPE FILE FILES
+    "D:/qgxx_workspace/tinyqgengine/External/build/zlib/zconf.h"
+    "D:/qgxx_workspace/tinyqgengine/External/src/zlib/zlib.h"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "D:/qgxx_workspace/tinyqgengine/external/Windows/share/man/man3/zlib.3")
+   "D:/qgxx_workspace/tinyqgengine/External/Windows/share/man/man3/zlib.3")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/share/man/man3" TYPE FILE FILES "D:/qgxx_workspace/tinyqgengine/external/src/zlib/zlib.3")
+  file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/share/man/man3" TYPE FILE FILES "D:/qgxx_workspace/tinyqgengine/External/src/zlib/zlib.3")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "D:/qgxx_workspace/tinyqgengine/external/Windows/share/pkgconfig/zlib.pc")
+   "D:/qgxx_workspace/tinyqgengine/External/Windows/share/pkgconfig/zlib.pc")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/external/Windows/share/pkgconfig" TYPE FILE FILES "D:/qgxx_workspace/tinyqgengine/external/build/zlib/zlib.pc")
+  file(INSTALL DESTINATION "D:/qgxx_workspace/tinyqgengine/External/Windows/share/pkgconfig" TYPE FILE FILES "D:/qgxx_workspace/tinyqgengine/External/build/zlib/zlib.pc")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -123,5 +123,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/qgxx_workspace/tinyqgengine/external/build/zlib/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/qgxx_workspace/tinyqgengine/External/build/zlib/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

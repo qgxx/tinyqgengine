@@ -2,13 +2,13 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\qgxx_workspace\tinyqgengine\external\build\zlib\x64\release\ZERO_CHECK</FullPath>
+      <FullPath>D:\qgxx_workspace\tinyqgengine\External\build\zlib\x64\release\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\qgxx_workspace\tinyqgengine\external\build\zlib\x64\release\ALL_BUILD</FullPath>
+      <FullPath>D:\qgxx_workspace\tinyqgengine\External\build\zlib\x64\release\ALL_BUILD</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\qgxx_workspace\tinyqgengine\external\build\zlib\x64\release\INSTALL</FullPath>
+      <FullPath>D:\qgxx_workspace\tinyqgengine\External\build\zlib\x64\release\INSTALL</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

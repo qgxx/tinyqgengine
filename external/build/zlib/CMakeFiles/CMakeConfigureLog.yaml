@@ -24,9 +24,9 @@ events:
       The output was:
       0
       适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-      生成启动时间为 2024/7/22 13:07:14。
+      生成启动时间为 2024/7/29 2:37:34。
       
-      节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj”(默认目标)。
+      节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj”(默认目标)。
       PrepareForBuild:
         正在创建目录“Debug\\”。
         已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
@@ -42,13 +42,13 @@ events:
         CMakeCCompilerId.c
       Link:
         C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
-        CompilerIdC.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe
+        CompilerIdC.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe
       AppLocalFromInstalled:
-        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
         'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
         或批处理文件。
-        命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+        命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
       PostBuildEvent:
         for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
         :VCEnd
@@ -56,13 +56,13 @@ events:
       FinalizeBuildStatus:
         正在删除文件“Debug\\CompilerIdC.tlog\\unsuccessfulbuild”。
         正在对“Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate”执行 Touch 任务。
-      已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj”(默认目标)的操作。
+      已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj”(默认目标)的操作。
       
       已成功生成。
           0 个警告
           0 个错误
       
-      已用时间 00:00:01.25
+      已用时间 00:00:01.44
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -70,7 +70,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
       
       The C compiler identification is MSVC, found in:
-        D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/3.27.7/CompilerIdC/CompilerIdC.exe
+        D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/3.27.7/CompilerIdC/CompilerIdC.exe
       
   -
     kind: "try_compile-v1"
@@ -81,57 +81,57 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-gbv8qq"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-gbv8qq"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nev0jn"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nev0jn"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-gbv8qq'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nev0jn'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_979c4.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a7a21.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:16。
+        生成启动时间为 2024/7/29 2:37:36。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\cmTC_979c4.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\cmTC_a7a21.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_979c4.dir\\Debug\\”。
+          正在创建目录“cmTC_a7a21.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\Debug\\”。
-          正在创建目录“cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\Debug\\”。
+          正在创建目录“cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_979c4.dir\\Debug\\\\" /Fd"cmTC_979c4.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a7a21.dir\\Debug\\\\" /Fd"cmTC_a7a21.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_979c4.dir\\Debug\\\\" /Fd"cmTC_979c4.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a7a21.dir\\Debug\\\\" /Fd"cmTC_a7a21.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\cmake-3.27.7-windows-x86_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\Debug\\cmTC_979c4.exe" /INCREMENTAL /ILK:"cmTC_979c4.dir\\Debug\\cmTC_979c4.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-gbv8qq/Debug/cmTC_979c4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-gbv8qq/Debug/cmTC_979c4.lib" /MACHINE:X64  /machine:x64 cmTC_979c4.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_979c4.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\Debug\\cmTC_979c4.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\Debug\\cmTC_a7a21.exe" /INCREMENTAL /ILK:"cmTC_a7a21.dir\\Debug\\cmTC_a7a21.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nev0jn/Debug/cmTC_a7a21.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nev0jn/Debug/cmTC_a7a21.lib" /MACHINE:X64  /machine:x64 cmTC_a7a21.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_a7a21.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\Debug\\cmTC_a7a21.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\Debug\\cmTC_979c4.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\cmTC_979c4.write.1u.tlog" "cmTC_979c4.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\Debug\\cmTC_a7a21.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\cmTC_a7a21.write.1u.tlog" "cmTC_a7a21.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
           或批处理文件。
-          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\Debug\\cmTC_979c4.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\cmTC_979c4.write.1u.tlog" "cmTC_979c4.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\Debug\\cmTC_979c4.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\cmTC_979c4.write.1u.tlog" "cmTC_979c4.dir\\Debug\\vcpkg.applocal.log"
+          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\Debug\\cmTC_a7a21.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\cmTC_a7a21.write.1u.tlog" "cmTC_a7a21.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\Debug\\cmTC_a7a21.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\cmTC_a7a21.write.1u.tlog" "cmTC_a7a21.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          正在删除文件“cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\unsuccessfulbuild”。
-          正在对“cmTC_979c4.dir\\Debug\\cmTC_979c4.tlog\\cmTC_979c4.lastbuildstate”执行 Touch 任务。
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-gbv8qq\\cmTC_979c4.vcxproj”(默认目标)的操作。
+          正在删除文件“cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\unsuccessfulbuild”。
+          正在对“cmTC_a7a21.dir\\Debug\\cmTC_a7a21.tlog\\cmTC_a7a21.lastbuildstate”执行 Touch 任务。
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nev0jn\\cmTC_a7a21.vcxproj”(默认目标)的操作。
         
         已成功生成。
             0 个警告
             0 个错误
         
-        已用时间 00:00:00.87
+        已用时间 00:00:01.10
         
       exitCode: 0
   -
@@ -142,63 +142,63 @@ events:
     checks:
       - "Looking for sys/types.h"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-pnod6x"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-pnod6x"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-qcf8zt"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-qcf8zt"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -v"
     buildResult:
       variable: "HAVE_SYS_TYPES_H"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-pnod6x'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-qcf8zt'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_5c8be.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_bcc39.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:17。
+        生成启动时间为 2024/7/29 2:37:37。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\cmTC_5c8be.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\cmTC_bcc39.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_5c8be.dir\\Debug\\”。
+          正在创建目录“cmTC_bcc39.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\Debug\\”。
-          正在创建目录“cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\Debug\\”。
+          正在创建目录“cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_5c8be.dir\\Debug\\\\" /Fd"cmTC_5c8be.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\CheckIncludeFile.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_bcc39.dir\\Debug\\\\" /Fd"cmTC_bcc39.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\CheckIncludeFile.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_5c8be.dir\\Debug\\\\" /Fd"cmTC_5c8be.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\CheckIncludeFile.c"
-        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\cmTC_5c8be.vcxproj]
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_bcc39.dir\\Debug\\\\" /Fd"cmTC_bcc39.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\CheckIncludeFile.c"
+        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\cmTC_bcc39.vcxproj]
           CheckIncludeFile.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\Debug\\cmTC_5c8be.exe" /INCREMENTAL /ILK:"cmTC_5c8be.dir\\Debug\\cmTC_5c8be.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-pnod6x/Debug/cmTC_5c8be.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-pnod6x/Debug/cmTC_5c8be.lib" /MACHINE:X64  /machine:x64 cmTC_5c8be.dir\\Debug\\CheckIncludeFile.obj
-          cmTC_5c8be.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\Debug\\cmTC_5c8be.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\Debug\\cmTC_bcc39.exe" /INCREMENTAL /ILK:"cmTC_bcc39.dir\\Debug\\cmTC_bcc39.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-qcf8zt/Debug/cmTC_bcc39.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-qcf8zt/Debug/cmTC_bcc39.lib" /MACHINE:X64  /machine:x64 cmTC_bcc39.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_bcc39.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\Debug\\cmTC_bcc39.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\Debug\\cmTC_5c8be.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\cmTC_5c8be.write.1u.tlog" "cmTC_5c8be.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\Debug\\cmTC_bcc39.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\cmTC_bcc39.write.1u.tlog" "cmTC_bcc39.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
           或批处理文件。
-          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\Debug\\cmTC_5c8be.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\cmTC_5c8be.write.1u.tlog" "cmTC_5c8be.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\Debug\\cmTC_5c8be.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\cmTC_5c8be.write.1u.tlog" "cmTC_5c8be.dir\\Debug\\vcpkg.applocal.log"
+          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\Debug\\cmTC_bcc39.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\cmTC_bcc39.write.1u.tlog" "cmTC_bcc39.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\Debug\\cmTC_bcc39.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\cmTC_bcc39.write.1u.tlog" "cmTC_bcc39.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          正在删除文件“cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\unsuccessfulbuild”。
-          正在对“cmTC_5c8be.dir\\Debug\\cmTC_5c8be.tlog\\cmTC_5c8be.lastbuildstate”执行 Touch 任务。
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\cmTC_5c8be.vcxproj”(默认目标)的操作。
+          正在删除文件“cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\unsuccessfulbuild”。
+          正在对“cmTC_bcc39.dir\\Debug\\cmTC_bcc39.tlog\\cmTC_bcc39.lastbuildstate”执行 Touch 任务。
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\cmTC_bcc39.vcxproj”(默认目标)的操作。
         
         已成功生成。
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\cmTC_5c8be.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\cmTC_bcc39.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-pnod6x\\cmTC_5c8be.vcxproj]
+          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-qcf8zt\\cmTC_bcc39.vcxproj]
         
             1 个警告
             0 个错误
         
-        已用时间 00:00:00.84
+        已用时间 00:00:01.02
         
       exitCode: 0
   -
@@ -209,63 +209,63 @@ events:
     checks:
       - "Looking for stdint.h"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-too262"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-too262"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-tiopkq"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-tiopkq"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -v"
     buildResult:
       variable: "HAVE_STDINT_H"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-too262'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-tiopkq'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_12e01.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_327d0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:18。
+        生成启动时间为 2024/7/29 2:37:38。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\cmTC_12e01.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\cmTC_327d0.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_12e01.dir\\Debug\\”。
+          正在创建目录“cmTC_327d0.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\Debug\\”。
-          正在创建目录“cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\Debug\\”。
+          正在创建目录“cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_12e01.dir\\Debug\\\\" /Fd"cmTC_12e01.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\CheckIncludeFile.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_327d0.dir\\Debug\\\\" /Fd"cmTC_327d0.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\CheckIncludeFile.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_12e01.dir\\Debug\\\\" /Fd"cmTC_12e01.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\CheckIncludeFile.c"
-        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\cmTC_12e01.vcxproj]
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_327d0.dir\\Debug\\\\" /Fd"cmTC_327d0.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\CheckIncludeFile.c"
+        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\cmTC_327d0.vcxproj]
           CheckIncludeFile.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\Debug\\cmTC_12e01.exe" /INCREMENTAL /ILK:"cmTC_12e01.dir\\Debug\\cmTC_12e01.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-too262/Debug/cmTC_12e01.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-too262/Debug/cmTC_12e01.lib" /MACHINE:X64  /machine:x64 cmTC_12e01.dir\\Debug\\CheckIncludeFile.obj
-          cmTC_12e01.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\Debug\\cmTC_12e01.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\Debug\\cmTC_327d0.exe" /INCREMENTAL /ILK:"cmTC_327d0.dir\\Debug\\cmTC_327d0.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-tiopkq/Debug/cmTC_327d0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-tiopkq/Debug/cmTC_327d0.lib" /MACHINE:X64  /machine:x64 cmTC_327d0.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_327d0.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\Debug\\cmTC_327d0.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\Debug\\cmTC_12e01.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\cmTC_12e01.write.1u.tlog" "cmTC_12e01.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\Debug\\cmTC_327d0.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\cmTC_327d0.write.1u.tlog" "cmTC_327d0.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
           或批处理文件。
-          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\Debug\\cmTC_12e01.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\cmTC_12e01.write.1u.tlog" "cmTC_12e01.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\Debug\\cmTC_12e01.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\cmTC_12e01.write.1u.tlog" "cmTC_12e01.dir\\Debug\\vcpkg.applocal.log"
+          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\Debug\\cmTC_327d0.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\cmTC_327d0.write.1u.tlog" "cmTC_327d0.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\Debug\\cmTC_327d0.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\cmTC_327d0.write.1u.tlog" "cmTC_327d0.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          正在删除文件“cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\unsuccessfulbuild”。
-          正在对“cmTC_12e01.dir\\Debug\\cmTC_12e01.tlog\\cmTC_12e01.lastbuildstate”执行 Touch 任务。
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\cmTC_12e01.vcxproj”(默认目标)的操作。
+          正在删除文件“cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\unsuccessfulbuild”。
+          正在对“cmTC_327d0.dir\\Debug\\cmTC_327d0.tlog\\cmTC_327d0.lastbuildstate”执行 Touch 任务。
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\cmTC_327d0.vcxproj”(默认目标)的操作。
         
         已成功生成。
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\cmTC_12e01.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\cmTC_327d0.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-too262\\cmTC_12e01.vcxproj]
+          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-tiopkq\\cmTC_327d0.vcxproj]
         
             1 个警告
             0 个错误
         
-        已用时间 00:00:00.87
+        已用时间 00:00:00.97
         
       exitCode: 0
   -
@@ -276,63 +276,63 @@ events:
     checks:
       - "Looking for stddef.h"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-ma68s7"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-ma68s7"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nlwvho"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nlwvho"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -v"
     buildResult:
       variable: "HAVE_STDDEF_H"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-ma68s7'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nlwvho'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_9c7e8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_0a5de.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:19。
+        生成启动时间为 2024/7/29 2:37:39。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\cmTC_9c7e8.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\cmTC_0a5de.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_9c7e8.dir\\Debug\\”。
+          正在创建目录“cmTC_0a5de.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\Debug\\”。
-          正在创建目录“cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\Debug\\”。
+          正在创建目录“cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9c7e8.dir\\Debug\\\\" /Fd"cmTC_9c7e8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\CheckIncludeFile.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0a5de.dir\\Debug\\\\" /Fd"cmTC_0a5de.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\CheckIncludeFile.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9c7e8.dir\\Debug\\\\" /Fd"cmTC_9c7e8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\CheckIncludeFile.c"
-        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\cmTC_9c7e8.vcxproj]
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_0a5de.dir\\Debug\\\\" /Fd"cmTC_0a5de.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\CheckIncludeFile.c"
+        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\cmTC_0a5de.vcxproj]
           CheckIncludeFile.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\Debug\\cmTC_9c7e8.exe" /INCREMENTAL /ILK:"cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-ma68s7/Debug/cmTC_9c7e8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-ma68s7/Debug/cmTC_9c7e8.lib" /MACHINE:X64  /machine:x64 cmTC_9c7e8.dir\\Debug\\CheckIncludeFile.obj
-          cmTC_9c7e8.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\Debug\\cmTC_9c7e8.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\Debug\\cmTC_0a5de.exe" /INCREMENTAL /ILK:"cmTC_0a5de.dir\\Debug\\cmTC_0a5de.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nlwvho/Debug/cmTC_0a5de.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-nlwvho/Debug/cmTC_0a5de.lib" /MACHINE:X64  /machine:x64 cmTC_0a5de.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_0a5de.vcxproj -> D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\Debug\\cmTC_0a5de.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\Debug\\cmTC_9c7e8.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\cmTC_9c7e8.write.1u.tlog" "cmTC_9c7e8.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\Debug\\cmTC_0a5de.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\cmTC_0a5de.write.1u.tlog" "cmTC_0a5de.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
           或批处理文件。
-          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\Debug\\cmTC_9c7e8.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\cmTC_9c7e8.write.1u.tlog" "cmTC_9c7e8.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
-          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\Debug\\cmTC_9c7e8.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\cmTC_9c7e8.write.1u.tlog" "cmTC_9c7e8.dir\\Debug\\vcpkg.applocal.log"
+          命令“pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\Debug\\cmTC_0a5de.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\cmTC_0a5de.write.1u.tlog" "cmTC_0a5de.dir\\Debug\\vcpkg.applocal.log"”已退出，代码为 9009。
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\Debug\\cmTC_0a5de.exe" "D:\\vcpkg\\installed\\x64-windows\\bin" "cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\cmTC_0a5de.write.1u.tlog" "cmTC_0a5de.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          正在删除文件“cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\unsuccessfulbuild”。
-          正在对“cmTC_9c7e8.dir\\Debug\\cmTC_9c7e8.tlog\\cmTC_9c7e8.lastbuildstate”执行 Touch 任务。
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\cmTC_9c7e8.vcxproj”(默认目标)的操作。
+          正在删除文件“cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\unsuccessfulbuild”。
+          正在对“cmTC_0a5de.dir\\Debug\\cmTC_0a5de.tlog\\cmTC_0a5de.lastbuildstate”执行 Touch 任务。
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\cmTC_0a5de.vcxproj”(默认目标)的操作。
         
         已成功生成。
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\cmTC_9c7e8.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\cmTC_0a5de.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-ma68s7\\cmTC_9c7e8.vcxproj]
+          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-nlwvho\\cmTC_0a5de.vcxproj]
         
             1 个警告
             0 个错误
         
-        已用时间 00:00:00.84
+        已用时间 00:00:00.91
         
       exitCode: 0
   -
@@ -344,65 +344,65 @@ events:
     checks:
       - "Check size of off64_t"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-0sbt6t"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-0sbt6t"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-fjia25"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-fjia25"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -v"
     buildResult:
       variable: "HAVE_OFF64_T"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-0sbt6t'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-fjia25'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ca4d5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_70194.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:20。
+        生成启动时间为 2024/7/29 2:37:40。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_ca4d5.dir\\Debug\\”。
+          正在创建目录“cmTC_70194.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\Debug\\”。
-          正在创建目录“cmTC_ca4d5.dir\\Debug\\cmTC_ca4d5.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\Debug\\”。
+          正在创建目录“cmTC_70194.dir\\Debug\\cmTC_70194.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_ca4d5.dir\\Debug\\cmTC_ca4d5.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_ca4d5.dir\\Debug\\cmTC_ca4d5.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_70194.dir\\Debug\\cmTC_70194.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_70194.dir\\Debug\\cmTC_70194.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ca4d5.dir\\Debug\\\\" /Fd"cmTC_ca4d5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_70194.dir\\Debug\\\\" /Fd"cmTC_70194.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ca4d5.dir\\Debug\\\\" /Fd"cmTC_ca4d5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c"
-        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _LARGEFILE64_SOURCE=1 /D HAVE_SYS_TYPES_H /D HAVE_STDINT_H /D HAVE_STDDEF_H /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_70194.dir\\Debug\\\\" /Fd"cmTC_70194.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c"
+        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
           OFF64_T.c
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(29,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(30,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(31,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(32,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(33,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj”(默认目标)的操作 - 失败。
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(29,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(30,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(31,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(32,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(33,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj”(默认目标)的操作 - 失败。
         
         生成失败。
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
+          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
         
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(29,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(30,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(31,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(32,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\OFF64_T.c(33,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-0sbt6t\\cmTC_ca4d5.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(29,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(30,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(31,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(32,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\OFF64_T.c(33,12): error C2065: “off64_t”: 未声明的标识符 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-fjia25\\cmTC_70194.vcxproj]
         
             1 个警告
             5 个错误
         
-        已用时间 00:00:00.39
+        已用时间 00:00:00.42
         
       exitCode: 1
   -
@@ -413,61 +413,61 @@ events:
     checks:
       - "Looking for fseeko"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-g49dll"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-g49dll"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-yp0dr4"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-yp0dr4"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -v"
     buildResult:
       variable: "HAVE_FSEEKO"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-g49dll'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-yp0dr4'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cb0dc.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4a4f4.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:20。
+        生成启动时间为 2024/7/29 2:37:41。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_cb0dc.dir\\Debug\\”。
+          正在创建目录“cmTC_4a4f4.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\Debug\\”。
-          正在创建目录“cmTC_cb0dc.dir\\Debug\\cmTC_cb0dc.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\Debug\\”。
+          正在创建目录“cmTC_4a4f4.dir\\Debug\\cmTC_4a4f4.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_cb0dc.dir\\Debug\\cmTC_cb0dc.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_cb0dc.dir\\Debug\\cmTC_cb0dc.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_4a4f4.dir\\Debug\\cmTC_4a4f4.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_4a4f4.dir\\Debug\\cmTC_4a4f4.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cb0dc.dir\\Debug\\\\" /Fd"cmTC_cb0dc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\CheckFunctionExists.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4a4f4.dir\\Debug\\\\" /Fd"cmTC_4a4f4.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\CheckFunctionExists.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cb0dc.dir\\Debug\\\\" /Fd"cmTC_cb0dc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\CheckFunctionExists.c"
-        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj]
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=fseeko /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4a4f4.dir\\Debug\\\\" /Fd"cmTC_4a4f4.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\CheckFunctionExists.c"
+        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj]
           CheckFunctionExists.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\Debug\\cmTC_cb0dc.exe" /INCREMENTAL /ILK:"cmTC_cb0dc.dir\\Debug\\cmTC_cb0dc.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-g49dll/Debug/cmTC_cb0dc.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-g49dll/Debug/cmTC_cb0dc.lib" /MACHINE:X64  /machine:x64 cmTC_cb0dc.dir\\Debug\\CheckFunctionExists.obj
-        CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 fseeko，函数 main 中引用了该符号 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj]
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\Debug\\cmTC_cb0dc.exe : fatal error LNK1120: 1 个无法解析的外部命令 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj]
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj”(默认目标)的操作 - 失败。
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\Debug\\cmTC_4a4f4.exe" /INCREMENTAL /ILK:"cmTC_4a4f4.dir\\Debug\\cmTC_4a4f4.ilk" /NOLOGO /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-yp0dr4/Debug/cmTC_4a4f4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-yp0dr4/Debug/cmTC_4a4f4.lib" /MACHINE:X64  /machine:x64 cmTC_4a4f4.dir\\Debug\\CheckFunctionExists.obj
+        CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 fseeko，函数 main 中引用了该符号 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj]
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\Debug\\cmTC_4a4f4.exe : fatal error LNK1120: 1 个无法解析的外部命令 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj]
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj”(默认目标)的操作 - 失败。
         
         生成失败。
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj]
+          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj]
         
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj”(默认目标) (1) ->
         (Link 目标) -> 
-          CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 fseeko，函数 main 中引用了该符号 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj]
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\Debug\\cmTC_cb0dc.exe : fatal error LNK1120: 1 个无法解析的外部命令 [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-g49dll\\cmTC_cb0dc.vcxproj]
+          CheckFunctionExists.obj : error LNK2019: 无法解析的外部符号 fseeko，函数 main 中引用了该符号 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\Debug\\cmTC_4a4f4.exe : fatal error LNK1120: 1 个无法解析的外部命令 [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-yp0dr4\\cmTC_4a4f4.vcxproj]
         
             1 个警告
             2 个错误
         
-        已用时间 00:00:00.44
+        已用时间 00:00:00.47
         
       exitCode: 1
   -
@@ -478,57 +478,57 @@ events:
     checks:
       - "Looking for unistd.h"
     directories:
-      source: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-25r4pv"
-      binary: "D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-25r4pv"
+      source: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-7gjs3u"
+      binary: "D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-7gjs3u"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3 -v"
     buildResult:
       variable: "Z_HAVE_UNISTD_H"
       cached: true
       stdout: |
-        Change Dir: 'D:/qgxx_workspace/tinyqgengine/external/build/zlib/CMakeFiles/CMakeScratch/TryCompile-25r4pv'
+        Change Dir: 'D:/qgxx_workspace/tinyqgengine/External/build/zlib/CMakeFiles/CMakeScratch/TryCompile-7gjs3u'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b2c1d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2c60b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         适用于 .NET Framework MSBuild 版本 17.8.5+b5265ef37
-        生成启动时间为 2024/7/22 13:07:21。
+        生成启动时间为 2024/7/29 2:37:42。
         
-        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj”(默认目标)。
+        节点 1 上的项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj”(默认目标)。
         PrepareForBuild:
-          正在创建目录“cmTC_b2c1d.dir\\Debug\\”。
+          正在创建目录“cmTC_2c60b.dir\\Debug\\”。
           已启用结构化输出。编译器诊断的格式设置将反映错误层次结构。有关详细信息，请参阅 https://aka.ms/cpp/structured-output。
-          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\Debug\\”。
-          正在创建目录“cmTC_b2c1d.dir\\Debug\\cmTC_b2c1d.tlog\\”。
+          正在创建目录“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\Debug\\”。
+          正在创建目录“cmTC_2c60b.dir\\Debug\\cmTC_2c60b.tlog\\”。
         InitializeBuildStatus:
-          正在创建“cmTC_b2c1d.dir\\Debug\\cmTC_b2c1d.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
-          正在对“cmTC_b2c1d.dir\\Debug\\cmTC_b2c1d.tlog\\unsuccessfulbuild”执行 Touch 任务。
+          正在创建“cmTC_2c60b.dir\\Debug\\cmTC_2c60b.tlog\\unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+          正在对“cmTC_2c60b.dir\\Debug\\cmTC_2c60b.tlog\\unsuccessfulbuild”执行 Touch 任务。
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b2c1d.dir\\Debug\\\\" /Fd"cmTC_b2c1d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\CheckIncludeFile.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2c60b.dir\\Debug\\\\" /Fd"cmTC_2c60b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\CheckIncludeFile.c"
           用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.38.33135 版
           版权所有(C) Microsoft Corporation。保留所有权利。
-          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_b2c1d.dir\\Debug\\\\" /Fd"cmTC_b2c1d.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\CheckIncludeFile.c"
-        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj]
+          cl /c /I"D:\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2c60b.dir\\Debug\\\\" /Fd"cmTC_2c60b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue  -v "D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\CheckIncludeFile.c"
+        cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj]
           CheckIncludeFile.c
-        D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\CheckIncludeFile.c(1,10): error C1083: 无法打开包括文件: “unistd.h”: No such file or directory [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj]
-        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj”(默认目标)的操作 - 失败。
+        D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\CheckIncludeFile.c(1,10): error C1083: 无法打开包括文件: “unistd.h”: No such file or directory [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj]
+        已完成生成项目“D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj”(默认目标)的操作 - 失败。
         
         生成失败。
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj]
+          cl : 命令行  warning D9002: 忽略未知选项“-v” [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj]
         
         
-        “D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj”(默认目标) (1) ->
+        “D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj”(默认目标) (1) ->
         (ClCompile 目标) -> 
-          D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\CheckIncludeFile.c(1,10): error C1083: 无法打开包括文件: “unistd.h”: No such file or directory [D:\\qgxx_workspace\\tinyqgengine\\external\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-25r4pv\\cmTC_b2c1d.vcxproj]
+          D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\CheckIncludeFile.c(1,10): error C1083: 无法打开包括文件: “unistd.h”: No such file or directory [D:\\qgxx_workspace\\tinyqgengine\\External\\build\\zlib\\CMakeFiles\\CMakeScratch\\TryCompile-7gjs3u\\cmTC_2c60b.vcxproj]
         
             1 个警告
             1 个错误
         
-        已用时间 00:00:00.36
+        已用时间 00:00:00.42
         
       exitCode: 1
 ...
