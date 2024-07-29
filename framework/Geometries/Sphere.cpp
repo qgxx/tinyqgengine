@@ -1,4 +1,3 @@
-
 #include "Sphere.hpp"
 
 using namespace qg;

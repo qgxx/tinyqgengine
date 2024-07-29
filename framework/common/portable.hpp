@@ -8,11 +8,7 @@
 
 typedef int32_t four_char_enum;
 
-#if __cplusplus >= 201103L && !defined(__ORBIS__)
 #define ENUM(e) enum class e : four_char_enum 
-#else
-#define ENUM(e) enum e : four_char_enum
-#endif
 
 #ifndef HAVE_MAKE_UNIQUE 
 namespace std {
@@ -27,13 +23,13 @@ namespace std {
 #ifndef HAVE_CLAMP
 namespace std {
     template<class T>
-    constexpr const T& clamp( const T& v, const T& lo, const T& hi )
+    const T& clamp( const T& v, const T& lo, const T& hi )
     {
         return clamp( v, lo, hi, std::less<T>() );
     }
 
     template<class T, class Compare>
-    constexpr const T& clamp( const T& v, const T& lo, const T& hi, Compare comp )
+    const T& clamp( const T& v, const T& lo, const T& hi, Compare comp )
     {
         return assert( !comp(hi, lo) ),
             comp(v, lo) ? lo : comp(hi, v) ? hi : v;

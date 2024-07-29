@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "(Windows)(OpenGL) Launch Editor",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Editor/Debug/Editor.exe",
+            "args": [
+                "Scene/Rocks_02.ogex"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false
+        }
+    ]
+}
