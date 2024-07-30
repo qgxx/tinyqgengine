@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <map>
 #include "AssetLoader.hpp"
 
 using namespace qg;
@@ -88,81 +87,78 @@ namespace qg {
         cerr << "Error compiling linker.  Check linker-error.txt for message." << endl;
     }
 
-    static bool LoadShaderFromFile(const char* vsFilename, const char* fsFilename, map<int, const char*> properties, GLuint& shaderProgram)
+    static bool LoadShaderFromFile(const char* filename, const GLenum shaderType, GLuint& shader)
     {
+        std::string cbufferShaderBuffer;
         std::string commonShaderBuffer;
-        std::string vertexShaderBuffer;
-        std::string fragmentShaderBuffer;
+        std::string shaderBuffer;
         int status;
 
         // Load the common shader source file into a text buffer.
-        commonShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString("Shaders/cbuffer.glsl");
+        cbufferShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString("Shaders/cbuffer.glsl");
+        if(cbufferShaderBuffer.empty())
+        {
+            return false;
+        }
+
+        commonShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString("Shaders/common.glsl");
         if(commonShaderBuffer.empty())
         {
             return false;
         }
 
-        // Load the vertex shader source file into a text buffer.
-        vertexShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString(vsFilename);
-        if(vertexShaderBuffer.empty())
+        // Load the shader source file into a text buffer.
+        shaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString(filename);
+        if(shaderBuffer.empty())
         {
             return false;
         }
 
-        vertexShaderBuffer = commonShaderBuffer + vertexShaderBuffer;
+        shaderBuffer = cbufferShaderBuffer + commonShaderBuffer + shaderBuffer;
 
-        // Load the fragment shader source file into a text buffer.
-        fragmentShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString(fsFilename);
-        if(fragmentShaderBuffer.empty())
-        {
-            return false;
-        }
+        // Create a shader object.
+        shader = glCreateShader(shaderType);
 
-        fragmentShaderBuffer = commonShaderBuffer + fragmentShaderBuffer;
-
-        // Create a vertex and fragment shader object.
-        auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
-        auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-        // Copy the shader source code strings into the vertex and fragment shader objects.
-        const char* _v_c_str =  vertexShaderBuffer.c_str();
-        glShaderSource(vertexShader, 1, &_v_c_str, NULL);
-        const char* _f_c_str =  fragmentShaderBuffer.c_str();
-        glShaderSource(fragmentShader, 1, &_f_c_str, NULL);
+        // Copy the shader source code strings into the shader objects.
+        const char* pStr = shaderBuffer.c_str();
+        glShaderSource(shader, 1, &pStr, NULL);
 
         // Compile the shaders.
-        glCompileShader(vertexShader);
-        glCompileShader(fragmentShader);
+        glCompileShader(shader);
 
-        // Check to see if the vertex shader compiled successfully.
-        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &status);
+        // Check to see if the shader compiled successfully.
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
         if(status != 1)
         {
                 // If it did not compile then write the syntax error message out to a text file for review.
-                OutputShaderErrorMessage(vertexShader, vsFilename);
+                OutputShaderErrorMessage(shader, filename);
                 return false;
         }
 
-        // Check to see if the fragment shader compiled successfully.
-        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &status);
-        if(status != 1)
-        {
-                // If it did not compile then write the syntax error message out to a text file for review.
-                OutputShaderErrorMessage(fragmentShader, fsFilename);
-                return false;
-        }
+        return true;
+    }
+
+    typedef vector<pair<GLenum, string>> ShaderSourceList;
+
+    static bool LoadShaderProgram(const ShaderSourceList& source, GLuint& shaderProgram)
+    {
+        int status;
 
         // Create a shader program object.
         shaderProgram = glCreateProgram();
 
-        // Attach the vertex and fragment shader to the program object.
-        glAttachShader(shaderProgram, vertexShader);
-        glAttachShader(shaderProgram, fragmentShader);
-
-        // Bind the shader input variables.
-        for (auto property : properties)
+        for (auto it = source.cbegin(); it != source.cend(); it++)
         {
-            glBindAttribLocation(shaderProgram, property.first, property.second);
+            GLuint shader;
+            status = LoadShaderFromFile(it->second.c_str(), it->first, shader);
+            if (!status)
+            {
+                return false;
+            }
+
+            // Attach the shader to the program object.
+            glAttachShader(shaderProgram, shader);
+            glDeleteShader(shader);
         }
 
         // Link the shader program.
@@ -177,7 +173,7 @@ namespace qg {
                 return false;
         }
 
-        return true;
+        return true; 
     }
 }
 
@@ -198,18 +194,16 @@ void OpenGLShaderManagerCommonBase::Tick()
 
 bool OpenGLShaderManagerCommonBase::InitializeShaders()
 {
-    map<int, const char*> properties;
     GLuint shaderProgram;
     bool result;
 
     // Forward Shader
-    properties = {  
-                    {0, "inputPosition"},
-                    {1, "inputNormal"},
-                    {2, "inputUV"}
-                 };
+    ShaderSourceList list = {
+        {GL_VERTEX_SHADER, VS_SHADER_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_SHADER_SOURCE_FILE}
+    };
 
-    result = LoadShaderFromFile(VS_SHADER_SOURCE_FILE, PS_SHADER_SOURCE_FILE, properties, shaderProgram);
+    result = LoadShaderProgram(list, shaderProgram);
     if (!result)
     {
         return result;
@@ -218,11 +212,12 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
     m_DefaultShaders[DefaultShaderIndex::Forward] = shaderProgram;
 
     // Shadow Map Shader
-    properties = {  
-                    {0, "inputPosition"}
-                 };
+    list = {
+        {GL_VERTEX_SHADER, VS_SHADOWMAP_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_SHADOWMAP_SOURCE_FILE}
+    };
 
-    result = LoadShaderFromFile(VS_SHADOWMAP_SOURCE_FILE, PS_SHADOWMAP_SOURCE_FILE, properties, shaderProgram);
+    result = LoadShaderProgram(list, shaderProgram);
     if (!result)
     {
         return result;
@@ -230,12 +225,28 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
 
     m_DefaultShaders[DefaultShaderIndex::ShadowMap] = shaderProgram;
 
-    // Texture copy shader
-    properties = {  
-                    {0, "inputPosition"}
-                 };
+    // Omni Shadow Map Shader
+    list = {
+        {GL_VERTEX_SHADER, VS_OMNI_SHADOWMAP_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_OMNI_SHADOWMAP_SOURCE_FILE},
+        {GL_GEOMETRY_SHADER, GS_OMNI_SHADOWMAP_SOURCE_FILE}
+    };
 
-    result = LoadShaderFromFile(VS_PASSTHROUGH_SOURCE_FILE, PS_SIMPLE_TEXTURE_SOURCE_FILE, properties, shaderProgram);
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::OmniShadowMap] = shaderProgram;
+
+    // Texture overlay shader
+    list = {
+        {GL_VERTEX_SHADER, VS_PASSTHROUGH_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_SIMPLE_TEXTURE_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
     if (!result)
     {
         return result;
@@ -243,13 +254,57 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
 
     m_DefaultShaders[DefaultShaderIndex::Copy] = shaderProgram;
 
+    // Depth CubeMap overlay shader
+    list = {
+        {GL_VERTEX_SHADER, VS_PASSTHROUGH_CUBEMAP_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_SIMPLE_DEPTH_CUBEMAP_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::CopyCube] = shaderProgram;
+
+    // CubeMap overlay shader
+    list = {
+        {GL_VERTEX_SHADER, VS_PASSTHROUGH_CUBEMAP_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_SIMPLE_CUBEMAP_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::CopyCube2] = shaderProgram;
+
+    // SkyBox shader
+    list = {
+        {GL_VERTEX_SHADER, VS_SKYBOX_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_SKYBOX_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::SkyBox] = shaderProgram;
+
+
 #ifdef DEBUG
     // Debug Shader
-    properties = {  
-                    {0, "inputPosition"}
-                 };
+    list = {
+        {GL_VERTEX_SHADER, DEBUG_VS_SHADER_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, DEBUG_PS_SHADER_SOURCE_FILE}
+    };
 
-    result = LoadShaderFromFile(DEBUG_VS_SHADER_SOURCE_FILE, DEBUG_PS_SHADER_SOURCE_FILE, properties, shaderProgram);
+    result = LoadShaderProgram(list, shaderProgram);
     if (!result)
     {
         return result;
@@ -263,5 +318,8 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
 
 void OpenGLShaderManagerCommonBase::ClearShaders()
 {
-
+    for (auto item : m_DefaultShaders)
+    {
+        glDeleteProgram((GLuint) item.second);
+    }
 }

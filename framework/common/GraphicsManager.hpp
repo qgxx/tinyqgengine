@@ -29,11 +29,14 @@ namespace qg {
         virtual void DrawBatch(const DrawBatchContext& context);
         virtual void DrawBatchDepthOnly(const DrawBatchContext& context);
 
-        virtual intptr_t GenerateShadowMapArray(uint32_t count);
-        virtual void BeginShadowMap(const Light& light, const intptr_t shadowmap, uint32_t layer_index);
-        virtual void EndShadowMap(const intptr_t shadowmap, uint32_t layer_index);
-        virtual void SetShadowMap(const intptr_t shadowmap);
+        virtual intptr_t GenerateCubeShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count);
+        virtual intptr_t GenerateShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count);
+        virtual void BeginShadowMap(const Light& light, const intptr_t shadowmap, const uint32_t width, const uint32_t height, const uint32_t layer_index);
+        virtual void EndShadowMap(const intptr_t shadowmap, const uint32_t layer_index);
+        virtual void SetShadowMaps(const Frame& frame);
         virtual void DestroyShadowMap(intptr_t& shadowmap);
+
+        virtual void DrawSkyBox(const DrawFrameContext& context);
 
 #ifdef DEBUG
         virtual void DrawPoint(const Point& point, const Vector3f& color);
@@ -45,7 +48,9 @@ namespace qg {
         virtual void DrawTriangle(const PointList& vertices, const Vector3f &color);
         virtual void DrawTriangle(const PointList& vertices, const Matrix4X4f& trans, const Vector3f &color);
         virtual void DrawTriangleStrip(const PointList& vertices, const Vector3f &color);
-        virtual void DrawOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height);
+        virtual void DrawTextureOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height);
+        virtual void DrawCubeMapOverlay(const intptr_t cubemap, float vp_left, float vp_top, float vp_width, float vp_height);
+        virtual void DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height);
         virtual void ClearDebugBuffers();
 
         void DrawEdgeList(const EdgeList& edges, const Vector3f& color);
@@ -75,9 +80,6 @@ namespace qg {
         static const uint32_t           kMaxTextureCount  = 2048;
 
         uint32_t                        m_nFrameIndex = 0;
-
-        const int32_t kShadowMapWidth = 512;
-        const int32_t kShadowMapHeight = 512;
 
         std::vector<Frame>  m_Frames;
         std::vector<std::shared_ptr<IDrawPass>> m_DrawPasses;

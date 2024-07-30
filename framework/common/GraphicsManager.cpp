@@ -7,6 +7,7 @@
 #include "ForwardRenderPass.hpp"
 #include "ShadowMapPass.hpp"
 #include "HUDPass.hpp"
+#include "SkyBoxPass.hpp"
 
 using namespace qg;
 using namespace std;
@@ -18,6 +19,7 @@ int GraphicsManager::Initialize()
 	InitConstants();
     m_DrawPasses.push_back(make_shared<ShadowMapPass>());
     m_DrawPasses.push_back(make_shared<ForwardRenderPass>());
+    m_DrawPasses.push_back(make_shared<SkyBoxPass>());
     m_DrawPasses.push_back(make_shared<HUDPass>());
     return result;
 }
@@ -102,8 +104,6 @@ void GraphicsManager::Draw()
 
 void GraphicsManager::InitConstants()
 {
-    // Initialize the world/model matrix to the identity matrix.
-    BuildIdentityMatrix(m_Frames[m_nFrameIndex].frameContext.m_worldMatrix);
 }
 
 void GraphicsManager::CalculateCameraMatrix()
@@ -166,47 +166,107 @@ void GraphicsManager::CalculateLights()
             const AttenCurve& atten_curve = pLight->GetDistanceAttenuation();
             light.m_lightDistAttenCurveType = atten_curve.type; 
             memcpy(light.m_lightDistAttenCurveParams, &atten_curve.u, sizeof(atten_curve.u));
+            light.m_lightAngleAttenCurveType = AttenCurveType::kNone;
 
             Matrix4X4f view;
             Matrix4X4f projection;
             BuildIdentityMatrix(projection);
-            Vector3f position;
-            memcpy(&position, &light.m_lightPosition, sizeof position); 
-            Vector4f tmp = light.m_lightPosition + light.m_lightDirection;
-            Vector3f lookAt; 
-            memcpy(&lookAt, &tmp, sizeof lookAt);
-            Vector3f up = { 0.0f, 0.0f, 1.0f };
-            if (abs(light.m_lightDirection[0]) <= 0.01f
-                && abs(light.m_lightDirection[1]) <= 0.01f)
-            {
-                up = { 0.0f, 1.0f, 0.0f};
-            }
-            BuildViewRHMatrix(view, position, lookAt, up);
+
+            float nearClipDistance = 1.0f;
+            float farClipDistance = 100.0f;
 
             if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightInfi)
             {
+                light.m_lightType = LightType::Infinity;
+
+                Vector4f target = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+                auto pCameraNode = scene.GetFirstCameraNode();
+                if (pCameraNode) {
+                    auto pCamera = scene.GetCamera(pCameraNode->GetSceneObjectRef());
+                    nearClipDistance = pCamera->GetNearClipDistance();
+                    farClipDistance = pCamera->GetFarClipDistance();
+
+                    target[2] = - (0.75f * nearClipDistance + 0.25f * farClipDistance);
+
+                    // calculate the camera target position
+                    auto trans_ptr = pCameraNode->GetCalculatedTransform();
+                    Transform(target, *trans_ptr);
+                }
+
+                light.m_lightPosition = target - light.m_lightDirection * farClipDistance;
+                Vector3f position;
+                memcpy(&position, &light.m_lightPosition, sizeof position); 
+                Vector3f lookAt; 
+                memcpy(&lookAt, &target, sizeof lookAt);
+                Vector3f up = { 0.0f, 0.0f, 1.0f };
+                if (abs(light.m_lightDirection[0]) <= 0.2f
+                    && abs(light.m_lightDirection[1]) <= 0.2f)
+                {
+                    up = { 0.1f, 0.1f, 1.0f};
+                }
+                BuildViewRHMatrix(view, position, lookAt, up);
+
+                float sm_half_dist = min(farClipDistance * 0.25f, 800.0f);
+
+                BuildOrthographicMatrix(projection, 
+                    - sm_half_dist, sm_half_dist, 
+                    sm_half_dist, - sm_half_dist, 
+                    nearClipDistance, farClipDistance + sm_half_dist);
+
+                // notify shader about the infinity light by setting 4th field to 0
                 light.m_lightPosition[3] = 0.0f;
             }
-            else if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightSpot)
+            else 
             {
-                auto plight = dynamic_pointer_cast<SceneObjectSpotLight>(pLight);
-                const AttenCurve& angle_atten_curve = plight->GetAngleAttenuation();
-                light.m_lightAngleAttenCurveType = angle_atten_curve.type;
-                memcpy(light.m_lightAngleAttenCurveParams, &angle_atten_curve.u, sizeof(angle_atten_curve.u));
+                Vector3f position;
+                memcpy(&position, &light.m_lightPosition, sizeof position); 
+                Vector4f tmp = light.m_lightPosition + light.m_lightDirection;
+                Vector3f lookAt; 
+                memcpy(&lookAt, &tmp, sizeof lookAt);
+                Vector3f up = { 0.0f, 0.0f, 1.0f };
+                if (abs(light.m_lightDirection[0]) <= 0.1f
+                    && abs(light.m_lightDirection[1]) <= 0.1f)
+                {
+                    up = { 0.0f, 0.707f, 0.707f};
+                }
+                BuildViewRHMatrix(view, position, lookAt, up);
 
-                float fieldOfView = light.m_lightAngleAttenCurveParams[1] * 2.0f;
-                float nearClipDistance = 1.0f;
-                float farClipDistance = 100.0f;
-                float screenAspect = 1.0f;
+                if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightSpot)
+                {
+                    light.m_lightType = LightType::Spot;
 
-                // Build the perspective projection matrix.
-                BuildPerspectiveFovRHMatrix(projection, fieldOfView, screenAspect, nearClipDistance, farClipDistance);
-            }
-            else if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightArea)
-            {
-                auto plight = dynamic_pointer_cast<SceneObjectAreaLight>(pLight);
-                light.m_lightSize = plight->GetDimension();
-            }
+                    auto plight = dynamic_pointer_cast<SceneObjectSpotLight>(pLight);
+                    const AttenCurve& angle_atten_curve = plight->GetAngleAttenuation();
+                    light.m_lightAngleAttenCurveType = angle_atten_curve.type;
+                    memcpy(light.m_lightAngleAttenCurveParams, &angle_atten_curve.u, sizeof(angle_atten_curve.u));
+
+                    float fieldOfView = light.m_lightAngleAttenCurveParams[1] * 2.0f;
+                    float screenAspect = 1.0f;
+
+                    // Build the perspective projection matrix.
+                    BuildPerspectiveFovRHMatrix(projection, fieldOfView, screenAspect, nearClipDistance, farClipDistance);
+                }
+                else if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightArea)
+                {
+                    light.m_lightType = LightType::Area;
+
+                    auto plight = dynamic_pointer_cast<SceneObjectAreaLight>(pLight);
+                    light.m_lightSize = plight->GetDimension();
+                }
+                else // omni light
+                {
+                    light.m_lightType = LightType::Omni;
+
+                    //auto plight = dynamic_pointer_cast<SceneObjectOmniLight>(pLight);
+
+                    float fieldOfView = PI / 2.0f; // 90 degree for each cube map face
+                    float screenAspect = 1.0f;
+
+                    // Build the perspective projection matrix.
+                    BuildPerspectiveFovRHMatrix(projection, fieldOfView, screenAspect, nearClipDistance, farClipDistance);
+                }
+            } 
 
             light.m_lightVP = view * projection;
         }
@@ -227,6 +287,11 @@ void GraphicsManager::InitializeBuffers(const Scene& scene)
 void GraphicsManager::ClearBuffers()
 {
     cout << "[GraphicsManager] ClearBuffers()" << endl;
+}
+
+void GraphicsManager::DrawSkyBox(const DrawFrameContext& context)
+{
+    cout << "[GraphicsManager] DrawSkyBox(" << &context << ")" << endl;
 }
 
 #ifdef DEBUG
@@ -406,9 +471,33 @@ void GraphicsManager::ClearDebugBuffers()
     cout << "[GraphicsManager] ClearDebugBuffers(void)" << endl;
 }
 
-void GraphicsManager::DrawOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height)
+void GraphicsManager::DrawTextureOverlay(const intptr_t shadowmap, uint32_t layer_index, 
+    float vp_left, float vp_top, float vp_width, float vp_height)
 {
     cout << "[GraphicsManager] DrayOverlay(" << shadowmap << ", "
+        << layer_index << ", "
+        << vp_left << ", "
+        << vp_top << ", "
+        << vp_width << ", "
+        << vp_height << ", "
+        << ")" << endl;
+}
+
+void GraphicsManager::DrawCubeMapOverlay(const intptr_t cubemap, 
+    float vp_left, float vp_top, float vp_width, float vp_height)
+{
+    cout << "[GraphicsManager] DrayCubeMapOverlay(" << cubemap << ", "
+        << vp_left << ", "
+        << vp_top << ", "
+        << vp_width << ", "
+        << vp_height << ", "
+        << ")" << endl;
+}
+
+void GraphicsManager::DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_index, 
+    float vp_left, float vp_top, float vp_width, float vp_height)
+{
+    cout << "[GraphicsManager] DrayCubeMapOverlay(" << cubemap << ", "
         << layer_index << ", "
         << vp_left << ", "
         << vp_top << ", "
@@ -439,25 +528,34 @@ void GraphicsManager::DrawBatchDepthOnly(const DrawBatchContext& context)
     cout << "[GraphicsManager] DrawBatchDepthOnly(" << &context << ")" << endl;
 }
 
-intptr_t GraphicsManager::GenerateShadowMapArray(uint32_t count)
+intptr_t GraphicsManager::GenerateCubeShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count)
 {
-    cout << "[GraphicsManager] GenerateShadowMap(" << count << ")" << endl;
+    cout << "[GraphicsManager] GenerateCubeShadowMapArray(" << width << ", " << height << ","
+        << count << ")" << endl;
     return 0;
 }
 
-void GraphicsManager::BeginShadowMap(const Light& light, const intptr_t shadowmap, uint32_t layer_index)
+intptr_t GraphicsManager::GenerateShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count)
 {
-    cout << "[GraphicsManager] BeginShadowMap(" << light.m_lightGuid << ", " << shadowmap << ", " << layer_index << ")" << endl;
+    cout << "[GraphicsManager] GenerateShadowMapArray(" << width << " ," << height << ", " 
+        << count << ")" << endl;
+    return 0;
 }
 
-void GraphicsManager::EndShadowMap(const intptr_t shadowmap, uint32_t layer_index)
+void GraphicsManager::BeginShadowMap(const Light& light, const intptr_t shadowmap, const uint32_t width, const uint32_t height, const uint32_t layer_index)
+{
+    cout << "[GraphicsManager] BeginShadowMap(" << light.m_lightGuid << ", " << shadowmap << ", " 
+        << width << ", " << height << ", " << layer_index << ")" << endl;
+}
+
+void GraphicsManager::EndShadowMap(const intptr_t shadowmap, const uint32_t layer_index)
 {
     cout << "[GraphicsManager] EndShadowMap(" << shadowmap << ", " << layer_index << ")" << endl;
 }
 
-void GraphicsManager::SetShadowMap(const intptr_t shadowmap)
+void GraphicsManager::SetShadowMaps(const Frame& frame)
 {
-    cout << "[GraphicsManager] SetShadowMap(" << shadowmap << ")" << endl;
+    cout << "[GraphicsManager] SetShadowMap(" << &frame << ")" << endl;
 }
 
 void GraphicsManager::DestroyShadowMap(intptr_t& shadowmap)

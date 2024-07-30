@@ -4,8 +4,16 @@
 #include "Scene.hpp"
 
 namespace qg {
+    ENUM(LightType) {
+        Omni = 0,
+        Spot = 1,
+        Infinity = 2,
+        Area = 3
+    };
+
     struct Light{
         Guid        m_lightGuid;
+        LightType   m_lightType;
         Vector4f    m_lightPosition;
         Vector4f    m_lightColor;
         Vector4f    m_lightDirection;
@@ -21,6 +29,7 @@ namespace qg {
 
         Light()
         {
+            m_lightType = LightType::Omni;
             m_lightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
             m_lightColor = { 1.0f, 1.0f, 1.0f, 1.0f };
             m_lightDirection = { 0.0f, 0.0f, -1.0f, 0.0f };
@@ -33,11 +42,27 @@ namespace qg {
     };
 
     struct DrawFrameContext {
-        Matrix4X4f  m_worldMatrix;
         Matrix4X4f  m_viewMatrix;
         Matrix4X4f  m_projectionMatrix;
         Vector3f    m_ambientColor;
         std::vector<Light> m_lights;
+        intptr_t globalShadowMap;
+        intptr_t shadowMap;
+        intptr_t cubeShadowMap;
+        uint32_t globalShadowMapCount;
+        uint32_t shadowMapCount;
+        uint32_t cubeShadowMapCount;
+        intptr_t skybox;
+
+        DrawFrameContext ()
+        {
+            globalShadowMap = -1;
+            shadowMap = -1;
+            cubeShadowMap = -1;
+            globalShadowMapCount = 0;
+            shadowMapCount = 0;
+            cubeShadowMapCount = 0;
+        }
     };
 
     struct DrawBatchContext {
@@ -51,13 +76,5 @@ namespace qg {
     struct Frame {
         DrawFrameContext frameContext;
         std::vector<std::shared_ptr<DrawBatchContext>> batchContexts;
-        intptr_t shadowMap;
-        uint32_t shadowMapCount;
-
-        Frame ()
-        {
-            shadowMap = -1;
-            shadowMapCount = 0;
-        }
     };
 }

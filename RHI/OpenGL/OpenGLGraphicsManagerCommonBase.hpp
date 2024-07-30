@@ -27,11 +27,14 @@ namespace qg {
         void DrawBatch(const DrawBatchContext& context) final;
         void DrawBatchDepthOnly(const DrawBatchContext& context) final;
 
-        intptr_t GenerateShadowMapArray(uint32_t count) final;
-        void BeginShadowMap(const Light& light, const intptr_t shadowmap, uint32_t layer_index) final;
-        void EndShadowMap(const intptr_t shadowmap, uint32_t layer_index) final;
-        void SetShadowMap(const intptr_t shadowmap) final;
+        intptr_t GenerateCubeShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count) final;
+        intptr_t GenerateShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count) final;
+        void BeginShadowMap(const Light& light, const intptr_t shadowmap, const uint32_t width, const uint32_t height, const uint32_t layer_index) final;
+        void EndShadowMap(const intptr_t shadowmap, const uint32_t layer_index) final;
+        void SetShadowMaps(const Frame& frame) final;
         void DestroyShadowMap(intptr_t& shadowmap) final;
+
+        void DrawSkyBox(const DrawFrameContext& context) final;
 
 #ifdef DEBUG
         void DrawPoint(const Point& point, const Vector3f& color) final;
@@ -44,7 +47,9 @@ namespace qg {
         void DrawTriangle(const PointList& vertices, const Matrix4X4f& trans, const Vector3f& color) final;
         void DrawTriangleStrip(const PointList& vertices, const Vector3f& color) final;
         void ClearDebugBuffers() final;
-        void DrawOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height) final;
+        void DrawTextureOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height) final;
+        void DrawCubeMapOverlay(const intptr_t cubemap, float vp_left, float vp_top, float vp_width, float vp_height) final;
+        void DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height) final;
         void RenderDebugBuffers();
 #endif
 
@@ -55,11 +60,13 @@ namespace qg {
         void DrawPoints(const Point* buffer, const size_t count, const Matrix4X4f& trans, const Vector3f& color);
 
         bool SetShaderParameter(const char* paramName, const Matrix4X4f& param);
+        bool SetShaderParameter(const char* paramName, const Matrix4X4f* param, const int32_t count);
         bool SetShaderParameter(const char* paramName, const Vector4f& param);
         bool SetShaderParameter(const char* paramName, const Vector3f& param);
         bool SetShaderParameter(const char* paramName, const Vector2f& param);
         bool SetShaderParameter(const char* paramName, const float param);
-        bool SetShaderParameter(const char* paramName, const int param);
+        bool SetShaderParameter(const char* paramName, const int32_t param);
+        bool SetShaderParameter(const char* paramName, const uint32_t param);
         bool SetShaderParameter(const char* paramName, const bool param);
         bool SetPerFrameShaderParameters(const DrawFrameContext& context);
 
@@ -93,5 +100,7 @@ namespace qg {
         std::vector<DebugDrawBatchContext> m_DebugDrawBatchContext;
         std::vector<GLuint> m_DebugBuffers;
 #endif
+
+        OpenGLDrawBatchContext m_SkyBoxDrawBatchContext;
     };
 }

@@ -6,7 +6,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/Editor/Debug/Editor.exe",
             "args": [
-                "Scene/splash.ogex"
+                "Scene/mermaid.ogex"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

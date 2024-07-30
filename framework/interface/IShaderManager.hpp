@@ -7,10 +7,14 @@ namespace qg {
     ENUM(DefaultShaderIndex)
     {
         ShadowMap = "SHMP"_i32,
+        OmniShadowMap = "OSHM"_i32,
         Forward   = "FRWD"_i32,
         Differed  = "DIFR"_i32,
         Debug     = "DEBG"_i32,
-        Copy      = "BTBL"_i32
+        Copy      = "COPY"_i32,
+        CopyCube  = "COPC"_i32,
+        CopyCube2 = "COP2"_i32,
+        SkyBox    = "SKYB"_i32
     };
 
     Interface IShaderManager : implements IRuntimeModule

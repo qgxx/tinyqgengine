@@ -50,5 +50,6 @@ build*/
 .DS_Store
 
 config.h
+shader-error.txt
 
 External/*/include
