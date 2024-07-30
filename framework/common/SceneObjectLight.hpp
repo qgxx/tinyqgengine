@@ -1,16 +1,8 @@
 #pragma once
 #include <functional>
 #include "BaseSceneObject.hpp"
-#include "SceneObjectTypeDef.hpp"
 
 namespace qg {
-    ENUM(AttenCurveType) {
-        kLinear = 0,
-        kSmooth = 1,
-        kInverse = 2,
-        kInverseSquare = 3
-    };
-
     struct AttenCurve {
         AttenCurveType type;
         union AttenCurveParams {
@@ -20,8 +12,7 @@ namespace qg {
             struct InverseSquareParam { float scale; float offset; float kq; float kl; float kc; } inverse_squre_params;
         } u;
 
-        AttenCurve() : type(AttenCurveType::kLinear),
-                       u({{0.0f, 1.0f}})
+        AttenCurve() : type(AttenCurveType::kNone)
                        {}
     };
     
@@ -91,8 +82,6 @@ namespace qg {
     class SceneObjectSpotLight : public SceneObjectLight
     {
         protected:
-            float   m_fConeBeginAngle;
-            float   m_fConeEndAngle;
             AttenCurve  m_LightAngleAttenuation;
 
         public:
@@ -120,4 +109,26 @@ namespace qg {
         friend std::ostream& operator<<(std::ostream& out, const SceneObjectInfiniteLight& obj);
     };
 
+    class SceneObjectAreaLight : public SceneObjectLight
+    {
+        protected:
+            Vector2f m_LightDimension;
+
+        public:
+            SceneObjectAreaLight(void) : SceneObjectLight(SceneObjectType::kSceneObjectTypeLightArea),
+                m_LightDimension({1.0f, 1.0f})
+            {}
+
+            const Vector2f& GetDimension() const
+            {
+                return m_LightDimension;
+            }
+
+            void SetDimension(const Vector2f& dimension)
+            {
+                m_LightDimension = dimension;
+            }
+
+        friend std::ostream& operator<<(std::ostream& out, const SceneObjectAreaLight& obj);
+    };
 }

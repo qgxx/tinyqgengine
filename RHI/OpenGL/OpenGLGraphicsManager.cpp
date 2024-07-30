@@ -225,6 +225,17 @@ bool OpenGLGraphicsManager::SetPerFrameShaderParameters(GLuint shader)
 
         ss.clear();
         ss.seekp(0);
+        ss << "allLights[" << i << "]." << "lightSize" << ends;
+        uniformName = ss.str();
+        location = glGetUniformLocation(shader, uniformName.c_str());
+        if(location == -1)
+        {
+                return false;
+        }
+        glUniform2fv(location, 1, m_DrawFrameContext.m_lights[i].m_lightSize);
+
+        ss.clear();
+        ss.seekp(0);
         ss << "allLights[" << i << "]." << "lightColor" << ends;
         uniformName = ss.str();
         location = glGetUniformLocation(shader, uniformName.c_str());
@@ -254,7 +265,7 @@ bool OpenGLGraphicsManager::SetPerFrameShaderParameters(GLuint shader)
         {
                 return false;
         }
-        glUniform3fv(location, 1, m_DrawFrameContext.m_lights[i].m_lightDirection);
+        glUniform4fv(location, 1, m_DrawFrameContext.m_lights[i].m_lightDirection);
 
         ss.clear();
         ss.seekp(0);

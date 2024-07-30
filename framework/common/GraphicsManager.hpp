@@ -6,8 +6,6 @@
 #include "Polyhedron.hpp"
 #include <vector>
 
-using namespace std;
-
 namespace qg {
     class GraphicsManager : implements IRuntimeModule
     {
@@ -57,15 +55,27 @@ namespace qg {
 #endif
 
     protected:
-        struct Light{
+        struct Light {
             Vector4f    m_lightPosition;
             Vector4f    m_lightColor;
-            Vector3f    m_lightDirection;
+            Vector4f    m_lightDirection;
+            Vector2f    m_lightSize;
             float       m_lightIntensity;
             AttenCurveType m_lightDistAttenCurveType;
             float       m_lightDistAttenCurveParams[5];
             AttenCurveType m_lightAngleAttenCurveType;
             float       m_lightAngleAttenCurveParams[5];
+
+            Light()
+            {
+                m_lightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
+                m_lightSize = { 0.0f, 0.0f };
+                m_lightColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+                m_lightDirection = { 0.0f, 0.0f, -1.0f, 0.0f };
+                m_lightIntensity = 0.5f;
+                m_lightDistAttenCurveType = AttenCurveType::kNone;
+                m_lightAngleAttenCurveType = AttenCurveType::kNone;
+            }
         };
 
         struct DrawFrameContext {
@@ -73,7 +83,7 @@ namespace qg {
             Matrix4X4f  m_viewMatrix;
             Matrix4X4f  m_projectionMatrix;
             Vector3f    m_ambientColor;
-            vector<Light> m_lights;
+            std::vector<Light> m_lights;
         };
 
         DrawFrameContext    m_DrawFrameContext;

@@ -91,7 +91,7 @@ namespace qg {
         uint8_t  m_CompressionMethod;
         uint8_t  m_FilterMethod;
         uint8_t  m_InterlaceMethod;
-        size_t   m_ScanLineSize;
+        int32_t  m_ScanLineSize;
         uint8_t  m_BytesPerPixel;
 
     public:
@@ -174,7 +174,7 @@ namespace qg {
                                     img.bitcount = 32; 
                                 img.pitch = (img.Width * (img.bitcount >> 3) + 3) & ~3u; // for GPU address alignment
                                 img.data_size = img.pitch * img.Height;
-                                img.data = g_pMemoryManager->Allocate(img.data_size);
+                                img.data = new uint8_t[img.data_size];
 
                                 std::cout << "Width: " << m_Width << std::endl;
                                 std::cout << "Height: " << m_Height << std::endl;
@@ -249,6 +249,7 @@ namespace qg {
                                 if (ret != Z_OK)
                                 {
                                     std::cout << "[Error] Failed to init zlib" << std::endl;
+                                    zerr(ret);
                                     break;
                                 }
 

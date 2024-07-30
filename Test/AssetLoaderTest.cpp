@@ -7,7 +7,7 @@ using namespace std;
 using namespace qg;
 
 namespace qg {
-    MemoryManager* g_pMemoryManager = new MemoryManager();
+    IMemoryManager* g_pMemoryManager = new MemoryManager();
     AssetLoader*   g_pAssetLoader = new AssetLoader();
 }
 

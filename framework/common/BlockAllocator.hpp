@@ -1,5 +1,7 @@
-#include <stddef.h>
-#include <stdint.h>
+#pragma once
+#include <cstddef>
+#include <cstdint>
+#include "IAllocator.hpp"
 
 namespace qg {
 
@@ -11,26 +13,26 @@ namespace qg {
     struct PageHeader {
         PageHeader* pNext;
         BlockHeader* Blocks() {
-            return reinterpret_cast<BlockHeader*>(this + 1);
+                return reinterpret_cast<BlockHeader*>(this + 1);
         }
     };
 
-    class Allocator {
+    class BlockAllocator : implements IAllocator
+    {
         public:
-                // debug patterns
-                static const uint8_t PATTERN_ALIGN = 0xFC;
-                static const uint8_t PATTERN_ALLOC = 0xFD;
-                static const uint8_t PATTERN_FREE  = 0xFE;
-
-                Allocator();
-                Allocator(size_t data_size, size_t page_size, size_t alignment);
-                ~Allocator();
+                BlockAllocator();
+                BlockAllocator(size_t data_size, size_t page_size, size_t alignment);
+                ~BlockAllocator();
+                // disable copy & assignment
+                BlockAllocator(const BlockAllocator& clone) = delete;
+                BlockAllocator &operator=(const BlockAllocator &rhs) = delete;
 
                 // resets the allocator to a new configuration
                 void Reset(size_t data_size, size_t page_size, size_t alignment);
 
                 // alloc and free blocks
                 void* Allocate();
+                void* Allocate(size_t size);
                 void  Free(void* p);
                 void  FreeAll();
         private:
@@ -61,12 +63,9 @@ namespace qg {
                 size_t      m_nBlocksPerPage;
 
                 // statistics
-                uint32_t    m_nPages;
-                uint32_t    m_nBlocks;
-                uint32_t    m_nFreeBlocks;
+                size_t      m_nPages;
+                size_t      m_nBlocks;
+                size_t      m_nFreeBlocks;
 
-                // disable copy & assignment
-                Allocator(const Allocator& clone) = delete;
-                Allocator &operator=(const Allocator &rhs) = delete;
     };
 }

@@ -128,10 +128,8 @@ void GraphicsManager::CalculateLights()
         auto pLightNode = LightNode.second.lock();
         if (!pLightNode) continue;
         auto trans_ptr = pLightNode->GetCalculatedTransform();
-        light.m_lightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
         Transform(light.m_lightPosition, *trans_ptr);
-        light.m_lightDirection = { 0.0f, 0.0f, -1.0f };
-        TransformCoord(light.m_lightDirection, *trans_ptr);
+        Transform(light.m_lightDirection, *trans_ptr);
 
         auto pLight = scene.GetLight(pLightNode->GetSceneObjectRef());
         if (pLight) {
@@ -140,12 +138,22 @@ void GraphicsManager::CalculateLights()
             const AttenCurve& atten_curve = pLight->GetDistanceAttenuation();
             light.m_lightDistAttenCurveType = atten_curve.type; 
             memcpy(light.m_lightDistAttenCurveParams, &atten_curve.u, sizeof(atten_curve.u));
-            if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightSpot)
+
+            if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightInfi)
+            {
+                light.m_lightPosition[3] = 0.0f;
+            }
+            else if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightSpot)
             {
                 auto plight = dynamic_pointer_cast<SceneObjectSpotLight>(pLight);
                 const AttenCurve& angle_atten_curve = plight->GetAngleAttenuation();
                 light.m_lightAngleAttenCurveType = angle_atten_curve.type;
                 memcpy(light.m_lightAngleAttenCurveParams, &angle_atten_curve.u, sizeof(angle_atten_curve.u));
+            }
+            else if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightArea)
+            {
+                auto plight = dynamic_pointer_cast<SceneObjectAreaLight>(pLight);
+                light.m_lightSize = plight->GetDimension();
             }
         }
         else
