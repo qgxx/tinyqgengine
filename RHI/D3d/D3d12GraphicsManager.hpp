@@ -27,8 +27,6 @@ namespace qg {
         void UpdateConstants();
         void InitializeBuffers(const Scene& scene);
         void ClearBuffers();
-        bool InitializeShaders();
-        void ClearShaders();
         void RenderBuffers();
 
     private:
@@ -45,6 +43,9 @@ namespace qg {
         HRESULT CreateRootSignature();
         HRESULT WaitForPreviousFrame();
         HRESULT PopulateCommandList();
+        HRESULT InitializePSO();
+        HRESULT CreateCommandList();
+
 
         HRESULT CreateInternalVertexBuffer();
 
@@ -52,7 +53,7 @@ namespace qg {
         static const uint32_t           m_kFrameCount  = 2;
         static const uint32_t           m_kMaxTextureCount  = 2048;
         static const uint32_t           m_kMaxObjectCount = 2048;
-        static const uint32_t           m_kMaxLightCount = 55;
+        static const uint32_t           m_kMaxLightCount = 100;
 		static const uint32_t		    m_kTextureDescStartIndex = m_kFrameCount * m_kMaxObjectCount * 2;
 
         ID3D12Device*                   m_pDev       = nullptr;             // the pointer to our Direct3D device interface
@@ -111,7 +112,6 @@ namespace qg {
 		size_t				            m_kSizeConstantBufferPerFrame;
 
         // Synchronization objects
-        uint32_t                        m_nFrameIndex;
         HANDLE                          m_hFenceEvent;
         ID3D12Fence*                    m_pFence = nullptr;
         uint32_t                        m_nFenceValue;

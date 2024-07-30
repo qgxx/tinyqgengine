@@ -1,6 +1,7 @@
 #include "AssetLoader.hpp"
 
 using namespace qg;
+using namespace std;
 
 int AssetLoader::Initialize()
 {
@@ -60,7 +61,13 @@ AssetLoader::AssetFilePtr AssetLoader::OpenFile(const char* name, AssetOpenMode 
 {
     FILE *fp = nullptr;
     // loop N times up the hierarchy, testing at each level
+#ifdef __psp2__
+    std::string upPath = "app0:/";
+#elseif __ORBIS__
+    std::string upPath = "/app0/";
+#else
     std::string upPath;
+#endif
     std::string fullPath;
     for (int32_t i = 0; i < 10; i++) {
         std::vector<std::string>::iterator src = m_strSearchPath.begin();
@@ -69,11 +76,11 @@ AssetLoader::AssetFilePtr AssetLoader::OpenFile(const char* name, AssetOpenMode 
             fullPath.assign(upPath);  // reset to current upPath.
             if (src != m_strSearchPath.end()) {
                 fullPath.append(*src);
-                fullPath.append("/asset/");
+                fullPath.append("/Asset/");
                 src++;
             }
             else {
-                fullPath.append("asset/");
+                fullPath.append("Asset/");
                 looping = false;
             }
             fullPath.append(name);
