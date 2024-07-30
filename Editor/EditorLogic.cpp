@@ -103,11 +103,13 @@ void EditorLogic::OnAnalogStick(int id, float deltaX, float deltaY)
     {
         auto& scene = g_pSceneManager->GetSceneForRendering();
         auto pCameraNode = scene.GetFirstCameraNode();
+        float mouse_sensitivity = 0.01f;
         if (pCameraNode) {
             auto screen_width = g_pApp->GetConfiguration().screenWidth;
             auto screen_height = g_pApp->GetConfiguration().screenHeight;
             // move camera along its local axis -y direction
-            pCameraNode->RotateBy(deltaX / screen_width * PI, deltaY / screen_height * PI, 0.0f);
+            pCameraNode->RotateBy(0, -deltaY / screen_height * PI * mouse_sensitivity, 
+            -deltaX / screen_width * PI * mouse_sensitivity);
         }
     }
 }
