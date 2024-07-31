@@ -1,13 +1,13 @@
 #include <iostream>
 #include "GraphicsManager.hpp"
 #include "SceneManager.hpp"
-#include "cbuffer.h"
 #include "IApplication.hpp"
 #include "IPhysicsManager.hpp"
 #include "ForwardRenderPass.hpp"
 #include "ShadowMapPass.hpp"
 #include "HUDPass.hpp"
 #include "SkyBoxPass.hpp"
+#include "BRDFIntegrator.hpp"
 
 using namespace qg;
 using namespace std;
@@ -16,6 +16,8 @@ int GraphicsManager::Initialize()
 {
     int result = 0;
     m_Frames.resize(kFrameCount);
+    m_InitPasses.push_back(make_shared<BRDFIntegrator>());
+
 	InitConstants();
     m_DrawPasses.push_back(make_shared<ShadowMapPass>());
     m_DrawPasses.push_back(make_shared<ForwardRenderPass>());
@@ -36,7 +38,7 @@ void GraphicsManager::Tick()
 {
     if (g_pSceneManager->IsSceneChanged())
     {
-        cout << "[GraphicsManager] Detected Scene Change, reinitialize buffers ..." << endl;
+        cerr << "[GraphicsManager] Detected Scene Change, reinitialize buffers ..." << endl;
         ClearBuffers();
         const Scene& scene = g_pSceneManager->GetSceneForRendering();
         InitializeBuffers(scene);
@@ -113,6 +115,7 @@ void GraphicsManager::CalculateCameraMatrix()
     DrawFrameContext& frameContext = m_Frames[m_nFrameIndex].frameContext;
     if (pCameraNode) {
         auto transform = *pCameraNode->GetCalculatedTransform();
+        frameContext.m_camPos = Vector3f({transform[3][0], transform[3][1], transform[3][2]});
         InverseMatrix4X4f(transform);
         frameContext.m_viewMatrix = transform;
     }
@@ -154,19 +157,21 @@ void GraphicsManager::CalculateLights()
         auto pLightNode = LightNode.second.lock();
         if (!pLightNode) continue;
         auto trans_ptr = pLightNode->GetCalculatedTransform();
-        Transform(light.m_lightPosition, *trans_ptr);
-        Transform(light.m_lightDirection, *trans_ptr);
+        light.lightPosition = { 0.0f, 0.0f, 0.0f, 1.0f };
+        light.lightDirection = { 0.0f, 0.0f, -1.0f, 0.0f };
+        Transform(light.lightPosition, *trans_ptr);
+        Transform(light.lightDirection, *trans_ptr);
 
         auto pLight = scene.GetLight(pLightNode->GetSceneObjectRef());
         if (pLight) {
-            light.m_lightGuid = pLight->GetGuid();
-            light.m_lightColor = pLight->GetColor().Value;
-            light.m_lightIntensity = pLight->GetIntensity();
-            light.m_lightCastShadow = pLight->GetIfCastShadow();
+            light.lightGuid = pLight->GetGuid();
+            light.lightColor = pLight->GetColor().Value;
+            light.lightIntensity = pLight->GetIntensity();
+            light.lightCastShadow = pLight->GetIfCastShadow();
             const AttenCurve& atten_curve = pLight->GetDistanceAttenuation();
-            light.m_lightDistAttenCurveType = atten_curve.type; 
-            memcpy(light.m_lightDistAttenCurveParams, &atten_curve.u, sizeof(atten_curve.u));
-            light.m_lightAngleAttenCurveType = AttenCurveType::kNone;
+            light.lightDistAttenCurveType = atten_curve.type; 
+            memcpy(light.lightDistAttenCurveParams, &atten_curve.u, sizeof(atten_curve.u));
+            light.lightAngleAttenCurveType = AttenCurveType::kNone;
 
             Matrix4X4f view;
             Matrix4X4f projection;
@@ -177,7 +182,7 @@ void GraphicsManager::CalculateLights()
 
             if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightInfi)
             {
-                light.m_lightType = LightType::Infinity;
+                light.lightType = LightType::Infinity;
 
                 Vector4f target = { 0.0f, 0.0f, 0.0f, 1.0f };
 
@@ -194,14 +199,14 @@ void GraphicsManager::CalculateLights()
                     Transform(target, *trans_ptr);
                 }
 
-                light.m_lightPosition = target - light.m_lightDirection * farClipDistance;
+                light.lightPosition = target - light.lightDirection * farClipDistance;
                 Vector3f position;
-                memcpy(&position, &light.m_lightPosition, sizeof position); 
+                memcpy(&position, &light.lightPosition, sizeof position); 
                 Vector3f lookAt; 
                 memcpy(&lookAt, &target, sizeof lookAt);
                 Vector3f up = { 0.0f, 0.0f, 1.0f };
-                if (abs(light.m_lightDirection[0]) <= 0.2f
-                    && abs(light.m_lightDirection[1]) <= 0.2f)
+                if (abs(light.lightDirection[0]) <= 0.2f
+                    && abs(light.lightDirection[1]) <= 0.2f)
                 {
                     up = { 0.1f, 0.1f, 1.0f};
                 }
@@ -215,18 +220,18 @@ void GraphicsManager::CalculateLights()
                     nearClipDistance, farClipDistance + sm_half_dist);
 
                 // notify shader about the infinity light by setting 4th field to 0
-                light.m_lightPosition[3] = 0.0f;
+                light.lightPosition[3] = 0.0f;
             }
             else 
             {
                 Vector3f position;
-                memcpy(&position, &light.m_lightPosition, sizeof position); 
-                Vector4f tmp = light.m_lightPosition + light.m_lightDirection;
+                memcpy(&position, &light.lightPosition, sizeof position); 
+                Vector4f tmp = light.lightPosition + light.lightDirection;
                 Vector3f lookAt; 
                 memcpy(&lookAt, &tmp, sizeof lookAt);
                 Vector3f up = { 0.0f, 0.0f, 1.0f };
-                if (abs(light.m_lightDirection[0]) <= 0.1f
-                    && abs(light.m_lightDirection[1]) <= 0.1f)
+                if (abs(light.lightDirection[0]) <= 0.1f
+                    && abs(light.lightDirection[1]) <= 0.1f)
                 {
                     up = { 0.0f, 0.707f, 0.707f};
                 }
@@ -234,14 +239,14 @@ void GraphicsManager::CalculateLights()
 
                 if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightSpot)
                 {
-                    light.m_lightType = LightType::Spot;
+                    light.lightType = LightType::Spot;
 
                     auto plight = dynamic_pointer_cast<SceneObjectSpotLight>(pLight);
                     const AttenCurve& angle_atten_curve = plight->GetAngleAttenuation();
-                    light.m_lightAngleAttenCurveType = angle_atten_curve.type;
-                    memcpy(light.m_lightAngleAttenCurveParams, &angle_atten_curve.u, sizeof(angle_atten_curve.u));
+                    light.lightAngleAttenCurveType = angle_atten_curve.type;
+                    memcpy(light.lightAngleAttenCurveParams, &angle_atten_curve.u, sizeof(angle_atten_curve.u));
 
-                    float fieldOfView = light.m_lightAngleAttenCurveParams[1] * 2.0f;
+                    float fieldOfView = light.lightAngleAttenCurveParams[0][1] * 2.0f;
                     float screenAspect = 1.0f;
 
                     // Build the perspective projection matrix.
@@ -249,14 +254,14 @@ void GraphicsManager::CalculateLights()
                 }
                 else if (pLight->GetType() == SceneObjectType::kSceneObjectTypeLightArea)
                 {
-                    light.m_lightType = LightType::Area;
+                    light.lightType = LightType::Area;
 
                     auto plight = dynamic_pointer_cast<SceneObjectAreaLight>(pLight);
-                    light.m_lightSize = plight->GetDimension();
+                    light.lightSize = plight->GetDimension();
                 }
                 else // omni light
                 {
-                    light.m_lightType = LightType::Omni;
+                    light.lightType = LightType::Omni;
 
                     //auto plight = dynamic_pointer_cast<SceneObjectOmniLight>(pLight);
 
@@ -268,7 +273,7 @@ void GraphicsManager::CalculateLights()
                 }
             } 
 
-            light.m_lightVP = view * projection;
+            light.lightVP = view * projection;
         }
         else
         {
@@ -281,61 +286,69 @@ void GraphicsManager::CalculateLights()
 
 void GraphicsManager::InitializeBuffers(const Scene& scene)
 {
-    cout << "[GraphicsManager] InitializeBuffers()" << endl;
+    for (auto pPass : m_InitPasses)
+    {
+        pPass->Dispatch();
+    }
 }
 
 void GraphicsManager::ClearBuffers()
 {
-    cout << "[GraphicsManager] ClearBuffers()" << endl;
+    cerr << "[GraphicsManager] ClearBuffers()" << endl;
 }
 
-void GraphicsManager::DrawSkyBox(const DrawFrameContext& context)
+void GraphicsManager::SetSkyBox(const DrawFrameContext& context)
 {
-    cout << "[GraphicsManager] DrawSkyBox(" << &context << ")" << endl;
+    cerr << "[GraphicsManager] SetSkyBox(" << &context << ")" << endl;
+}
+
+void GraphicsManager::DrawSkyBox()
+{
+    cerr << "[GraphicsManager] DrawSkyBox()" << endl;
 }
 
 #ifdef DEBUG
 void GraphicsManager::RenderDebugBuffers()
 {
-    cout << "[GraphicsManager] RenderDebugBuffers()" << endl;
+    cerr << "[GraphicsManager] RenderDebugBuffers()" << endl;
 }
 
 void GraphicsManager::DrawPoint(const Point& point, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawPoint(" << point << ","
+    cerr << "[GraphicsManager] DrawPoint(" << point << ", "
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawPointSet(const PointSet& point_set, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawPointSet(" << point_set.size() << ","
+    cerr << "[GraphicsManager] DrawPointSet(" << point_set.size() << ", "
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawPointSet(const PointSet& point_set, const Matrix4X4f& trans, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawPointSet(" << point_set.size() << ","
+    cerr << "[GraphicsManager] DrawPointSet(" << point_set.size() << ", "
         << trans << "," 
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawLine(const Point& from, const Point& to, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawLine(" << from << ","
-        << to << "," 
+    cerr << "[GraphicsManager] DrawLine(" << from << ", "
+        << to << ", " 
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawLine(const PointList& vertices, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawLine(" << vertices.size() << ","
+    cerr << "[GraphicsManager] DrawLine(" << vertices.size() << ", "
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawLine(const PointList& vertices, const Matrix4X4f& trans, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawLine(" << vertices.size() << ","
-        << trans << "," 
+    cerr << "[GraphicsManager] DrawLine(" << vertices.size() << ", "
+        << trans << ", " 
         << color << ")" << endl;
 }
 
@@ -354,19 +367,19 @@ void GraphicsManager::DrawEdgeList(const EdgeList& edges, const Vector3f& color)
 
 void GraphicsManager::DrawTriangle(const PointList& vertices, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawTriangle(" << vertices.size() << ","
+    cerr << "[GraphicsManager] DrawTriangle(" << vertices.size() << ", "
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawTriangle(const PointList& vertices, const Matrix4X4f& trans, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawTriangle(" << vertices.size() << ","
+    cerr << "[GraphicsManager] DrawTriangle(" << vertices.size() << ", "
         << color << ")" << endl;
 }
 
 void GraphicsManager::DrawTriangleStrip(const PointList& vertices, const Vector3f& color)
 {
-    cout << "[GraphicsManager] DrawTriangleStrip(" << vertices.size() << ","
+    cerr << "[GraphicsManager] DrawTriangleStrip(" << vertices.size() << ", "
         << color << ")" << endl;
 }
 
@@ -468,13 +481,24 @@ void GraphicsManager::DrawBox(const Vector3f& bbMin, const Vector3f& bbMax, cons
 
 void GraphicsManager::ClearDebugBuffers()
 {
-    cout << "[GraphicsManager] ClearDebugBuffers(void)" << endl;
+    cerr << "[GraphicsManager] ClearDebugBuffers(void)" << endl;
 }
 
-void GraphicsManager::DrawTextureOverlay(const intptr_t shadowmap, uint32_t layer_index, 
+void GraphicsManager::DrawTextureOverlay(const intptr_t texture, 
     float vp_left, float vp_top, float vp_width, float vp_height)
 {
-    cout << "[GraphicsManager] DrayOverlay(" << shadowmap << ", "
+    cerr << "[GraphicsManager] DrayOverlay(" << texture << ", "
+        << vp_left << ", "
+        << vp_top << ", "
+        << vp_width << ", "
+        << vp_height << ", "
+        << ")" << endl;
+}
+
+void GraphicsManager::DrawTextureArrayOverlay(const intptr_t texture, uint32_t layer_index, 
+    float vp_left, float vp_top, float vp_width, float vp_height)
+{
+    cerr << "[GraphicsManager] DrayOverlay(" << texture << ", "
         << layer_index << ", "
         << vp_left << ", "
         << vp_top << ", "
@@ -484,25 +508,27 @@ void GraphicsManager::DrawTextureOverlay(const intptr_t shadowmap, uint32_t laye
 }
 
 void GraphicsManager::DrawCubeMapOverlay(const intptr_t cubemap, 
-    float vp_left, float vp_top, float vp_width, float vp_height)
+    float vp_left, float vp_top, float vp_width, float vp_height, float level)
 {
-    cout << "[GraphicsManager] DrayCubeMapOverlay(" << cubemap << ", "
+    cerr << "[GraphicsManager] DrayCubeMapOverlay(" << cubemap << ", "
         << vp_left << ", "
         << vp_top << ", "
         << vp_width << ", "
         << vp_height << ", "
+        << level << ", "
         << ")" << endl;
 }
 
-void GraphicsManager::DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_index, 
-    float vp_left, float vp_top, float vp_width, float vp_height)
+void GraphicsManager::DrawCubeMapArrayOverlay(const intptr_t cubemap, uint32_t layer_index, 
+    float vp_left, float vp_top, float vp_width, float vp_height, float level)
 {
-    cout << "[GraphicsManager] DrayCubeMapOverlay(" << cubemap << ", "
+    cerr << "[GraphicsManager] DrayCubeMapOverlay(" << cubemap << ", "
         << layer_index << ", "
         << vp_left << ", "
         << vp_top << ", "
         << vp_width << ", "
         << vp_height << ", "
+        << level << ", "
         << ")" << endl;
 }
 
@@ -510,56 +536,105 @@ void GraphicsManager::DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_
 
 void GraphicsManager::UseShaderProgram(const intptr_t shaderProgram)
 {
-    cout << "[GraphicsManager] UseShaderProgram(" << shaderProgram << ")" << endl;
+    cerr << "[GraphicsManager] UseShaderProgram(" << shaderProgram << ")" << endl;
 }
 
 void GraphicsManager::SetPerFrameConstants(const DrawFrameContext& context)
 {
-    cout << "[GraphicsManager] SetPerFrameConstants(" << &context << ")" << endl;
+    cerr << "[GraphicsManager] SetPerFrameConstants(" << &context << ")" << endl;
+}
+
+void GraphicsManager::SetPerBatchConstants(const DrawBatchContext& context)
+{
+    cout << "[GraphicsManager] SetPerBatchConstants(" << &context << ")" << endl;
 }
 
 void GraphicsManager::DrawBatch(const DrawBatchContext& context)
 {
-    cout << "[GraphicsManager] DrawBatch(" << &context << ")" << endl;
+    cerr << "[GraphicsManager] DrawBatch(" << &context << ")" << endl;
 }
 
 void GraphicsManager::DrawBatchDepthOnly(const DrawBatchContext& context)
 {
-    cout << "[GraphicsManager] DrawBatchDepthOnly(" << &context << ")" << endl;
+    cerr << "[GraphicsManager] DrawBatchDepthOnly(" << &context << ")" << endl;
 }
 
 intptr_t GraphicsManager::GenerateCubeShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count)
 {
-    cout << "[GraphicsManager] GenerateCubeShadowMapArray(" << width << ", " << height << ","
+    cerr << "[GraphicsManager] GenerateCubeShadowMapArray(" << width << ", " << height << ","
         << count << ")" << endl;
     return 0;
 }
 
 intptr_t GraphicsManager::GenerateShadowMapArray(const uint32_t width, const uint32_t height, const uint32_t count)
 {
-    cout << "[GraphicsManager] GenerateShadowMapArray(" << width << " ," << height << ", " 
+    cerr << "[GraphicsManager] GenerateShadowMapArray(" << width << " ," << height << ", " 
         << count << ")" << endl;
     return 0;
 }
 
 void GraphicsManager::BeginShadowMap(const Light& light, const intptr_t shadowmap, const uint32_t width, const uint32_t height, const uint32_t layer_index)
 {
-    cout << "[GraphicsManager] BeginShadowMap(" << light.m_lightGuid << ", " << shadowmap << ", " 
+    cout << "[GraphicsManager] BeginShadowMap(" << light.lightGuid << ", " << shadowmap << ", " 
         << width << ", " << height << ", " << layer_index << ")" << endl;
 }
 
 void GraphicsManager::EndShadowMap(const intptr_t shadowmap, const uint32_t layer_index)
 {
-    cout << "[GraphicsManager] EndShadowMap(" << shadowmap << ", " << layer_index << ")" << endl;
+    cerr << "[GraphicsManager] EndShadowMap(" << shadowmap << ", " << layer_index << ")" << endl;
 }
 
 void GraphicsManager::SetShadowMaps(const Frame& frame)
 {
-    cout << "[GraphicsManager] SetShadowMap(" << &frame << ")" << endl;
+    cerr << "[GraphicsManager] SetShadowMap(" << &frame << ")" << endl;
 }
 
 void GraphicsManager::DestroyShadowMap(intptr_t& shadowmap)
 {
-    cout << "[GraphicsManager] DestroyShadowMap(" << shadowmap << ")" << endl;
+    cerr << "[GraphicsManager] DestroyShadowMap(" << shadowmap << ")" << endl;
     shadowmap = -1;
+}
+
+intptr_t GraphicsManager::GenerateAndBindTextureForWrite(const char* id, const uint32_t width, const uint32_t height)
+{
+    cerr << "[GraphicsManager] GenerateAndBindTextureForWrite(" << id << ", " << width << ", " << height << ")" << endl;
+    return static_cast<intptr_t>(0);
+}
+
+void GraphicsManager::Dispatch(const uint32_t width, const uint32_t height, const uint32_t depth)
+{
+    cerr << "[GraphicsManager] Dispatch(" << width << ", " << height << ", " << depth << ")" << endl;
+}
+
+intptr_t GraphicsManager::GetTexture(const char* id)
+{
+    cerr << "[GraphicsManager] GetTexture(" << id << ")" << endl;
+    return static_cast<intptr_t>(0);
+}
+
+intptr_t GraphicsManager::GenerateTexture(const char* id, const uint32_t width, const uint32_t height)
+{
+    cerr << "[GraphicsManager] GenerateTexture(" << id << ", " << width << ", " << height << ")" << endl;
+    return static_cast<intptr_t>(0);
+}
+
+void GraphicsManager::BeginRenderToTexture(intptr_t& context, const intptr_t texture, const uint32_t width, const uint32_t height)
+{
+    cerr << "[GraphicsManager] BeginRenderToTexture(" << context << ", " << texture << ", " << width << ", " << height << ")" << endl;
+    context = 0;
+}
+
+void GraphicsManager::EndRenderToTexture(intptr_t& context)
+{
+    cerr << "[GraphicsManager] EndRenderToTexture(" << context << ")" << endl;
+}
+
+void GraphicsManager::DrawFullScreenQuad()
+{
+    cerr << "[GraphicsManager] DrawFullScreenQuad()" << endl;
+}
+
+bool GraphicsManager::CheckCapability(RHICapability cap)
+{
+    return false;
 }

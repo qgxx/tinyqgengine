@@ -8,12 +8,15 @@ namespace qg {
     {
         ShadowMap = "SHMP"_i32,
         OmniShadowMap = "OSHM"_i32,
-        Forward   = "FRWD"_i32,
-        Differed  = "DIFR"_i32,
+        Basic     = "BSIC"_i32,
+        Pbr       = " PBR"_i32,
+        PbrBrdf   = "BRDF"_i32,
+        PbrBrdfPs = "BRPS"_i32,
         Debug     = "DEBG"_i32,
-        Copy      = "COPY"_i32,
-        CopyCube  = "COPC"_i32,
-        CopyCube2 = "COP2"_i32,
+        DepthCopy = "DCPY"_i32,
+        DepthCopyCube  = "DCPC"_i32,
+        Copy      =  "COPY"_i32,
+        CopyCube  =  "COPC"_i32,
         SkyBox    = "SKYB"_i32
     };
 

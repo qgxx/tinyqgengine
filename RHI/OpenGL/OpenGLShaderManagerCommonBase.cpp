@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "AssetLoader.hpp"
+#include "GraphicsManager.hpp"
 
 using namespace qg;
 using namespace std;
@@ -94,19 +95,6 @@ namespace qg {
         std::string shaderBuffer;
         int status;
 
-        // Load the common shader source file into a text buffer.
-        cbufferShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString("Shaders/cbuffer.glsl");
-        if(cbufferShaderBuffer.empty())
-        {
-            return false;
-        }
-
-        commonShaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString("Shaders/common.glsl");
-        if(commonShaderBuffer.empty())
-        {
-            return false;
-        }
-
         // Load the shader source file into a text buffer.
         shaderBuffer = g_pAssetLoader->SyncOpenAndReadTextFileToString(filename);
         if(shaderBuffer.empty())
@@ -197,10 +185,10 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
     GLuint shaderProgram;
     bool result;
 
-    // Forward Shader
+    // Basic Shader
     ShaderSourceList list = {
-        {GL_VERTEX_SHADER, VS_SHADER_SOURCE_FILE},
-        {GL_FRAGMENT_SHADER, PS_SHADER_SOURCE_FILE}
+        {GL_VERTEX_SHADER, VS_BASIC_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_BASIC_SOURCE_FILE}
     };
 
     result = LoadShaderProgram(list, shaderProgram);
@@ -209,7 +197,21 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
         return result;
     }
 
-    m_DefaultShaders[DefaultShaderIndex::Forward] = shaderProgram;
+    m_DefaultShaders[DefaultShaderIndex::Basic] = shaderProgram;
+
+    // PBR Shader
+    list = {
+        {GL_VERTEX_SHADER, VS_BASIC_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_PBR_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::Pbr] = shaderProgram;
 
     // Shadow Map Shader
     list = {
@@ -240,10 +242,38 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
 
     m_DefaultShaders[DefaultShaderIndex::OmniShadowMap] = shaderProgram;
 
+    // Depth Texture overlay shader
+    list = {
+        {GL_VERTEX_SHADER, VS_PASSTHROUGH_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_DEPTH_TEXTURE_ARRAY_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::DepthCopy] = shaderProgram;
+
+    // Depth CubeMap overlay shader
+    list = {
+        {GL_VERTEX_SHADER, VS_PASSTHROUGH_CUBEMAP_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_DEPTH_CUBEMAP_ARRAY_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::DepthCopyCube] = shaderProgram;
+
     // Texture overlay shader
     list = {
         {GL_VERTEX_SHADER, VS_PASSTHROUGH_SOURCE_FILE},
-        {GL_FRAGMENT_SHADER, PS_SIMPLE_TEXTURE_SOURCE_FILE}
+        {GL_FRAGMENT_SHADER, PS_TEXTURE_SOURCE_FILE}
     };
 
     result = LoadShaderProgram(list, shaderProgram);
@@ -254,10 +284,10 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
 
     m_DefaultShaders[DefaultShaderIndex::Copy] = shaderProgram;
 
-    // Depth CubeMap overlay shader
+    // CubeMap overlay shader
     list = {
         {GL_VERTEX_SHADER, VS_PASSTHROUGH_CUBEMAP_SOURCE_FILE},
-        {GL_FRAGMENT_SHADER, PS_SIMPLE_DEPTH_CUBEMAP_SOURCE_FILE}
+        {GL_FRAGMENT_SHADER, PS_CUBEMAP_ARRAY_SOURCE_FILE}
     };
 
     result = LoadShaderProgram(list, shaderProgram);
@@ -267,20 +297,6 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
     }
 
     m_DefaultShaders[DefaultShaderIndex::CopyCube] = shaderProgram;
-
-    // CubeMap overlay shader
-    list = {
-        {GL_VERTEX_SHADER, VS_PASSTHROUGH_CUBEMAP_SOURCE_FILE},
-        {GL_FRAGMENT_SHADER, PS_SIMPLE_CUBEMAP_SOURCE_FILE}
-    };
-
-    result = LoadShaderProgram(list, shaderProgram);
-    if (!result)
-    {
-        return result;
-    }
-
-    m_DefaultShaders[DefaultShaderIndex::CopyCube2] = shaderProgram;
 
     // SkyBox shader
     list = {
@@ -312,6 +328,39 @@ bool OpenGLShaderManagerCommonBase::InitializeShaders()
 
     m_DefaultShaders[DefaultShaderIndex::Debug] = shaderProgram;
 #endif
+
+    // BRDF PS
+    list = {
+        {GL_VERTEX_SHADER, VS_PASSTHROUGH_SOURCE_FILE},
+        {GL_FRAGMENT_SHADER, PS_PBR_BRDF_SOURCE_FILE}
+    };
+
+    result = LoadShaderProgram(list, shaderProgram);
+    if (!result)
+    {
+        return result;
+    }
+
+    m_DefaultShaders[DefaultShaderIndex::PbrBrdfPs] = shaderProgram;
+
+    /////////////////
+    // CS Shaders
+
+    if(g_pGraphicsManager->CheckCapability(RHICapability::COMPUTE_SHADER))
+    {
+        // BRDF
+        list = {
+            {GL_COMPUTE_SHADER, CS_PBR_BRDF_SOURCE_FILE}
+        };
+
+        result = LoadShaderProgram(list, shaderProgram);
+        if (!result)
+        {
+            return result;
+        }
+
+        m_DefaultShaders[DefaultShaderIndex::PbrBrdf] = shaderProgram;
+    }
 
     return result;
 }

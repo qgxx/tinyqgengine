@@ -23,6 +23,7 @@ namespace qg {
         IEND = "IEND"_u32
     };
 
+#if DUMP_DETAILS
     static std::ostream& operator<<(std::ostream& out, PNG_CHUNK_TYPE type)
     {
         int32_t n = static_cast<int32_t>(type);
@@ -35,6 +36,7 @@ namespace qg {
 
         return out;
     }
+#endif
 
     struct PNG_CHUNK_HEADER {
         uint32_t        Length;
@@ -143,8 +145,6 @@ namespace qg {
                                 {
                                     case 0:  // grayscale
                                         m_BytesPerPixel = (m_BitDepth + 7) >> 3;
-                                        std::cout << "Color Type 0 is not supported yet: " << m_ColorType << std::endl;
-                                        assert(0);
                                         break;
                                     case 2:  // rgb true color
                                         m_BytesPerPixel = (m_BitDepth * 3) >> 3;
@@ -172,10 +172,7 @@ namespace qg {
 
                                 img.Width = m_Width;
                                 img.Height = m_Height;
-                                if (m_ColorType == 2)
-                                    img.bitcount = 24;
-                                else
-                                    img.bitcount = 32; 
+                                img.bitcount = m_BytesPerPixel * 8;
                                 img.pitch = (img.Width * (img.bitcount >> 3) + 3) & ~3u; // for GPU address alignment
                                 img.data_size = img.pitch * img.Height;
                                 img.data = new uint8_t[img.data_size];
@@ -385,6 +382,11 @@ namespace qg {
             else {
                 std::cout << "File is not a PNG file!" << std::endl;
             }
+
+            img.mipmaps[0].Width = img.Width; 
+            img.mipmaps[0].Height = img.Height; 
+            img.mipmaps[0].offset = 0;
+            img.mipmaps[0].data_size = img.data_size;
 
             return img;
         }

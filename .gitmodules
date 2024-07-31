@@ -1,18 +1,27 @@
-[submodule "External/src/crossguid"]
-	path = External/src/crossguid
+[submodule "external/src/crossguid"]
+	path = external/src/crossguid
 	url = git@github.com:netwarm007/crossguid.git
-[submodule "External/src/opengex"]
-	path = External/src/opengex
+[submodule "external/src/opengex"]
+	path = external/src/opengex
 	url = git@github.com:netwarm007/OpenGEX.git
-[submodule "External/src/zlib"]
-	path = External/src/zlib
+[submodule "external/src/zlib"]
+	path = external/src/zlib
 	url = git@github.com:netwarm007/zlib.git
-[submodule "External/src/libpng"]
-	path = External/src/libpng
+[submodule "external/src/libpng"]
+	path = external/src/libpng
 	url = git@github.com:pnggroup/libpng.git
-[submodule "External/src/ispc"]
-	path = External/src/ispc
+[submodule "external/src/ispc"]
+	path = external/src/ispc
 	url = git@github.com:netwarm007/ispc.git
-[submodule "External/src/bullet"]
-	path = External/src/bullet
+[submodule "external/src/bullet"]
+	path = external/src/bullet
 	url = git@github.com:bulletphysics/bullet3.git
+[submodule "external/src/cmft"]
+	path = external/src/cmft
+	url = git@github.com:dariomanesku/cmft.git
+[submodule "external/src/glslang"]
+	path = external/src/glslang
+	url = git@github.com:KhronosGroup/glslang.git
+[submodule "external/src/spirv-cross"]
+	path = external/src/spirv-cross
+	url = git@github.com:KhronosGroup/SPIRV-Cross.git

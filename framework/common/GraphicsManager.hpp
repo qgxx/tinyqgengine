@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "GfxStructures.hpp"
+#include "FrameStructure.hpp"
 #include "IRuntimeModule.hpp"
 #include "IShaderManager.hpp"
 #include "geommath.hpp"
@@ -9,8 +9,14 @@
 #include "Scene.hpp"
 #include "Polyhedron.hpp"
 #include "IDrawPass.hpp"
+#include "IDispatchPass.hpp"
 
 namespace qg {
+    ENUM(RHICapability)
+    {
+        COMPUTE_SHADER = "COMP"_i32
+    };
+
     class GraphicsManager : implements IRuntimeModule
     {
     public:
@@ -24,8 +30,12 @@ namespace qg {
         virtual void Clear();
         virtual void Draw();
 
+        virtual bool CheckCapability(RHICapability cap);
+
         virtual void UseShaderProgram(const intptr_t shaderProgram);
         virtual void SetPerFrameConstants(const DrawFrameContext& context);
+        virtual void SetPerBatchConstants(const DrawBatchContext& context);
+
         virtual void DrawBatch(const DrawBatchContext& context);
         virtual void DrawBatchDepthOnly(const DrawBatchContext& context);
 
@@ -36,7 +46,19 @@ namespace qg {
         virtual void SetShadowMaps(const Frame& frame);
         virtual void DestroyShadowMap(intptr_t& shadowmap);
 
-        virtual void DrawSkyBox(const DrawFrameContext& context);
+        virtual void SetSkyBox(const DrawFrameContext& context);
+        virtual void DrawSkyBox();
+
+        virtual intptr_t GenerateTexture(const char* id, const uint32_t width, const uint32_t height);
+        virtual void BeginRenderToTexture(intptr_t& context, const intptr_t texture, const uint32_t width, const uint32_t height);
+        virtual void EndRenderToTexture(intptr_t& context);
+
+        virtual intptr_t GenerateAndBindTextureForWrite(const char* id, const uint32_t width, const uint32_t height);
+        virtual void Dispatch(const uint32_t width, const uint32_t height, const uint32_t depth);
+
+        virtual intptr_t GetTexture(const char* id);
+
+        virtual void DrawFullScreenQuad();
 
 #ifdef DEBUG
         virtual void DrawPoint(const Point& point, const Vector3f& color);
@@ -48,9 +70,10 @@ namespace qg {
         virtual void DrawTriangle(const PointList& vertices, const Vector3f &color);
         virtual void DrawTriangle(const PointList& vertices, const Matrix4X4f& trans, const Vector3f &color);
         virtual void DrawTriangleStrip(const PointList& vertices, const Vector3f &color);
-        virtual void DrawTextureOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height);
-        virtual void DrawCubeMapOverlay(const intptr_t cubemap, float vp_left, float vp_top, float vp_width, float vp_height);
-        virtual void DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height);
+        virtual void DrawTextureOverlay(const intptr_t texture, float vp_left, float vp_top, float vp_width, float vp_height);
+        virtual void DrawTextureArrayOverlay(const intptr_t texture, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height);
+        virtual void DrawCubeMapOverlay(const intptr_t cubemap, float vp_left, float vp_top, float vp_width, float vp_height, float level = 0.0f);
+        virtual void DrawCubeMapArrayOverlay(const intptr_t cubemap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height, float level = 0.0f);
         virtual void ClearDebugBuffers();
 
         void DrawEdgeList(const EdgeList& edges, const Vector3f& color);
@@ -82,6 +105,7 @@ namespace qg {
         uint32_t                        m_nFrameIndex = 0;
 
         std::vector<Frame>  m_Frames;
+        std::vector<std::shared_ptr<IDispatchPass>> m_InitPasses;
         std::vector<std::shared_ptr<IDrawPass>> m_DrawPasses;
     };
 

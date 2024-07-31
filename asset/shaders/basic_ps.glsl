@@ -1,109 +1,33 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: basic.ps 
+// Filename: basic_ps.glsl
 ////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////
 // INPUT VARIABLES //
 /////////////////////
-in vec4 normal;
-in vec4 v; 
-in vec4 v_world;
-in vec2 uv;
+layout(location = 0) in vec4 normal;
+layout(location = 1) in vec4 normal_world;
+layout(location = 2) in vec4 v; 
+layout(location = 3) in vec4 v_world;
+layout(location = 4) in vec2 uv;
 
 //////////////////////
 // OUTPUT VARIABLES //
 //////////////////////
-out vec4 outputColor;
+layout(location = 0) out vec4 outputColor;
+
+//////////////////////
+// CONSTANTS        //
+//////////////////////
+layout(push_constant) uniform constants_t {
+    vec4 ambientColor;
+    vec4 specularColor;
+    float specularPower;
+} u_pushConstants;
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pixel Shader
 ////////////////////////////////////////////////////////////////////////////////
-
-float shadow_test(const Light light, const float cosTheta) {
-    vec4 v_light_space = light.lightVP * v_world;
-    v_light_space /= v_light_space.w;
-
-    const mat4 depth_bias = mat4 (
-        vec4(0.5f, 0.0f, 0.0f, 0.0f),
-        vec4(0.0f, 0.5f, 0.0f, 0.0f),
-        vec4(0.0f, 0.0f, 0.5f, 0.0f),
-        vec4(0.5f, 0.5f, 0.5f, 1.0f)
-    );
-
-    const vec2 poissonDisk[4] = vec2[](
-        vec2( -0.94201624f, -0.39906216f ),
-        vec2( 0.94558609f, -0.76890725f ),
-        vec2( -0.094184101f, -0.92938870f ),
-        vec2( 0.34495938f, 0.29387760f )
-    );
-
-    // shadow test
-    float visibility = 1.0f;
-    if (light.lightShadowMapIndex != -1) // the light cast shadow
-    {
-        float bias = 5e-4 * tan(acos(cosTheta)); // cosTheta is dot( n,l ), clamped between 0 and 1
-        bias = clamp(bias, 0.0f, 0.01f);
-        float near_occ;
-        switch (light.lightType)
-        {
-            case 0: // point
-                // recalculate the v_light_space because we do not need to taking account of rotation
-                v_light_space = v_world - light.lightPosition;
-                near_occ = texture(cubeShadowMap, vec4(v_light_space.xyz, light.lightShadowMapIndex)).r;
-
-                if (length(v_light_space) - near_occ * 10.f > bias)
-                {
-                    // we are in the shadow
-                    visibility -= 0.88f;
-                }
-                break;
-            case 1: // spot
-                // adjust from [-1, 1] to [0, 1]
-                v_light_space = depth_bias * v_light_space;
-                for (int i = 0; i < 4; i++)
-                {
-                    near_occ = texture(shadowMap, vec3(v_light_space.xy + poissonDisk[i] / 700.0f, light.lightShadowMapIndex)).r;
-
-                    if (v_light_space.z - near_occ > bias)
-                    {
-                        // we are in the shadow
-                        visibility -= 0.22f;
-                    }
-                }
-                break;
-            case 2: // infinity
-                // adjust from [-1, 1] to [0, 1]
-                v_light_space = depth_bias * v_light_space;
-                for (int i = 0; i < 4; i++)
-                {
-                    near_occ = texture(globalShadowMap, vec3(v_light_space.xy + poissonDisk[i] / 700.0f, light.lightShadowMapIndex)).r;
-
-                    if (v_light_space.z - near_occ > bias)
-                    {
-                        // we are in the shadow
-                        visibility -= 0.22f;
-                    }
-                }
-                break;
-            case 3: // area
-                // adjust from [-1, 1] to [0, 1]
-                v_light_space = depth_bias * v_light_space;
-                for (int i = 0; i < 4; i++)
-                {
-                    near_occ = texture(shadowMap, vec3(v_light_space.xy + poissonDisk[i] / 700.0f, light.lightShadowMapIndex)).r;
-
-                    if (v_light_space.z - near_occ > bias)
-                    {
-                        // we are in the shadow
-                        visibility -= 0.22f;
-                    }
-                }
-                break;
-        }
-    }
-
-    return visibility;
-}
 
 vec3 apply_light(const Light light) {
     vec3 N = normalize(normal.xyz);
@@ -126,15 +50,15 @@ vec3 apply_light(const Light light) {
     float cosTheta = clamp(dot(N, L), 0.0f, 1.0f);
 
     // shadow test
-    float visibility = shadow_test(light, cosTheta);
+    float visibility = shadow_test(v_world, light, cosTheta);
 
     float lightToSurfAngle = acos(dot(L, -light_dir));
 
     // angle attenuation
-    float atten = apply_atten_curve(lightToSurfAngle, light.lightAngleAttenCurveParams);
+    float atten = apply_atten_curve(lightToSurfAngle, light.lightAngleAttenCurveType, light.lightAngleAttenCurveParams);
 
     // distance attenuation
-    atten *= apply_atten_curve(lightToSurfDist, light.lightDistAttenCurveParams);
+    atten *= apply_atten_curve(lightToSurfDist, light.lightDistAttenCurveType, light.lightDistAttenCurveParams);
 
     vec3 R = normalize(2.0f * dot(L, N) *  N - L);
     vec3 V = normalize(-v.xyz);
@@ -142,20 +66,10 @@ vec3 apply_light(const Light light) {
     vec3 linearColor;
 
     vec3 admit_light = light.lightIntensity * atten * light.lightColor.rgb;
-    if (usingDiffuseMap)
-    {
-        linearColor = texture(diffuseMap, uv).rgb * cosTheta; 
-        if (visibility > 0.2f)
-            linearColor += specularColor.rgb * pow(clamp(dot(R, V), 0.0f, 1.0f), specularPower); 
-        linearColor *= admit_light;
-    }
-    else
-    {
-        linearColor = diffuseColor.rgb * cosTheta;
-        if (visibility > 0.2f)
-            linearColor += specularColor.rgb * pow(clamp(dot(R, V), 0.0f, 1.0f), specularPower); 
-        linearColor *= admit_light;
-    }
+    linearColor = texture(diffuseMap, uv).rgb * cosTheta; 
+    if (visibility > 0.2f)
+        linearColor += u_pushConstants.specularColor.rgb * pow(clamp(dot(R, V), 0.0f, 1.0f), u_pushConstants.specularPower); 
+    linearColor *= admit_light;
 
     return linearColor * visibility;
 }
@@ -188,7 +102,7 @@ vec3 apply_areaLight(const Light light)
     L = normalize(L);
 
     // distance attenuation
-    float atten = apply_atten_curve(lightToSurfDist, light.lightDistAttenCurveParams);
+    float atten = apply_atten_curve(lightToSurfDist, light.lightDistAttenCurveType, light.lightDistAttenCurveParams);
 
     vec3 linearColor = vec3(0.0f);
 
@@ -211,18 +125,9 @@ vec3 apply_areaLight(const Light light)
 
         vec3 admit_light = light.lightIntensity * atten * light.lightColor.rgb;
 
-        if (usingDiffuseMap)
-        {
-            linearColor = texture(diffuseMap, uv).rgb * nDotL * pnDotL; 
-            linearColor += specularColor.rgb * pow(clamp(dot(R2, V), 0.0f, 1.0f), specularPower) * specFactor * specAngle; 
-            linearColor *= admit_light;
-        }
-        else
-        {
-            linearColor = diffuseColor.rgb * nDotL * pnDotL; 
-            linearColor += specularColor.rgb * pow(clamp(dot(R2, V), 0.0f, 1.0f), specularPower) * specFactor * specAngle; 
-            linearColor *= admit_light;
-        }
+        linearColor = texture(diffuseMap, uv).rgb * nDotL * pnDotL; 
+        linearColor += u_pushConstants.specularColor.rgb * pow(clamp(dot(R2, V), 0.0f, 1.0f), u_pushConstants.specularPower) * specFactor * specAngle; 
+        linearColor *= admit_light;
     }
 
     return linearColor;
@@ -244,7 +149,8 @@ void main(void)
     }
 
     // add ambient color
-    linearColor += ambientColor.rgb;
+    // linearColor += ambientColor.rgb;
+    linearColor += textureLod(skybox, vec4(normal_world.xyz, 0), 8).rgb * vec3(0.20f);
 
     // tone mapping
     //linearColor = reinhard_tone_mapping(linearColor);

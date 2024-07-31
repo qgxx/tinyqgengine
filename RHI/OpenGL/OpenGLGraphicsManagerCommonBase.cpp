@@ -3,6 +3,8 @@
 // should be included in other source
 // other than compile it independently
 #include <sstream>
+#include <algorithm>
+#include <functional>
 using namespace std;
 
 void OpenGLGraphicsManagerCommonBase::Clear()
@@ -25,113 +27,6 @@ void OpenGLGraphicsManagerCommonBase::Draw()
     GraphicsManager::Draw();
 
     glFlush();
-}
-
-bool OpenGLGraphicsManagerCommonBase::SetPerFrameShaderParameters(const DrawFrameContext& context)
-{
-    GLuint blockIndex = glGetUniformBlockIndex(m_CurrentShader, "DrawFrameConstants");
-
-    if (blockIndex == GL_INVALID_INDEX)
-    {
-        // the shader does not use "DrawFrameConstants"
-        // simply returns true here
-        return true;
-    }
-
-    GLint blockSize;
-
-    if (!m_UboBuffer)
-    {
-        glGenBuffers(1, &m_UboBuffer);
-        glBindBuffer(GL_UNIFORM_BUFFER, m_UboBuffer);
-
-        glGetActiveUniformBlockiv(m_CurrentShader, blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
-
-        glBufferData(GL_UNIFORM_BUFFER, blockSize, nullptr, GL_DYNAMIC_DRAW);
-    }
-    else
-    {
-        glBindBuffer(GL_UNIFORM_BUFFER, m_UboBuffer);
-        glGetActiveUniformBlockiv(m_CurrentShader, blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
-    }
-
-    GLubyte* blockBuffer = static_cast<GLubyte*>(glMapBufferRange(GL_UNIFORM_BUFFER, 0, blockSize, GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_RANGE_BIT));
-
-    {
-        // Query for the offsets of each block variable
-        const GLchar *names[] = { "viewMatrix",
-                                "projectionMatrix", "ambientColor",
-                                "numLights" };
-
-        GLuint indices[4];
-        glGetUniformIndices(m_CurrentShader, 4, names, indices);
-
-        GLint offset[4];
-        glGetActiveUniformsiv(m_CurrentShader, 4, indices, GL_UNIFORM_OFFSET, offset);
-
-        // Set the view matrix in the vertex shader.
-        memcpy(blockBuffer + offset[0], &context.m_viewMatrix, sizeof(Matrix4X4f));
-
-        // Set the projection matrix in the vertex shader.
-        memcpy(blockBuffer + offset[1], &context.m_projectionMatrix, sizeof(Matrix4X4f));
-
-        // Set the ambient color
-        memcpy(blockBuffer + offset[2], &context.m_ambientColor, sizeof(Vector3f));
-
-        // Set number of lights
-        GLint numLights = (GLint) context.m_lights.size();
-        memcpy(blockBuffer + offset[3], &numLights, sizeof(GLint));
-    }
-
-    // Set lighting parameters for PS shader
-    for (size_t i = 0; i < context.m_lights.size(); i++)
-    {
-        const int32_t num_of_properties = 0xA;
-        char uniformNames[num_of_properties][256];
-
-        sprintf(uniformNames[0x0], "allLights[%zd].lightPosition", i);
-        sprintf(uniformNames[0x1], "allLights[%zd].lightColor", i);
-        sprintf(uniformNames[0x2], "allLights[%zd].lightIntensity", i);
-        sprintf(uniformNames[0x3], "allLights[%zd].lightDirection", i);
-        sprintf(uniformNames[0x4], "allLights[%zd].lightSize", i);
-        sprintf(uniformNames[0x5], "allLights[%zd].lightDistAttenCurveParams", i);
-        sprintf(uniformNames[0x6], "allLights[%zd].lightAngleAttenCurveParams", i);
-        sprintf(uniformNames[0x7], "allLights[%zd].lightShadowMapIndex", i);
-        sprintf(uniformNames[0x8], "allLights[%zd].lightVP", i);
-        sprintf(uniformNames[0x9], "allLights[%zd].lightType", i);
-
-        const char* names[num_of_properties] = {
-            uniformNames[0x0], uniformNames[0x1], uniformNames[0x2], uniformNames[0x3],
-            uniformNames[0x4], uniformNames[0x5], uniformNames[0x6], uniformNames[0x7],
-            uniformNames[0x8], uniformNames[0x9]
-        };
-
-        GLuint indices[num_of_properties];
-        glGetUniformIndices(m_CurrentShader, num_of_properties, names, indices);
-
-        GLint offset[num_of_properties];
-        glGetActiveUniformsiv(m_CurrentShader, num_of_properties, indices, GL_UNIFORM_OFFSET, offset);
-
-        memcpy(blockBuffer + offset[0x0], &context.m_lights[i].m_lightPosition, sizeof(Vector4f));
-        memcpy(blockBuffer + offset[0x1], &context.m_lights[i].m_lightColor, sizeof(Vector4f));
-        memcpy(blockBuffer + offset[0x2], &context.m_lights[i].m_lightIntensity, sizeof(float));
-        memcpy(blockBuffer + offset[0x3], &context.m_lights[i].m_lightDirection, sizeof(Vector4f));
-        memcpy(blockBuffer + offset[0x4], &context.m_lights[i].m_lightSize, sizeof(Vector2f));
-        memcpy(blockBuffer + offset[0x5], &context.m_lights[i].m_lightDistAttenCurveType, sizeof(int32_t));
-        memcpy(blockBuffer + offset[0x5] + sizeof(int32_t), &context.m_lights[i].m_lightDistAttenCurveParams[0], sizeof(float) * 5);
-        memcpy(blockBuffer + offset[0x6], &context.m_lights[i].m_lightAngleAttenCurveType, sizeof(int32_t));
-        memcpy(blockBuffer + offset[0x6] + sizeof(int32_t), &context.m_lights[i].m_lightAngleAttenCurveParams[0], sizeof(float)* 5);
-        memcpy(blockBuffer + offset[0x7], &context.m_lights[i].m_lightShadowMapIndex, sizeof(int32_t));
-        memcpy(blockBuffer + offset[0x8], &context.m_lights[i].m_lightVP, sizeof(Matrix4X4f));
-        memcpy(blockBuffer + offset[0x9], &context.m_lights[i].m_lightType, sizeof(LightType));
-    }
-
-    glUnmapBuffer(GL_UNIFORM_BUFFER);
-
-    glUniformBlockBinding(m_CurrentShader, blockIndex, 0);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_UboBuffer);
-
-    return true;
 }
 
 bool OpenGLGraphicsManagerCommonBase::SetShaderParameter(const char* paramName, const Matrix4X4f& param)
@@ -260,8 +155,78 @@ bool OpenGLGraphicsManagerCommonBase::SetShaderParameter(const char* paramName, 
     return true;
 }
 
+static void getOpenGLTextureFormat(const Image& img, GLenum& format, GLenum& internal_format, GLenum& type)
+{
+    if(img.compressed)
+    {
+        format = GL_COMPRESSED_RGB;
+
+        switch (img.compress_format)
+        {
+            case "DXT1"_u32:
+                internal_format = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+                break;
+            case "DXT3"_u32:
+                internal_format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+                break;
+            case "DXT5"_u32:
+                internal_format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+                break;
+            default:
+                assert(0);
+        }
+
+        type = GL_UNSIGNED_BYTE;
+    }
+    else
+    {
+        if(img.bitcount == 8)
+        {
+            format = GL_RED;
+            internal_format = GL_R8;
+            type = GL_UNSIGNED_BYTE;
+        }
+        else if(img.bitcount == 16)
+        {
+            format = GL_RED;
+    #ifndef OPENGL_ES
+            internal_format = GL_R16;
+    #else
+            internal_format = GL_RED;
+    #endif
+            type = GL_UNSIGNED_SHORT;
+        }
+        else if(img.bitcount == 24)
+        {
+            format = GL_RGB;
+            internal_format = GL_RGB8;
+            type = GL_UNSIGNED_BYTE;
+        }
+        else if(img.bitcount == 64)
+        {
+            format = GL_RGBA;
+            internal_format = GL_RGBA16F;
+            type = GL_HALF_FLOAT;
+        }
+        else if(img.bitcount == 128)
+        {
+            format = GL_RGBA;
+            internal_format = GL_RGBA32F;
+            type = GL_FLOAT;
+        }
+        else
+        {
+            format = GL_RGBA;
+            internal_format = GL_RGBA8;
+            type = GL_UNSIGNED_BYTE;
+        }
+    }
+}
+
 void OpenGLGraphicsManagerCommonBase::InitializeBuffers(const Scene& scene)
 {
+    GraphicsManager::InitializeBuffers(scene);
+
     // Geometries
     for (auto _it : scene.GeometryNodes)
     {
@@ -403,35 +368,88 @@ void OpenGLGraphicsManagerCommonBase::InitializeBuffers(const Scene& scene)
                 std::string material_key = pGeometryNode->GetMaterialRef(material_index);
                 auto material = scene.GetMaterial(material_key);
                 if (material) {
+                    function<void(const string, const Image&)> upload_texture = [this](const string texture_key, const Image& texture) {
+                        GLuint texture_id;
+                        glGenTextures(1, &texture_id);
+                        glBindTexture(GL_TEXTURE_2D, texture_id);
+                        GLenum format, internal_format, type;
+                        getOpenGLTextureFormat(texture, format, internal_format, type);
+                        if (texture.compressed)
+                        {
+                            glCompressedTexImage2D(GL_TEXTURE_2D, 0, internal_format, texture.Width, texture.Height, 
+                                0, static_cast<GLsizei>(texture.data_size), texture.data);
+                        }
+                        else
+                        {
+                            glTexImage2D(GL_TEXTURE_2D, 0, internal_format, texture.Width, texture.Height, 
+                                0, format, type, texture.data);
+                        }
+                        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+                        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+                        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+                        glBindTexture(GL_TEXTURE_2D, 0);
+
+                        m_TextureIndex[texture_key] = texture_id;
+                        m_Textures.push_back(texture_id);
+                    };
+
+                    Image texture;
+                    string texture_key;
+
+                    // base color / albedo
                     auto color = material->GetBaseColor();
                     if (color.ValueMap) {
-                        Image texture = color.ValueMap->GetTextureImage();
-                        auto it = m_TextureIndex.find(material_key);
+                        texture_key = color.ValueMap->GetName();
+                        auto it = m_TextureIndex.find(texture_key);
                         if (it == m_TextureIndex.end()) {
-                            GLuint texture_id;
-                            glGenTextures(1, &texture_id);
-                            glActiveTexture(GL_TEXTURE0);
-                            glBindTexture(GL_TEXTURE_2D, texture_id);
-                            GLenum format;
-                            if(texture.bitcount == 24)
-                            {
-                                format = GL_RGB;
-                            }
-                            else
-                            {
-                                format = GL_RGBA;
-                            }
-                            glTexImage2D(GL_TEXTURE_2D, 0, format, texture.Width, texture.Height, 
-                                0, format, GL_UNSIGNED_BYTE, texture.data);
-                            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+                            texture = color.ValueMap->GetTextureImage();
+                            upload_texture(texture_key, texture);
+                        }
+                    }
 
-                            glBindTexture(GL_TEXTURE_2D, 0);
+                    // normal
+                    auto normal = material->GetNormal();
+                    if (normal.ValueMap) {
+                        texture_key = normal.ValueMap->GetName();
+                        auto it = m_TextureIndex.find(texture_key);
+                        if (it == m_TextureIndex.end()) {
+                            texture = color.ValueMap->GetTextureImage();
+                            upload_texture(texture_key, texture);
+                        }
+                    }
 
-                            m_TextureIndex[color.ValueMap->GetName()] = texture_id;
-                            m_Textures.push_back(texture_id);
+                    // metallic 
+                    auto metallic = material->GetMetallic();
+                    if (metallic.ValueMap) {
+                        texture_key = metallic.ValueMap->GetName();
+                        auto it = m_TextureIndex.find(texture_key);
+                        if (it == m_TextureIndex.end()) {
+                            texture = metallic.ValueMap->GetTextureImage();
+                            upload_texture(texture_key, texture);
+                        }
+                    }
+
+                    // roughness 
+                    auto roughness = material->GetRoughness();
+                    if (roughness.ValueMap) {
+                        texture_key = roughness.ValueMap->GetName();
+                        auto it = m_TextureIndex.find(texture_key);
+                        if (it == m_TextureIndex.end()) {
+                            texture = roughness.ValueMap->GetTextureImage();
+                            upload_texture(texture_key, texture);
+                        }
+                    }
+
+                    // ao
+                    auto ao = material->GetAO();
+                    if (ao.ValueMap) {
+                        texture_key = ao.ValueMap->GetName();
+                        auto it = m_TextureIndex.find(texture_key);
+                        if (it == m_TextureIndex.end()) {
+                            texture = ao.ValueMap->GetTextureImage();
+                            upload_texture(texture_key, texture);
                         }
                     }
                 }
@@ -482,40 +500,83 @@ void OpenGLGraphicsManagerCommonBase::InitializeBuffers(const Scene& scene)
         5, 6, 2
     };
 
-    // load texture
+    // load skybox, irradiance map and radiance map
     GLuint cubemapTexture;
+    const uint32_t kMaxMipLevels = 10;
     glGenTextures(1, &cubemapTexture);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP_ARRAY, cubemapTexture);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_BASE_LEVEL, 0);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MAX_LEVEL, kMaxMipLevels);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
     assert(scene.SkyBox);
 
-    for (uint32_t i = 0; i < 6; i++)
+    // skybox, irradiance map
+    for (uint32_t i = 0; i < 12; i++)
     {
         auto& texture = scene.SkyBox->GetTexture(i);
         auto& image = texture.GetTextureImage();
-        GLenum format;
-        if(image.bitcount == 24)
+        GLenum format, internal_format, type;
+        getOpenGLTextureFormat(image, format, internal_format, type);
+
+        if (i == 0) // do this only once
         {
-            format = GL_RGB;
+            const uint32_t faces = 6;
+            const uint32_t indexies = 2;
+            constexpr GLsizei depth = faces * indexies;
+            glTexStorage3D(GL_TEXTURE_CUBE_MAP_ARRAY, kMaxMipLevels, internal_format, image.Width, image.Height, depth);
+        }
+
+        auto error = glGetError();
+        assert(error == GL_NO_ERROR);
+
+        GLint level = i / 6;
+        GLint zoffset = i % 6;
+        if (image.compressed)
+        {
+            glCompressedTexSubImage3D(GL_TEXTURE_CUBE_MAP_ARRAY, level, 0, 0, zoffset, image.Width, image.Height, 1,
+                internal_format, static_cast<GLsizei>(image.mipmaps[0].data_size), image.data);
         }
         else
         {
-            format = GL_RGBA;
+            glTexSubImage3D(GL_TEXTURE_CUBE_MAP_ARRAY, level, 0, 0, zoffset, image.Width, image.Height, 1,
+                format, type, image.data);
         }
 
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, image.Width, image.Height, 
-            0, format, GL_UNSIGNED_BYTE, image.data);
+        error = glGetError();
+        assert(error == GL_NO_ERROR);
     }
-    //glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);  // this is the default and will disable the mip map
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
-    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    // radiance map
+    for (uint32_t i = 12; i < 18; i++)
+    {
+        auto& texture = scene.SkyBox->GetTexture(i);
+        auto& image = texture.GetTextureImage();
+        GLenum format, internal_format, type;
+        getOpenGLTextureFormat(image, format, internal_format, type);
+
+        GLint zoffset = (i % 6) + 6;
+        for (decltype(image.mipmap_count) level = 0; level < std::min(image.mipmap_count, kMaxMipLevels); level++)
+        {
+            if (image.compressed)
+            {
+                glCompressedTexSubImage3D(GL_TEXTURE_CUBE_MAP_ARRAY, level, 0, 0, zoffset, image.mipmaps[level].Width, image.mipmaps[level].Height, 1,
+                    internal_format, static_cast<GLsizei>(image.mipmaps[level].data_size), image.data + image.mipmaps[level].offset);
+            }
+            else
+            {
+                glTexSubImage3D(GL_TEXTURE_CUBE_MAP_ARRAY, level, 0, 0, zoffset, image.mipmaps[level].Width, image.mipmaps[level].Height, 1,
+                    format, type, image.data + image.mipmaps[level].offset);
+            }
+
+            auto error = glGetError();
+            assert(error == GL_NO_ERROR);
+        }
+    }
 
     m_Textures.push_back(cubemapTexture);
     m_Frames[m_nFrameIndex].frameContext.skybox = cubemapTexture;
@@ -570,9 +631,19 @@ void OpenGLGraphicsManagerCommonBase::ClearBuffers()
         glDeleteBuffers(1, &buf);
     }
 
-    if (m_UboBuffer)
+    if (m_uboDrawFrameConstant)
     {
-        glDeleteBuffers(1, &m_UboBuffer);
+        glDeleteBuffers(1, &m_uboDrawFrameConstant);
+    }
+    
+    if (m_uboDrawBatchConstant)
+    {
+        glDeleteBuffers(1, &m_uboDrawBatchConstant);
+    }
+    
+    if (m_uboShadowMatricesConstant)
+    {
+        glDeleteBuffers(1, &m_uboShadowMatricesConstant);
     }
     
     for (auto texture : m_Textures) {
@@ -594,47 +665,234 @@ void OpenGLGraphicsManagerCommonBase::UseShaderProgram(const intptr_t shaderProg
 
 void OpenGLGraphicsManagerCommonBase::SetPerFrameConstants(const DrawFrameContext& context)
 {
-    bool result = SetPerFrameShaderParameters(context);
-    assert(result);
+    GLuint blockIndex = glGetUniformBlockIndex(m_CurrentShader, "PerFrameConstants");
+
+    if (blockIndex == GL_INVALID_INDEX)
+    {
+        // the shader does not use "PerFrameConstants"
+        // simply return here
+        return;
+    }
+
+    GLint blockSize;
+
+    glGetActiveUniformBlockiv(m_CurrentShader, blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+
+    if (!m_uboDrawFrameConstant)
+    {
+        glGenBuffers(1, &m_uboDrawFrameConstant);
+    }
+
+    glBindBuffer(GL_UNIFORM_BUFFER, m_uboDrawFrameConstant);
+
+    PerFrameConstants constants;
+
+    constants.viewMatrix = context.m_viewMatrix;
+    constants.projectionMatrix = context.m_projectionMatrix;
+    constants.camPos = context.m_camPos;
+    constants.numLights = static_cast<uint32_t>(context.m_lights.size());
+    memcpy(constants.lights, context.m_lights.data(), sizeof(Light) * constants.numLights);
+
+    assert(blockSize == sizeof(constants));
+    glBufferData(GL_UNIFORM_BUFFER, blockSize, &constants, GL_DYNAMIC_DRAW);
+
+    glUniformBlockBinding(m_CurrentShader, blockIndex, 0);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uboDrawFrameConstant);
+}
+
+void OpenGLGraphicsManagerCommonBase::SetPerBatchConstants(const DrawBatchContext& context)
+{
+    GLuint blockIndex = glGetUniformBlockIndex(m_CurrentShader, "PerBatchConstants");
+
+    if (blockIndex == GL_INVALID_INDEX)
+    {
+        // the shader does not use "PerBatchConstants"
+        // simply return here
+        return;
+    }
+
+    GLint blockSize;
+
+    glGetActiveUniformBlockiv(m_CurrentShader, blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+
+    if (!m_uboDrawBatchConstant)
+    {
+        glGenBuffers(1, &m_uboDrawBatchConstant);
+    }
+
+    glBindBuffer(GL_UNIFORM_BUFFER, m_uboDrawBatchConstant);
+
+    PerBatchConstants constants;
+
+    constants.modelMatrix = context.trans;
+
+    assert(blockSize == sizeof(constants));
+    glBufferData(GL_UNIFORM_BUFFER, blockSize, &constants, GL_DYNAMIC_DRAW);
+
+    glUniformBlockBinding(m_CurrentShader, blockIndex, 1);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 1, m_uboDrawBatchConstant);
+
+    const OpenGLDrawBatchContext& dbc = dynamic_cast<const OpenGLDrawBatchContext&>(context);
+
+    if (dbc.material) {
+        Color color = dbc.material->GetBaseColor();
+        SetShaderParameter("diffuseMap", 0);
+        GLuint texture_id;
+
+        if (color.ValueMap) 
+        {
+            // bind the texture
+            texture_id = m_TextureIndex[color.ValueMap->GetName()];
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+        }
+        else
+        {
+            if (m_TextureIndex.find("1x1_Diffuse") == m_TextureIndex.end())
+            {
+                // generate a 1x1 texture
+                glGenTextures(1, &texture_id);
+                m_TextureIndex["1x1_Diffuse"] = texture_id;
+                m_Textures.push_back(texture_id);
+            }
+            else
+            {
+                texture_id = m_TextureIndex["1x1_Diffuse"];
+            }
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 1, 1, 
+                0, GL_RGB, GL_FLOAT, color.Value);
+        }
+
+        Normal normal = dbc.material->GetNormal();
+        SetShaderParameter("normalMap", 5);
+
+        if (normal.ValueMap)
+        {
+            texture_id = m_TextureIndex[normal.ValueMap->GetName()];
+            glActiveTexture(GL_TEXTURE5);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+        }
+        else
+        {
+            if (m_TextureIndex.find("1x1_Normal") == m_TextureIndex.end())
+            {
+                // generate a 1x1 texture
+                glGenTextures(1, &texture_id);
+                m_TextureIndex["1x1_Normal"] = texture_id;
+                m_Textures.push_back(texture_id);
+            }
+            else
+            {
+                texture_id = m_TextureIndex["1x1_Normal"];
+            }
+            glActiveTexture(GL_TEXTURE5);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 1, 1, 
+                0, GL_RGB, GL_FLOAT, normal.Value);
+        }
+
+        color = dbc.material->GetSpecularColor();
+        SetShaderParameter("u_pushConstants.specularColor", Vector3f({color.Value[0], color.Value[1], color.Value[2]}));
+
+        Parameter param = dbc.material->GetSpecularPower();
+        SetShaderParameter("u_pushConstants.specularPower", param.Value);
+
+        // PBR
+        param = dbc.material->GetMetallic();
+        SetShaderParameter("metallicMap", 6);
+        if (param.ValueMap)
+        {
+            GLuint texture_id = m_TextureIndex[param.ValueMap->GetName()];
+            glActiveTexture(GL_TEXTURE6);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+        }
+        else
+        {
+            if (m_TextureIndex.find("1x1_Metallic") == m_TextureIndex.end())
+            {
+                // generate a 1x1 texture
+                glGenTextures(1, &texture_id);
+                m_TextureIndex["1x1_Metallic"] = texture_id;
+                m_Textures.push_back(texture_id);
+            }
+            else
+            {
+                texture_id = m_TextureIndex["1x1_Metallic"];
+            }
+            glActiveTexture(GL_TEXTURE6);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, 1, 1, 
+                0, GL_RED, GL_FLOAT, &param.Value);
+        }
+
+        param = dbc.material->GetRoughness();
+        SetShaderParameter("roughnessMap", 7);
+        if (param.ValueMap)
+        {
+            GLuint texture_id = m_TextureIndex[param.ValueMap->GetName()];
+            glActiveTexture(GL_TEXTURE7);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+        }
+        else
+        {
+            if (m_TextureIndex.find("1x1_Roughness") == m_TextureIndex.end())
+            {
+                // generate a 1x1 texture
+                glGenTextures(1, &texture_id);
+                m_TextureIndex["1x1_Roughness"] = texture_id;
+                m_Textures.push_back(texture_id);
+            }
+            else
+            {
+                texture_id = m_TextureIndex["1x1_Roughness"];
+            }
+            glActiveTexture(GL_TEXTURE7);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, 1, 1, 
+                0, GL_RED, GL_FLOAT, &param.Value);
+        }
+
+        param = dbc.material->GetAO();
+        SetShaderParameter("aoMap", 8);
+        if (param.ValueMap)
+        {
+            GLuint texture_id = m_TextureIndex[param.ValueMap->GetName()];
+            glActiveTexture(GL_TEXTURE8);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+        }
+        else
+        {
+            if (m_TextureIndex.find("1x1_AO") == m_TextureIndex.end())
+            {
+                // generate a 1x1 texture
+                glGenTextures(1, &texture_id);
+                m_TextureIndex["1x1_AO"] = texture_id;
+                m_Textures.push_back(texture_id);
+            }
+            else
+            {
+                texture_id = m_TextureIndex["1x1_AO"];
+            }
+            glActiveTexture(GL_TEXTURE8);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, 1, 1, 
+                0, GL_RED, GL_FLOAT, &param.Value);
+        }
+
+        {
+            GLuint texture_id = m_TextureIndex["BRDF_LUT"];
+            SetShaderParameter("brdfLUT", 9);
+            glActiveTexture(GL_TEXTURE9);
+            glBindTexture(GL_TEXTURE_2D, texture_id);
+        }
+    }
 }
 
 void OpenGLGraphicsManagerCommonBase::DrawBatch(const DrawBatchContext& context)
 {
     const OpenGLDrawBatchContext& dbc = dynamic_cast<const OpenGLDrawBatchContext&>(context);
-
-    bool result = SetShaderParameter("modelMatrix", dbc.trans);
-    assert(result);
-
-    result = SetShaderParameter("usingDiffuseMap", false);
-    assert(result);
-
-    if (dbc.material) {
-        Color color = dbc.material->GetBaseColor();
-        if (color.ValueMap) {
-            result = SetShaderParameter("diffuseMap", 0);
-            assert(result);
-
-            GLuint texture_id = m_TextureIndex[color.ValueMap->GetName()];
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, texture_id);
-            // set this to tell shader to use texture
-            result = SetShaderParameter("usingDiffuseMap", true);
-            assert(result);
-        }
-        else
-        {
-            result = SetShaderParameter("diffuseColor", Vector3f({color.Value[0], color.Value[1], color.Value[2]}));
-            assert(result);
-        }
-
-        color = dbc.material->GetSpecularColor();
-        result = SetShaderParameter("specularColor", Vector3f({color.Value[0], color.Value[1], color.Value[2]}));
-        assert(result);
-
-        Parameter param = dbc.material->GetSpecularPower();
-        result = SetShaderParameter("specularPower", param.Value);
-        assert(result);
-    }
 
     glEnable(GL_CULL_FACE);
 
@@ -649,9 +907,6 @@ void OpenGLGraphicsManagerCommonBase::DrawBatchDepthOnly(const DrawBatchContext&
 {
     const OpenGLDrawBatchContext& dbc = dynamic_cast<const OpenGLDrawBatchContext&>(context);
 
-    bool result = SetShaderParameter("modelMatrix", dbc.trans);
-    assert(result);
-
     glBindVertexArray(dbc.vao);
 
     glDrawElements(dbc.mode, dbc.count, dbc.type, 0x00);
@@ -665,7 +920,6 @@ intptr_t OpenGLGraphicsManagerCommonBase::GenerateCubeShadowMapArray(const uint3
     GLuint shadowMap;
 
     glGenTextures(1, &shadowMap);
-    glActiveTexture(GL_TEXTURE0 + shadowMap);
     glBindTexture(GL_TEXTURE_CUBE_MAP_ARRAY, shadowMap);
     glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -684,7 +938,6 @@ intptr_t OpenGLGraphicsManagerCommonBase::GenerateShadowMapArray(const uint32_t 
     GLuint shadowMap;
 
     glGenTextures(1, &shadowMap);
-    glActiveTexture(GL_TEXTURE0 + shadowMap);
     glBindTexture(GL_TEXTURE_2D_ARRAY, shadowMap);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -703,7 +956,7 @@ void OpenGLGraphicsManagerCommonBase::BeginShadowMap(const Light& light, const i
 
     glBindFramebuffer(GL_FRAMEBUFFER, m_ShadowMapFramebufferName);
 
-    if (light.m_lightType == LightType::Omni)
+    if (light.lightType == LightType::Omni)
     {
         glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, (GLuint) shadowmap, 0);
     }
@@ -724,13 +977,13 @@ void OpenGLGraphicsManagerCommonBase::BeginShadowMap(const Light& light, const i
     glDepthMask(GL_TRUE);
     // make sure omni light shadowmap arrays get cleared only
     // once, because glClear will clear all cubemaps in the array
-    if (light.m_lightType != LightType::Omni || layer_index == 0)
+    if (light.lightType != LightType::Omni || layer_index == 0)
     {
         glClear(GL_DEPTH_BUFFER_BIT);
     }
     glViewport(0, 0, width, height);
 
-    switch (light.m_lightType)
+    switch (light.lightType)
     {
         case LightType::Omni:
         {
@@ -761,23 +1014,43 @@ void OpenGLGraphicsManagerCommonBase::BeginShadowMap(const Light& light, const i
             // Build the perspective projection matrix.
             BuildPerspectiveFovRHMatrix(projection, fieldOfView, screenAspect, nearClipDistance, farClipDistance);
 
-            Vector3f pos = {light.m_lightPosition[0], light.m_lightPosition[1], light.m_lightPosition[2]};
+            Vector3f pos = {light.lightPosition[0], light.lightPosition[1], light.lightPosition[2]};
             for (int32_t i = 0; i < 6; i++)
             {
                 BuildViewRHMatrix(shadowMatrices[i], pos, pos + direction[i], up[i]);
                 shadowMatrices[i] = shadowMatrices[i] * projection;
             }
 
-            SetShaderParameter("shadowMatrices", shadowMatrices, 6);
-            SetShaderParameter("lightPos", pos);
-            SetShaderParameter("layer_index", static_cast<int>(layer_index));
-            SetShaderParameter("far_plane", farClipDistance);
+            GLuint blockIndex = glGetUniformBlockIndex(m_CurrentShader, "ShadowMatrices");
+
+            assert(blockIndex != GL_INVALID_INDEX);
+
+            GLint blockSize;
+
+            glGetActiveUniformBlockiv(m_CurrentShader, blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+
+            if (!m_uboShadowMatricesConstant)
+            {
+                glGenBuffers(1, &m_uboShadowMatricesConstant);
+            }
+
+            glBindBuffer(GL_UNIFORM_BUFFER, m_uboShadowMatricesConstant);
+
+            assert(blockSize == sizeof(shadowMatrices));
+            glBufferData(GL_UNIFORM_BUFFER, blockSize, shadowMatrices, GL_DYNAMIC_DRAW);
+
+            glUniformBlockBinding(m_CurrentShader, blockIndex, 2);
+            glBindBufferBase(GL_UNIFORM_BUFFER, 2, m_uboShadowMatricesConstant);
+
+            SetShaderParameter("u_gsPushConstants.layer_index", static_cast<int>(layer_index));
+            SetShaderParameter("u_lightParams.lightPos", pos);
+            SetShaderParameter("u_lightParams.far_plane", farClipDistance);
 
             break;
         }
         default:
         {
-            SetShaderParameter("depthVP", light.m_lightVP);
+            SetShaderParameter("u_pushConstants.depthVP", light.lightVP);
         }
     }
 
@@ -798,8 +1071,9 @@ void OpenGLGraphicsManagerCommonBase::EndShadowMap(const intptr_t shadowmap, uin
 
 void OpenGLGraphicsManagerCommonBase::SetShadowMaps(const Frame& frame)
 {
-    GLint texture_id = (GLint) frame.frameContext.shadowMap;
-    glActiveTexture(GL_TEXTURE0 + texture_id);
+    GLuint texture_id = (GLuint) frame.frameContext.shadowMap;
+    SetShaderParameter("shadowMap", 1);
+    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D_ARRAY, texture_id);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -807,30 +1081,23 @@ void OpenGLGraphicsManagerCommonBase::SetShadowMaps(const Frame& frame)
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
     const float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
     glTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BORDER_COLOR, color);	
-    // bind shadow map
-    bool result = SetShaderParameter("shadowMap", texture_id);
-    assert(result);
 
-    texture_id = (GLint) frame.frameContext.globalShadowMap;
-    glActiveTexture(GL_TEXTURE0 + texture_id);
+    texture_id = (GLuint) frame.frameContext.globalShadowMap;
+    SetShaderParameter("globalShadowMap", 2);
+    glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D_ARRAY, texture_id);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
     glTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BORDER_COLOR, color);	
-    // bind global shadow map
-    result = SetShaderParameter("globalShadowMap", texture_id);
-    assert(result);
 
-    texture_id = (GLint) frame.frameContext.cubeShadowMap;
-    glActiveTexture(GL_TEXTURE0 + texture_id);
+    texture_id = (GLuint) frame.frameContext.cubeShadowMap;
+    SetShaderParameter("cubeShadowMap", 3);
+    glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_CUBE_MAP_ARRAY, texture_id);
     glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    // bind cube shadow map
-    result = SetShaderParameter("cubeShadowMap", texture_id);
-    assert(result);
 }
 
 void OpenGLGraphicsManagerCommonBase::DestroyShadowMap(intptr_t& shadowmap)
@@ -840,21 +1107,127 @@ void OpenGLGraphicsManagerCommonBase::DestroyShadowMap(intptr_t& shadowmap)
     shadowmap = -1;
 }
 
-void OpenGLGraphicsManagerCommonBase::DrawSkyBox(const DrawFrameContext& context)
+void OpenGLGraphicsManagerCommonBase::SetSkyBox(const DrawFrameContext& context)
 {
+    // skybox
     GLuint cubemapTexture = (GLuint) context.skybox;
-    bool result = SetShaderParameter("skybox", 0);
-    assert(result);
+    SetShaderParameter("skybox", 4);
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_CUBE_MAP_ARRAY, cubemapTexture);
+}
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-
+void OpenGLGraphicsManagerCommonBase::DrawSkyBox()
+{
     glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
     glBindVertexArray(m_SkyBoxDrawBatchContext.vao);
 
     glDrawElements(m_SkyBoxDrawBatchContext.mode, m_SkyBoxDrawBatchContext.count, m_SkyBoxDrawBatchContext.type, 0x00);
     glBindVertexArray(0);
     glDepthFunc(GL_LESS); // set depth function back to default
+}
+
+intptr_t OpenGLGraphicsManagerCommonBase::GenerateTexture(const char* id, const uint32_t width, const uint32_t height)
+{
+    // Depth texture. Slower than a depth buffer, but you can sample it later in your shader
+    GLuint texture;
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexStorage2D(GL_TEXTURE_2D, 1, GL_RG16F, width, height);
+
+    m_TextureIndex[id] = texture;
+    m_Textures.push_back(texture);
+
+    // register the shadow map
+    return static_cast<intptr_t>(texture);
+}
+
+void OpenGLGraphicsManagerCommonBase::BeginRenderToTexture(intptr_t& context, const intptr_t texture, const uint32_t width, const uint32_t height)
+{
+    GLuint framebuffer;
+    // The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+    glGenFramebuffers(1, &framebuffer);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, (GLuint) texture, 0);
+
+    // Always check that our framebuffer is ok
+    auto status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if(status != GL_FRAMEBUFFER_COMPLETE)
+    {
+        assert(0);
+    }
+
+    context = (intptr_t) framebuffer;
+
+    GLenum buf[] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, buf);
+    glDepthMask(GL_FALSE);
+    glDisable(GL_DEPTH_TEST);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glViewport(0, 0, width, height);
+}
+
+void OpenGLGraphicsManagerCommonBase::EndRenderToTexture(intptr_t& context)
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    GLuint framebuffer = (GLuint) context;
+    glDeleteFramebuffers(1, &framebuffer);
+    context = 0;
+
+    const GfxConfiguration& conf = g_pApp->GetConfiguration();
+    glViewport(0, 0, conf.screenWidth, conf.screenHeight);
+
+    glEnable(GL_DEPTH_TEST);
+    glCullFace(GL_BACK);
+}
+
+intptr_t OpenGLGraphicsManagerCommonBase::GenerateAndBindTextureForWrite(const char* id, const uint32_t width, const uint32_t height)
+{
+    GLuint tex_output;
+    glGenTextures(1, &tex_output);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, tex_output);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, width, height, 0, GL_RG, GL_FLOAT, NULL);
+    if(GLAD_GL_ARB_compute_shader)
+    {
+        glBindImageTexture(0, tex_output, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RG16F);
+    }
+    m_TextureIndex[id] = tex_output;
+    m_Textures.push_back(tex_output);
+    return static_cast<intptr_t>(tex_output);
+}
+
+void OpenGLGraphicsManagerCommonBase::Dispatch(const uint32_t width, const uint32_t height, const uint32_t depth)
+{
+    if(GLAD_GL_ARB_compute_shader)
+    {
+        glDispatchCompute((GLuint)width, (GLuint)height, (GLuint)depth);
+        // make sure writing to image has finished before read
+        glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+    }
+}
+
+intptr_t OpenGLGraphicsManagerCommonBase::GetTexture(const char* id)
+{
+    assert(id);
+    auto it = m_TextureIndex.find(id);
+    if (it != m_TextureIndex.end())
+    {
+        return static_cast<intptr_t>(it->second);
+    }
+
+    return 0;
 }
 
 #ifdef DEBUG
@@ -1123,27 +1496,78 @@ void OpenGLGraphicsManagerCommonBase::RenderDebugBuffers()
     // Set the color shader as the current shader program and set the matrices that it will use for rendering.
     UseShaderProgram(debugShaderProgram);
 
-    SetPerFrameShaderParameters(m_Frames[m_nFrameIndex].frameContext);
+    SetPerFrameConstants(m_Frames[m_nFrameIndex].frameContext);
 
     for (auto dbc : m_DebugDrawBatchContext)
     {
-        SetShaderParameter("FrontColor", dbc.color);
-        SetShaderParameter("modelMatrix", dbc.trans);
+        SetShaderParameter("u_pushConstants.FrontColor", dbc.color);
 
         glBindVertexArray(dbc.vao);
         glDrawArrays(dbc.mode, 0x00, dbc.count);
     }
 }
 
-void OpenGLGraphicsManagerCommonBase::DrawTextureOverlay(const intptr_t shadowmap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height)
+void OpenGLGraphicsManagerCommonBase::DrawTextureOverlay(const intptr_t texture, float vp_left, float vp_top, float vp_width, float vp_height)
 {
-    GLint texture_id = (GLuint) shadowmap;
+    GLuint texture_id = (GLuint) texture;
 
-    glActiveTexture(GL_TEXTURE0 + texture_id);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture_id);
+
+    GLfloat vertices[] = {
+        vp_left, vp_top, 0.0f,
+        vp_left, vp_top - vp_height, 0.0f,
+        vp_left + vp_width, vp_top, 0.0f,
+        vp_left + vp_width, vp_top - vp_height, 0.0f
+    };
+
+    GLfloat uv[] = {
+        0.0f, 1.0f,
+        0.0f, 0.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f
+    };
+
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+
+    // Bind the vertex array object to store all the buffers and vertex attributes we create here.
+    glBindVertexArray(vao);
+
+    GLuint buffer_id[2];
+
+    // Generate an ID for the vertex buffer.
+    glGenBuffers(2, buffer_id);
+
+    // Bind the vertex buffer and load the vertex (position) data into the vertex buffer.
+    glBindBuffer(GL_ARRAY_BUFFER, buffer_id[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+    // Bind the vertex buffer and load the vertex (uv) data into the vertex buffer.
+    glBindBuffer(GL_ARRAY_BUFFER, buffer_id[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0x00, 4);
+
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(2, buffer_id);
+}
+
+void OpenGLGraphicsManagerCommonBase::DrawTextureArrayOverlay(const intptr_t texture, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height)
+{
+    GLuint texture_id = (GLuint) texture;
+
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D_ARRAY, texture_id);
-    auto result = SetShaderParameter("depthSampler", texture_id);
-    assert(result);
-    result = SetShaderParameter("layer_index", (float) layer_index);
+    bool result = SetShaderParameter("u_pushConstants.layer_index", (float) layer_index);
     assert(result);
 
     GLfloat vertices[] = {
@@ -1193,13 +1617,14 @@ void OpenGLGraphicsManagerCommonBase::DrawTextureOverlay(const intptr_t shadowma
     glDeleteBuffers(2, buffer_id);
 }
 
-void OpenGLGraphicsManagerCommonBase::DrawCubeMapOverlay(const intptr_t cubemap, float vp_left, float vp_top, float vp_width, float vp_height)
+void OpenGLGraphicsManagerCommonBase::DrawCubeMapOverlay(const intptr_t cubemap, float vp_left, float vp_top, float vp_width, float vp_height, float level)
 {
-    GLint texture_id = (GLuint) cubemap;
+    GLuint texture_id = (GLuint) cubemap;
 
-    glActiveTexture(GL_TEXTURE0 + texture_id);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, texture_id);
-    auto result = SetShaderParameter("depthSampler", texture_id);
+
+    bool result = SetShaderParameter("u_pushConstants.level", level);
     assert(result);
 
     const float cell_height = vp_height * 0.5f;
@@ -1343,16 +1768,16 @@ void OpenGLGraphicsManagerCommonBase::DrawCubeMapOverlay(const intptr_t cubemap,
     glDeleteBuffers(2, buffer_id);
 }
 
-void OpenGLGraphicsManagerCommonBase::DrawCubeMapOverlay(const intptr_t cubemap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height)
+void OpenGLGraphicsManagerCommonBase::DrawCubeMapArrayOverlay(const intptr_t cubemap, uint32_t layer_index, float vp_left, float vp_top, float vp_width, float vp_height, float level)
 {
-    GLint texture_id = (GLuint) cubemap;
+    GLuint texture_id = (GLuint) cubemap;
 
-    glActiveTexture(GL_TEXTURE0 + texture_id);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP_ARRAY, texture_id);
-    auto result = SetShaderParameter("depthSampler", texture_id);
+    bool result = SetShaderParameter("u_pushConstants.layer_index", (float) layer_index);
     assert(result);
-    result = SetShaderParameter("layer_index", (float) layer_index);
-    assert(result);
+
+    result = SetShaderParameter("u_pushConstants.level", level);
 
     const float cell_height = vp_height * 0.5f;
     const float cell_width = vp_width * (1.0f / 3.0f);
@@ -1496,3 +1921,57 @@ void OpenGLGraphicsManagerCommonBase::DrawCubeMapOverlay(const intptr_t cubemap,
 }
 
 #endif
+
+void OpenGLGraphicsManagerCommonBase::DrawFullScreenQuad()
+{
+    GLfloat vertices[] = {
+        -1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
+         1.0f, -1.0f, 0.0f
+    };
+
+    GLfloat uv[] = {
+        0.0f, 1.0f,
+        0.0f, 0.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f
+    };
+
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+
+    // Bind the vertex array object to store all the buffers and vertex attributes we create here.
+    glBindVertexArray(vao);
+
+    GLuint buffer_id[2];
+
+    // Generate an ID for the vertex buffer.
+    glGenBuffers(2, buffer_id);
+
+    // Bind the vertex buffer and load the vertex (position) data into the vertex buffer.
+    glBindBuffer(GL_ARRAY_BUFFER, buffer_id[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+    // Bind the vertex buffer and load the vertex (uv) data into the vertex buffer.
+    glBindBuffer(GL_ARRAY_BUFFER, buffer_id[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uv), uv, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0x00, 4);
+
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(2, buffer_id);
+}
+
+bool OpenGLGraphicsManagerCommonBase::CheckCapability(RHICapability cap)
+{
+    return GLAD_GL_ARB_compute_shader;
+}

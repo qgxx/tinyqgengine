@@ -1,9 +1,13 @@
-in vec3 UVW;
+layout(location = 0) in vec3 UVW;
 
-out vec3 color;
+layout(location = 0) out vec3 color;
 
-uniform samplerCube depthSampler;
+layout(push_constant) uniform debugPushConstants {
+    float level;
+} u_pushConstants;
+
+layout(binding = 0) uniform samplerCube depthSampler;
 
 void main(){
-    color = texture(depthSampler, UVW).rgb;
+    color = textureLod(depthSampler, UVW, u_pushConstants.level).rgb;
 }
