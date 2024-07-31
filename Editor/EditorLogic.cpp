@@ -110,9 +110,6 @@ void EditorLogic::OnAnalogStick(int id, float deltaX, float deltaY)
             // right-handed system
             pCameraNode->RotateBy(0, -deltaY / screen_height * PI * mouse_sensitivity, 
             -deltaX / screen_width * PI * mouse_sensitivity);
-            // move camera along its local axis -y direction
-            pCameraNode->RotateBy(0, -deltaY / screen_height * PI * mouse_sensitivity, 
-            -deltaX / screen_width * PI * mouse_sensitivity);
         }
     }
 }
