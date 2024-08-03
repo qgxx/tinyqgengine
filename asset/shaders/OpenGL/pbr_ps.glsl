@@ -19,7 +19,7 @@ struct Light
     vec4 padding[2];
 };
 
-const vec2 _326[4] = vec2[](vec2(-0.94201624393463134765625, -0.39906215667724609375), vec2(0.94558608531951904296875, -0.768907248973846435546875), vec2(-0.094184100627899169921875, -0.929388701915740966796875), vec2(0.34495937824249267578125, 0.29387760162353515625));
+const vec2 _332[4] = vec2[](vec2(-0.94201624393463134765625, -0.39906215667724609375), vec2(0.94558608531951904296875, -0.768907248973846435546875), vec2(-0.094184100627899169921875, -0.929388701915740966796875), vec2(0.34495937824249267578125, 0.29387760162353515625));
 
 layout(std140) uniform PerFrameConstants
 {
@@ -28,11 +28,13 @@ layout(std140) uniform PerFrameConstants
     vec4 camPos;
     int numLights;
     Light allLights[100];
-} _589;
+} _710;
 
 uniform samplerCubeArray cubeShadowMap;
 uniform sampler2DArray shadowMap;
 uniform sampler2DArray globalShadowMap;
+uniform sampler2D heightMap;
+uniform sampler2D normalMap;
 uniform sampler2D diffuseMap;
 uniform sampler2D metallicMap;
 uniform sampler2D roughnessMap;
@@ -40,10 +42,35 @@ uniform sampler2D aoMap;
 uniform samplerCubeArray skybox;
 uniform sampler2D brdfLUT;
 
-in vec4 normal_world;
-in vec4 v_world;
+in vec3 camPos_tangent;
+in vec3 v_tangent;
 in vec2 uv;
+in mat3 TBN;
+in vec4 v_world;
 layout(location = 0) out vec4 outputColor;
+
+vec2 ParallaxMapping(vec2 texCoords, vec3 viewDir)
+{
+    float numLayers = mix(32.0, 8.0, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
+    float layerDepth = 1.0 / numLayers;
+    float currentLayerDepth = 0.0;
+    vec2 currentTexCoords = texCoords;
+    float currentDepthMapValue = 1.0 - texture(heightMap, currentTexCoords).x;
+    vec2 P = viewDir.xy * 0.100000001490116119384765625;
+    vec2 deltaTexCoords = P / vec2(numLayers);
+    while (currentLayerDepth < currentDepthMapValue)
+    {
+        currentTexCoords -= deltaTexCoords;
+        currentDepthMapValue = 1.0 - texture(heightMap, currentTexCoords).x;
+        currentLayerDepth += layerDepth;
+    }
+    vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+    float afterDepth = currentDepthMapValue - currentLayerDepth;
+    float beforeDepth = ((1.0 - texture(heightMap, prevTexCoords).x) - currentLayerDepth) + layerDepth;
+    float weight = afterDepth / (afterDepth - beforeDepth);
+    vec2 finalTexCoords = (prevTexCoords * weight) + (currentTexCoords * (1.0 - weight));
+    return finalTexCoords;
+}
 
 vec3 inverse_gamma_correction(vec3 color)
 {
@@ -77,7 +104,7 @@ float shadow_test(vec4 p, Light light, float cosTheta)
                 v_light_space = mat4(vec4(0.5, 0.0, 0.0, 0.0), vec4(0.0, 0.5, 0.0, 0.0), vec4(0.0, 0.0, 0.5, 0.0), vec4(0.5, 0.5, 0.5, 1.0)) * v_light_space;
                 for (int i = 0; i < 4; i++)
                 {
-                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_326[i] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
+                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_332[i] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
                     if ((v_light_space.z - near_occ) > bias)
                     {
                         visibility -= 0.2199999988079071044921875;
@@ -90,7 +117,7 @@ float shadow_test(vec4 p, Light light, float cosTheta)
                 v_light_space = mat4(vec4(0.5, 0.0, 0.0, 0.0), vec4(0.0, 0.5, 0.0, 0.0), vec4(0.0, 0.0, 0.5, 0.0), vec4(0.5, 0.5, 0.5, 1.0)) * v_light_space;
                 for (int i_1 = 0; i_1 < 4; i_1++)
                 {
-                    near_occ = texture(globalShadowMap, vec3(v_light_space.xy + (_326[i_1] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
+                    near_occ = texture(globalShadowMap, vec3(v_light_space.xy + (_332[i_1] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
                     if ((v_light_space.z - near_occ) > bias)
                     {
                         visibility -= 0.2199999988079071044921875;
@@ -103,7 +130,7 @@ float shadow_test(vec4 p, Light light, float cosTheta)
                 v_light_space = mat4(vec4(0.5, 0.0, 0.0, 0.0), vec4(0.0, 0.5, 0.0, 0.0), vec4(0.0, 0.0, 0.5, 0.0), vec4(0.5, 0.5, 0.5, 1.0)) * v_light_space;
                 for (int i_2 = 0; i_2 < 4; i_2++)
                 {
-                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_326[i_2] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
+                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_332[i_2] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
                     if ((v_light_space.z - near_occ) > bias)
                     {
                         visibility -= 0.2199999988079071044921875;
@@ -244,64 +271,70 @@ vec3 gamma_correction(vec3 color)
 
 void main()
 {
-    vec3 N = normalize(normal_world.xyz);
-    vec3 V = normalize(_589.camPos.xyz - v_world.xyz);
+    vec3 viewDir = normalize(camPos_tangent - v_tangent);
+    vec2 param = uv;
+    vec3 param_1 = viewDir;
+    vec2 texCoords = ParallaxMapping(param, param_1);
+    vec3 tangent_normal = texture(normalMap, texCoords).xyz;
+    tangent_normal = (tangent_normal * 2.0) - vec3(1.0);
+    vec3 N = normalize(TBN * tangent_normal);
+    vec3 V = normalize(_710.camPos.xyz - v_world.xyz);
     vec3 R = reflect(-V, N);
-    vec3 param = texture(diffuseMap, uv).xyz;
-    vec3 albedo = inverse_gamma_correction(param);
-    float meta = texture(metallicMap, uv).x;
-    float rough = texture(roughnessMap, uv).x;
+    vec3 param_2 = texture(diffuseMap, texCoords).xyz;
+    vec3 albedo = inverse_gamma_correction(param_2);
+    float meta = texture(metallicMap, texCoords).x;
+    float rough = texture(roughnessMap, texCoords).x;
     vec3 F0 = vec3(0.039999999105930328369140625);
     F0 = mix(F0, albedo, vec3(meta));
     vec3 Lo = vec3(0.0);
     Light light;
-    for (int i = 0; i < _589.numLights; i++)
+    for (int i = 0; i < _710.numLights; i++)
     {
-        light.lightIntensity = _589.allLights[i].lightIntensity;
-        light.lightType = _589.allLights[i].lightType;
-        light.lightCastShadow = _589.allLights[i].lightCastShadow;
-        light.lightShadowMapIndex = _589.allLights[i].lightShadowMapIndex;
-        light.lightAngleAttenCurveType = _589.allLights[i].lightAngleAttenCurveType;
-        light.lightDistAttenCurveType = _589.allLights[i].lightDistAttenCurveType;
-        light.lightSize = _589.allLights[i].lightSize;
-        light.lightGUID = _589.allLights[i].lightGUID;
-        light.lightPosition = _589.allLights[i].lightPosition;
-        light.lightColor = _589.allLights[i].lightColor;
-        light.lightDirection = _589.allLights[i].lightDirection;
-        light.lightDistAttenCurveParams[0] = _589.allLights[i].lightDistAttenCurveParams[0];
-        light.lightDistAttenCurveParams[1] = _589.allLights[i].lightDistAttenCurveParams[1];
-        light.lightAngleAttenCurveParams[0] = _589.allLights[i].lightAngleAttenCurveParams[0];
-        light.lightAngleAttenCurveParams[1] = _589.allLights[i].lightAngleAttenCurveParams[1];
-        light.lightVP = _589.allLights[i].lightVP;
-        light.padding[0] = _589.allLights[i].padding[0];
-        light.padding[1] = _589.allLights[i].padding[1];
+        light.lightIntensity = _710.allLights[i].lightIntensity;
+        light.lightType = _710.allLights[i].lightType;
+        light.lightCastShadow = _710.allLights[i].lightCastShadow;
+        light.lightShadowMapIndex = _710.allLights[i].lightShadowMapIndex;
+        light.lightAngleAttenCurveType = _710.allLights[i].lightAngleAttenCurveType;
+        light.lightDistAttenCurveType = _710.allLights[i].lightDistAttenCurveType;
+        light.lightSize = _710.allLights[i].lightSize;
+        light.lightGUID = _710.allLights[i].lightGUID;
+        light.lightPosition = _710.allLights[i].lightPosition;
+        light.lightColor = _710.allLights[i].lightColor;
+        light.lightDirection = _710.allLights[i].lightDirection;
+        light.lightDistAttenCurveParams[0] = _710.allLights[i].lightDistAttenCurveParams[0];
+        light.lightDistAttenCurveParams[1] = _710.allLights[i].lightDistAttenCurveParams[1];
+        light.lightAngleAttenCurveParams[0] = _710.allLights[i].lightAngleAttenCurveParams[0];
+        light.lightAngleAttenCurveParams[1] = _710.allLights[i].lightAngleAttenCurveParams[1];
+        light.lightVP = _710.allLights[i].lightVP;
+        light.padding[0] = _710.allLights[i].padding[0];
+        light.padding[1] = _710.allLights[i].padding[1];
         vec3 L = normalize(light.lightPosition.xyz - v_world.xyz);
         vec3 H = normalize(V + L);
         float NdotL = max(dot(N, L), 0.0);
         float visibility = shadow_test(v_world, light, NdotL);
         float lightToSurfDist = length(L);
         float lightToSurfAngle = acos(dot(-L, light.lightDirection.xyz));
-        float param_1 = lightToSurfAngle;
-        int param_2 = light.lightAngleAttenCurveType;
-        vec4 param_3[2] = light.lightAngleAttenCurveParams;
-        float atten = apply_atten_curve(param_1, param_2, param_3);
-        float param_4 = lightToSurfDist;
-        int param_5 = light.lightDistAttenCurveType;
-        vec4 param_6[2] = light.lightDistAttenCurveParams;
-        atten *= apply_atten_curve(param_4, param_5, param_6);
+        float param_3 = lightToSurfAngle;
+        int param_4 = light.lightAngleAttenCurveType;
+        vec4 param_5[2] = light.lightAngleAttenCurveParams;
+        float atten = apply_atten_curve(param_3, param_4, param_5);
+        float param_6 = lightToSurfDist;
+        int param_7 = light.lightDistAttenCurveType;
+        vec4 param_8[2] = light.lightDistAttenCurveParams;
+        atten *= apply_atten_curve(param_6, param_7, param_8);
         vec3 radiance = light.lightColor.xyz * (light.lightIntensity * atten);
-        vec3 param_7 = N;
-        vec3 param_8 = H;
-        float param_9 = rough;
-        float NDF = DistributionGGX(param_7, param_8, param_9);
-        vec3 param_10 = N;
-        vec3 param_11 = V;
-        vec3 param_12 = L;
-        float param_13 = rough;
-        float G = GeometrySmithDirect(param_10, param_11, param_12, param_13);
-        float param_14 = max(dot(H, V), 0.0);
-        vec3 param_15 = F0;
-        vec3 F = fresnelSchlick(param_14, param_15);
+        vec3 param_9 = N;
+        vec3 param_10 = H;
+        float param_11 = rough;
+        float NDF = DistributionGGX(param_9, param_10, param_11);
+        vec3 param_12 = N;
+        vec3 param_13 = V;
+        vec3 param_14 = L;
+        float param_15 = rough;
+        float G = GeometrySmithDirect(param_12, param_13, param_14, param_15);
+        float param_16 = max(dot(H, V), 0.0);
+        vec3 param_17 = F0;
+        vec3 F = fresnelSchlick(param_16, param_17);
         vec3 kS = F;
         vec3 kD = vec3(1.0) - kS;
         kD *= (1.0 - meta);
@@ -310,25 +343,25 @@ void main()
         vec3 specular = numerator / vec3(max(denominator, 0.001000000047497451305389404296875));
         Lo += ((((((kD * albedo) / vec3(3.1415927410125732421875)) + specular) * radiance) * NdotL) * visibility);
     }
-    float ambientOcc = texture(aoMap, uv).x;
-    float param_16 = max(dot(N, V), 0.0);
-    vec3 param_17 = F0;
-    float param_18 = rough;
-    vec3 F_1 = fresnelSchlickRoughness(param_16, param_17, param_18);
+    float ambientOcc = texture(aoMap, texCoords).x;
+    float param_18 = max(dot(N, V), 0.0);
+    vec3 param_19 = F0;
+    float param_20 = rough;
+    vec3 F_1 = fresnelSchlickRoughness(param_18, param_19, param_20);
     vec3 kS_1 = F_1;
     vec3 kD_1 = vec3(1.0) - kS_1;
     kD_1 *= (1.0 - meta);
     vec3 irradiance = textureLod(skybox, vec4(N, 0.0), 1.0).xyz;
     vec3 diffuse = irradiance * albedo;
-    vec3 prefilteredColor = textureLod(skybox, vec4(R, 1.0), rough * 8.0).xyz;
+    vec3 prefilteredColor = textureLod(skybox, vec4(R, 1.0), rough * 9.0).xyz;
     vec2 envBRDF = texture(brdfLUT, vec2(max(dot(N, V), 0.0), rough)).xy;
     vec3 specular_1 = prefilteredColor * ((F_1 * envBRDF.x) + vec3(envBRDF.y));
     vec3 ambient = ((kD_1 * diffuse) + specular_1) * ambientOcc;
     vec3 linearColor = ambient + Lo;
-    vec3 param_19 = linearColor;
-    linearColor = reinhard_tone_mapping(param_19);
-    vec3 param_20 = linearColor;
-    linearColor = gamma_correction(param_20);
+    vec3 param_21 = linearColor;
+    linearColor = reinhard_tone_mapping(param_21);
+    vec3 param_22 = linearColor;
+    linearColor = gamma_correction(param_22);
     outputColor = vec4(linearColor, 1.0);
 }
 

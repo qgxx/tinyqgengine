@@ -21,7 +21,7 @@ struct Light
     highp vec4 padding[2];
 };
 
-const vec2 _326[4] = vec2[](vec2(-0.94201624393463134765625, -0.39906215667724609375), vec2(0.94558608531951904296875, -0.768907248973846435546875), vec2(-0.094184100627899169921875, -0.929388701915740966796875), vec2(0.34495937824249267578125, 0.29387760162353515625));
+const vec2 _332[4] = vec2[](vec2(-0.94201624393463134765625, -0.39906215667724609375), vec2(0.94558608531951904296875, -0.768907248973846435546875), vec2(-0.094184100627899169921875, -0.929388701915740966796875), vec2(0.34495937824249267578125, 0.29387760162353515625));
 
 layout(binding = 0, std140) uniform PerFrameConstants
 {
@@ -30,11 +30,13 @@ layout(binding = 0, std140) uniform PerFrameConstants
     highp vec4 camPos;
     int numLights;
     Light allLights[100];
-} _589;
+} _710;
 
 layout(binding = 3) uniform highp samplerCubeArray cubeShadowMap;
 layout(binding = 1) uniform highp sampler2DArray shadowMap;
 layout(binding = 2) uniform highp sampler2DArray globalShadowMap;
+layout(binding = 10) uniform highp sampler2D heightMap;
+layout(binding = 5) uniform highp sampler2D normalMap;
 layout(binding = 0) uniform highp sampler2D diffuseMap;
 layout(binding = 6) uniform highp sampler2D metallicMap;
 layout(binding = 7) uniform highp sampler2D roughnessMap;
@@ -42,10 +44,35 @@ layout(binding = 8) uniform highp sampler2D aoMap;
 layout(binding = 4) uniform highp samplerCubeArray skybox;
 layout(binding = 9) uniform highp sampler2D brdfLUT;
 
-layout(location = 1) in highp vec4 normal_world;
-layout(location = 3) in highp vec4 v_world;
+layout(location = 9) in highp vec3 camPos_tangent;
+layout(location = 8) in highp vec3 v_tangent;
 layout(location = 4) in highp vec2 uv;
+layout(location = 5) in highp mat3 TBN;
+layout(location = 3) in highp vec4 v_world;
 layout(location = 0) out highp vec4 outputColor;
+
+highp vec2 ParallaxMapping(highp vec2 texCoords, highp vec3 viewDir)
+{
+    highp float numLayers = mix(32.0, 8.0, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
+    highp float layerDepth = 1.0 / numLayers;
+    highp float currentLayerDepth = 0.0;
+    highp vec2 currentTexCoords = texCoords;
+    highp float currentDepthMapValue = 1.0 - texture(heightMap, currentTexCoords).x;
+    highp vec2 P = viewDir.xy * 0.100000001490116119384765625;
+    highp vec2 deltaTexCoords = P / vec2(numLayers);
+    while (currentLayerDepth < currentDepthMapValue)
+    {
+        currentTexCoords -= deltaTexCoords;
+        currentDepthMapValue = 1.0 - texture(heightMap, currentTexCoords).x;
+        currentLayerDepth += layerDepth;
+    }
+    highp vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+    highp float afterDepth = currentDepthMapValue - currentLayerDepth;
+    highp float beforeDepth = ((1.0 - texture(heightMap, prevTexCoords).x) - currentLayerDepth) + layerDepth;
+    highp float weight = afterDepth / (afterDepth - beforeDepth);
+    highp vec2 finalTexCoords = (prevTexCoords * weight) + (currentTexCoords * (1.0 - weight));
+    return finalTexCoords;
+}
 
 highp vec3 inverse_gamma_correction(highp vec3 color)
 {
@@ -79,7 +106,7 @@ highp float shadow_test(highp vec4 p, Light light, highp float cosTheta)
                 v_light_space = mat4(vec4(0.5, 0.0, 0.0, 0.0), vec4(0.0, 0.5, 0.0, 0.0), vec4(0.0, 0.0, 0.5, 0.0), vec4(0.5, 0.5, 0.5, 1.0)) * v_light_space;
                 for (int i = 0; i < 4; i++)
                 {
-                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_326[i] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
+                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_332[i] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
                     if ((v_light_space.z - near_occ) > bias)
                     {
                         visibility -= 0.2199999988079071044921875;
@@ -92,7 +119,7 @@ highp float shadow_test(highp vec4 p, Light light, highp float cosTheta)
                 v_light_space = mat4(vec4(0.5, 0.0, 0.0, 0.0), vec4(0.0, 0.5, 0.0, 0.0), vec4(0.0, 0.0, 0.5, 0.0), vec4(0.5, 0.5, 0.5, 1.0)) * v_light_space;
                 for (int i_1 = 0; i_1 < 4; i_1++)
                 {
-                    near_occ = texture(globalShadowMap, vec3(v_light_space.xy + (_326[i_1] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
+                    near_occ = texture(globalShadowMap, vec3(v_light_space.xy + (_332[i_1] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
                     if ((v_light_space.z - near_occ) > bias)
                     {
                         visibility -= 0.2199999988079071044921875;
@@ -105,7 +132,7 @@ highp float shadow_test(highp vec4 p, Light light, highp float cosTheta)
                 v_light_space = mat4(vec4(0.5, 0.0, 0.0, 0.0), vec4(0.0, 0.5, 0.0, 0.0), vec4(0.0, 0.0, 0.5, 0.0), vec4(0.5, 0.5, 0.5, 1.0)) * v_light_space;
                 for (int i_2 = 0; i_2 < 4; i_2++)
                 {
-                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_326[i_2] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
+                    near_occ = texture(shadowMap, vec3(v_light_space.xy + (_332[i_2] / vec2(700.0)), float(light.lightShadowMapIndex))).x;
                     if ((v_light_space.z - near_occ) > bias)
                     {
                         visibility -= 0.2199999988079071044921875;
@@ -246,64 +273,70 @@ highp vec3 gamma_correction(highp vec3 color)
 
 void main()
 {
-    highp vec3 N = normalize(normal_world.xyz);
-    highp vec3 V = normalize(_589.camPos.xyz - v_world.xyz);
+    highp vec3 viewDir = normalize(camPos_tangent - v_tangent);
+    highp vec2 param = uv;
+    highp vec3 param_1 = viewDir;
+    highp vec2 texCoords = ParallaxMapping(param, param_1);
+    highp vec3 tangent_normal = texture(normalMap, texCoords).xyz;
+    tangent_normal = (tangent_normal * 2.0) - vec3(1.0);
+    highp vec3 N = normalize(TBN * tangent_normal);
+    highp vec3 V = normalize(_710.camPos.xyz - v_world.xyz);
     highp vec3 R = reflect(-V, N);
-    highp vec3 param = texture(diffuseMap, uv).xyz;
-    highp vec3 albedo = inverse_gamma_correction(param);
-    highp float meta = texture(metallicMap, uv).x;
-    highp float rough = texture(roughnessMap, uv).x;
+    highp vec3 param_2 = texture(diffuseMap, texCoords).xyz;
+    highp vec3 albedo = inverse_gamma_correction(param_2);
+    highp float meta = texture(metallicMap, texCoords).x;
+    highp float rough = texture(roughnessMap, texCoords).x;
     highp vec3 F0 = vec3(0.039999999105930328369140625);
     F0 = mix(F0, albedo, vec3(meta));
     highp vec3 Lo = vec3(0.0);
     Light light;
-    for (int i = 0; i < _589.numLights; i++)
+    for (int i = 0; i < _710.numLights; i++)
     {
-        light.lightIntensity = _589.allLights[i].lightIntensity;
-        light.lightType = _589.allLights[i].lightType;
-        light.lightCastShadow = _589.allLights[i].lightCastShadow;
-        light.lightShadowMapIndex = _589.allLights[i].lightShadowMapIndex;
-        light.lightAngleAttenCurveType = _589.allLights[i].lightAngleAttenCurveType;
-        light.lightDistAttenCurveType = _589.allLights[i].lightDistAttenCurveType;
-        light.lightSize = _589.allLights[i].lightSize;
-        light.lightGUID = _589.allLights[i].lightGUID;
-        light.lightPosition = _589.allLights[i].lightPosition;
-        light.lightColor = _589.allLights[i].lightColor;
-        light.lightDirection = _589.allLights[i].lightDirection;
-        light.lightDistAttenCurveParams[0] = _589.allLights[i].lightDistAttenCurveParams[0];
-        light.lightDistAttenCurveParams[1] = _589.allLights[i].lightDistAttenCurveParams[1];
-        light.lightAngleAttenCurveParams[0] = _589.allLights[i].lightAngleAttenCurveParams[0];
-        light.lightAngleAttenCurveParams[1] = _589.allLights[i].lightAngleAttenCurveParams[1];
-        light.lightVP = _589.allLights[i].lightVP;
-        light.padding[0] = _589.allLights[i].padding[0];
-        light.padding[1] = _589.allLights[i].padding[1];
+        light.lightIntensity = _710.allLights[i].lightIntensity;
+        light.lightType = _710.allLights[i].lightType;
+        light.lightCastShadow = _710.allLights[i].lightCastShadow;
+        light.lightShadowMapIndex = _710.allLights[i].lightShadowMapIndex;
+        light.lightAngleAttenCurveType = _710.allLights[i].lightAngleAttenCurveType;
+        light.lightDistAttenCurveType = _710.allLights[i].lightDistAttenCurveType;
+        light.lightSize = _710.allLights[i].lightSize;
+        light.lightGUID = _710.allLights[i].lightGUID;
+        light.lightPosition = _710.allLights[i].lightPosition;
+        light.lightColor = _710.allLights[i].lightColor;
+        light.lightDirection = _710.allLights[i].lightDirection;
+        light.lightDistAttenCurveParams[0] = _710.allLights[i].lightDistAttenCurveParams[0];
+        light.lightDistAttenCurveParams[1] = _710.allLights[i].lightDistAttenCurveParams[1];
+        light.lightAngleAttenCurveParams[0] = _710.allLights[i].lightAngleAttenCurveParams[0];
+        light.lightAngleAttenCurveParams[1] = _710.allLights[i].lightAngleAttenCurveParams[1];
+        light.lightVP = _710.allLights[i].lightVP;
+        light.padding[0] = _710.allLights[i].padding[0];
+        light.padding[1] = _710.allLights[i].padding[1];
         highp vec3 L = normalize(light.lightPosition.xyz - v_world.xyz);
         highp vec3 H = normalize(V + L);
         highp float NdotL = max(dot(N, L), 0.0);
         highp float visibility = shadow_test(v_world, light, NdotL);
         highp float lightToSurfDist = length(L);
         highp float lightToSurfAngle = acos(dot(-L, light.lightDirection.xyz));
-        highp float param_1 = lightToSurfAngle;
-        int param_2 = light.lightAngleAttenCurveType;
-        highp vec4 param_3[2] = light.lightAngleAttenCurveParams;
-        highp float atten = apply_atten_curve(param_1, param_2, param_3);
-        highp float param_4 = lightToSurfDist;
-        int param_5 = light.lightDistAttenCurveType;
-        highp vec4 param_6[2] = light.lightDistAttenCurveParams;
-        atten *= apply_atten_curve(param_4, param_5, param_6);
+        highp float param_3 = lightToSurfAngle;
+        int param_4 = light.lightAngleAttenCurveType;
+        highp vec4 param_5[2] = light.lightAngleAttenCurveParams;
+        highp float atten = apply_atten_curve(param_3, param_4, param_5);
+        highp float param_6 = lightToSurfDist;
+        int param_7 = light.lightDistAttenCurveType;
+        highp vec4 param_8[2] = light.lightDistAttenCurveParams;
+        atten *= apply_atten_curve(param_6, param_7, param_8);
         highp vec3 radiance = light.lightColor.xyz * (light.lightIntensity * atten);
-        highp vec3 param_7 = N;
-        highp vec3 param_8 = H;
-        highp float param_9 = rough;
-        highp float NDF = DistributionGGX(param_7, param_8, param_9);
-        highp vec3 param_10 = N;
-        highp vec3 param_11 = V;
-        highp vec3 param_12 = L;
-        highp float param_13 = rough;
-        highp float G = GeometrySmithDirect(param_10, param_11, param_12, param_13);
-        highp float param_14 = max(dot(H, V), 0.0);
-        highp vec3 param_15 = F0;
-        highp vec3 F = fresnelSchlick(param_14, param_15);
+        highp vec3 param_9 = N;
+        highp vec3 param_10 = H;
+        highp float param_11 = rough;
+        highp float NDF = DistributionGGX(param_9, param_10, param_11);
+        highp vec3 param_12 = N;
+        highp vec3 param_13 = V;
+        highp vec3 param_14 = L;
+        highp float param_15 = rough;
+        highp float G = GeometrySmithDirect(param_12, param_13, param_14, param_15);
+        highp float param_16 = max(dot(H, V), 0.0);
+        highp vec3 param_17 = F0;
+        highp vec3 F = fresnelSchlick(param_16, param_17);
         highp vec3 kS = F;
         highp vec3 kD = vec3(1.0) - kS;
         kD *= (1.0 - meta);
@@ -312,25 +345,25 @@ void main()
         highp vec3 specular = numerator / vec3(max(denominator, 0.001000000047497451305389404296875));
         Lo += ((((((kD * albedo) / vec3(3.1415927410125732421875)) + specular) * radiance) * NdotL) * visibility);
     }
-    highp float ambientOcc = texture(aoMap, uv).x;
-    highp float param_16 = max(dot(N, V), 0.0);
-    highp vec3 param_17 = F0;
-    highp float param_18 = rough;
-    highp vec3 F_1 = fresnelSchlickRoughness(param_16, param_17, param_18);
+    highp float ambientOcc = texture(aoMap, texCoords).x;
+    highp float param_18 = max(dot(N, V), 0.0);
+    highp vec3 param_19 = F0;
+    highp float param_20 = rough;
+    highp vec3 F_1 = fresnelSchlickRoughness(param_18, param_19, param_20);
     highp vec3 kS_1 = F_1;
     highp vec3 kD_1 = vec3(1.0) - kS_1;
     kD_1 *= (1.0 - meta);
     highp vec3 irradiance = textureLod(skybox, vec4(N, 0.0), 1.0).xyz;
     highp vec3 diffuse = irradiance * albedo;
-    highp vec3 prefilteredColor = textureLod(skybox, vec4(R, 1.0), rough * 8.0).xyz;
+    highp vec3 prefilteredColor = textureLod(skybox, vec4(R, 1.0), rough * 9.0).xyz;
     highp vec2 envBRDF = texture(brdfLUT, vec2(max(dot(N, V), 0.0), rough)).xy;
     highp vec3 specular_1 = prefilteredColor * ((F_1 * envBRDF.x) + vec3(envBRDF.y));
     highp vec3 ambient = ((kD_1 * diffuse) + specular_1) * ambientOcc;
     highp vec3 linearColor = ambient + Lo;
-    highp vec3 param_19 = linearColor;
-    linearColor = reinhard_tone_mapping(param_19);
-    highp vec3 param_20 = linearColor;
-    linearColor = gamma_correction(param_20);
+    highp vec3 param_21 = linearColor;
+    linearColor = reinhard_tone_mapping(param_21);
+    highp vec3 param_22 = linearColor;
+    linearColor = gamma_correction(param_22);
     outputColor = vec4(linearColor, 1.0);
 }
 

@@ -29,11 +29,15 @@ namespace qg {
 
         std::shared_ptr<SceneObjectSkyBox> SkyBox;
 
+        std::shared_ptr<SceneObjectTerrain> Terrain;
+
     public:
         Scene() {
             m_pDefaultMaterial = std::make_shared<SceneObjectMaterial>("default");
             SkyBox = std::make_shared<SceneObjectSkyBox>();
             SkyBox->SetName("Textures/sor_sea/sea", "png");
+            Terrain = std::make_shared<SceneObjectTerrain>();
+            Terrain->SetName("Textures/heightmap", "png");
         }
 
         Scene(const std::string& scene_name) :
@@ -42,6 +46,8 @@ namespace qg {
             m_pDefaultMaterial = std::make_shared<SceneObjectMaterial>("default");
             SkyBox = std::make_shared<SceneObjectSkyBox>();
             SkyBox->SetName("Textures/sor_sea/sea", "png");
+            Terrain = std::make_shared<SceneObjectTerrain>();
+            Terrain->SetName("Textures/heightmap", "png");
         }
 
         ~Scene() = default;
